@@ -34,6 +34,21 @@
   --fake-jade: #c7d2fe;  /* Softer indigo */
   --deep-loch: #312e81;  /* Deep indigo */
   --eye-pupil: #eab308;  /* Yellow for light mode */
+
+  /* Base spacing units */
+  --space-1: 0.25rem;    /* 4px */
+  --space-2: 0.5rem;     /* 8px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-6: 1.5rem;     /* 24px */
+  --space-8: 2rem;       /* 32px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+  --space-32: 8rem;      /* 128px */
+  --space-40: 10rem;     /* 160px */
+  --space-48: 12rem;     /* 192px */
 }
 
 @layer base {
@@ -658,4 +673,134 @@ body {
 /* Add text shadow for better contrast when needed */
 .dark .text-shadow {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Professional Spacing System */
+.main-content {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .main-content {
+    padding: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    padding: var(--space-8);
+  }
+}
+
+/* Improved Container Spacing */
+.content-grid {
+  display: grid;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+  }
+}
+
+/* Section Spacing */
+.section {
+  margin: var(--space-12) 0;
+}
+
+@media (min-width: 768px) {
+  .section {
+    margin: var(--space-16) 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    margin: var(--space-20) 0;
+  }
+}
+
+/* Header Spacing */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--space-16);
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .header {
+    padding: 0 var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    padding: 0 var(--space-8);
+  }
+}
+
+/* Card and Feature Spacing */
+.feature-card {
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius);
+}
+
+@media (min-width: 768px) {
+  .feature-card {
+    padding: var(--space-8);
+    margin-bottom: var(--space-6);
+  }
+}
+
+/* Button Spacing */
+button {
+  padding: var(--space-3) var(--space-6);
+}
+
+@media (min-width: 768px) {
+  button {
+    padding: var(--space-4) var(--space-8);
+  }
+}
+
+/* Text Spacing */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--space-4);
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: var(--space-4);
+  line-height: 1.6;
+}
+
+/* List Spacing */
+ul, ol {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-6);
+}
+
+li {
+  margin-bottom: var(--space-2);
 }
