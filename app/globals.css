@@ -187,7 +187,6 @@ body {
   position: relative;
   perspective: 2000px;
   animation: containerHover 2s infinite ease-in-out;
-  cursor: none;
   transform: scale(1);
   display: block;
 }
@@ -281,14 +280,11 @@ body {
 }
 
 .polygon {
-  --translateZ: 0px;
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease, background-color 0.3s ease;
-  cursor: pointer;
+  transition: transform 0.2s ease-out;
+  cursor: none;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
