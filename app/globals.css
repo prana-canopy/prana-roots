@@ -29,10 +29,11 @@
   --frozen-turquoise: #6366f1;  /* Electric indigo */
   --lime-lightning: #818cf8;  /* Bright indigo */
   --heart-of-ice: #6366f1;  /* Matching frozen-turquoise */
-  --electric-lettuce: #818cf8;  /* Matching lime-lightning */
+  --electric-lettuce: #22c55e;  /* Green color */
   --thallium-flame: #a5b4fc;  /* Light indigo */
   --fake-jade: #c7d2fe;  /* Softer indigo */
   --deep-loch: #312e81;  /* Deep indigo */
+  --eye-pupil: #eab308;  /* Yellow for light mode */
 }
 
 @layer base {
@@ -56,6 +57,7 @@
     --border: #4338ca;
     --input: #4338ca;
     --ring: #818cf8;
+    --eye-pupil: #000000;  /* Black for dark mode */
   }
 }
 
@@ -355,7 +357,7 @@ body {
 /* Eye pupils - normal state */
 .polygon:nth-child(12),
 .polygon:nth-child(14) {
-  background-color: #000000 !important;
+  background-color: var(--eye-pupil) !important;
   z-index: 11;
   transition: all 0.3s ease;
 }
