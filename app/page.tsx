@@ -4,6 +4,54 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme } from 'next-themes';
 import RotatingCarousel from '@/components/rotating-carousel';
 
+interface Service {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+interface Feature {
+  title: string;
+  description: string;
+}
+
+const services: Service[] = [
+  {
+    icon: <div>🚀</div>,
+    title: "Digital Transformation",
+    description: "Transform your business with cutting-edge digital solutions"
+  },
+  {
+    icon: <div>📊</div>,
+    title: "Data Analytics",
+    description: "Make data-driven decisions with powerful analytics tools"
+  },
+  {
+    icon: <div>🔄</div>,
+    title: "Process Automation",
+    description: "Streamline operations with intelligent automation solutions"
+  }
+];
+
+const features: Feature[] = [
+  {
+    title: "Enterprise-Grade Solutions",
+    description: "Access powerful tools and technologies typically reserved for large enterprises"
+  },
+  {
+    title: "Local Support",
+    description: "Get personalized support from our local team of experts"
+  },
+  {
+    title: "Scalable Platform",
+    description: "Grow your business with solutions that scale with your needs"
+  },
+  {
+    title: "Data Security",
+    description: "Keep your business data secure with enterprise-level security measures"
+  }
+];
+
 const polygons = [
   // Base Shape
   { id: 1, clipPath: 'polygon(40% 40%, 60% 40%, 50% 60%)', color: 'var(--frozen-turquoise)', translateZ: '0px' },
@@ -330,7 +378,7 @@ export default function Home() {
       <div className="w-full max-w-6xl mx-auto px-8 py-24 space-y-32">
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {[/* ... */].map((service, index) => (
+          {services.map((service, index) => (
             <div
               key={index}
               className="group relative overflow-hidden rounded-2xl border bg-background p-10 hover:shadow-lg transition-all duration-300
@@ -353,7 +401,7 @@ export default function Home() {
               Why Choose Prana Local?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-              {[/* ... */].map((feature, index) => (
+              {features.map((feature, index) => (
                 <div key={index} className="space-y-4">
                   <h3 className="text-xl font-medium">{feature.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
