@@ -206,9 +206,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      // Ignore clicks on the theme toggle
-      const target = e.target as HTMLElement;
-      if (target.closest('.theme-toggle')) return;
+      if (isThemeToggleClick(e)) return;
       
       shootLaser(e.clientX, e.clientY);
     };
@@ -218,7 +216,8 @@ export default function Home() {
   }, [shootLaser]);
 
   const isThemeToggleClick = (e: MouseEvent) => {
-    return !!(e.target as Element).closest('.theme-toggle');
+    const target = e.target as Element;
+    return !!(target.closest('.theme-toggle') || target.closest('button[aria-label="Toggle theme"]') || target.closest('svg'));
   };
 
   return (
