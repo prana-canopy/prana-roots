@@ -22,7 +22,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="sm"
-      className={`fixed top-8 right-8 w-10 h-10 rounded-full bg-transparent 
+      className={`w-10 h-10 rounded-full bg-transparent 
         transition-all duration-300 ease-in-out
         hover:scale-110 active:scale-95
         ${theme === 'light' 

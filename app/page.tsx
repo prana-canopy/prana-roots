@@ -90,52 +90,175 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative">
-      <div 
-        className="fixed top-8 left-8 z-50 flex flex-col md:left-8 left-4"
-      >
-        <span className="text-sm tracking-[0.3em] text-muted-foreground font-light uppercase mb-1 pr-16">
-          Enterprise Solutions · Local Impact
-        </span>
-        <span 
-          className="text-2xl font-light tracking-wider pr-16"
-          style={{
-            background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            letterSpacing: '0.1em'
-          }}
-        >
-          PRANA ROOTS
-        </span>
+      {/* Sticky Navbar */}
+      <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border/40 bg-background/80">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span 
+              className="text-2xl font-light tracking-wider"
+              style={{
+                background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '0.1em'
+              }}
+            >
+              PRANA ROOTS
+            </span>
+            <span className="text-xs tracking-[0.3em] text-muted-foreground font-light uppercase">
+              Enterprise Solutions · Local Impact
+            </span>
+          </div>
+          <ThemeToggle />
+        </div>
       </div>
-      <div ref={containerRef} className="toucan-container">
-        <div className="toucan-shadow">
-          {polygons.map((polygon) => (
+
+      {/* Hero Section with Toucan and Content */}
+      <div className="w-full max-w-6xl mx-auto px-4 mt-24 relative">
+        {/* Toucan Container - Moved outside grid for absolute positioning */}
+        <div className="absolute top-[-50px] right-0 lg:right-[-50px] z-10">
+          <div ref={containerRef} className="toucan-container">
+            <div className="toucan-shadow">
+              {polygons.map((polygon) => (
+                <div
+                  key={`shadow-${polygon.id}`}
+                  className="polygon-shadow"
+                  style={{
+                    clipPath: polygon.clipPath,
+                  }}
+                />
+              ))}
+            </div>
+            <div ref={toucanRef} className="toucan-wrap">
+              {polygons.map((polygon) => (
+                <div 
+                  key={polygon.id} 
+                  className={`polygon ${isInitialLoad ? 'fly-in' : ''}`}
+                  style={{
+                    clipPath: polygon.clipPath,
+                    backgroundColor: polygon.color,
+                    transform: `translateZ(${polygon.translateZ})`,
+                    animationDelay: `${(polygon.id * 0.1)}s`
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {/* Left Content */}
+          <div className="space-y-6 pt-8">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+              Elevate Your Business with Modern Solutions
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Transforming local businesses through innovative technology, data-driven insights, and seamless integration solutions.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
+                bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
+                h-10 px-8 transition-colors">
+                Get Started
+              </button>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
+                border border-input bg-background hover:bg-accent hover:text-accent-foreground
+                h-10 px-8 transition-colors">
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Content Sections */}
+      <div className="w-full max-w-6xl mx-auto px-4 space-y-16 pb-20">
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Data Analytics",
+              description: "Transform raw data into actionable insights with cutting-edge analytics solutions",
+              icon: "📊"
+            },
+            {
+              title: "Cloud Integration",
+              description: "Seamless cloud infrastructure deployment and management for scalable operations",
+              icon: "☁️"
+            },
+            {
+              title: "Process Automation",
+              description: "Streamline workflows with intelligent automation and business process optimization",
+              icon: "⚡"
+            }
+          ].map((service, index) => (
             <div
-              key={`shadow-${polygon.id}`}
-              className="polygon-shadow"
-              style={{
-                clipPath: polygon.clipPath,
-              }}
-            />
+              key={index}
+              className="group relative overflow-hidden rounded-lg border bg-background p-6 hover:shadow-lg transition-all duration-300
+                hover:shadow-[var(--frozen-turquoise)]/10 hover:-translate-y-1"
+            >
+              <div className="text-4xl mb-4">{service.icon}</div>
+              <h3 className="text-lg font-semibold mb-2 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+                {service.title}
+              </h3>
+              <p className="text-muted-foreground">{service.description}</p>
+            </div>
           ))}
         </div>
-        <div ref={toucanRef} className="toucan-wrap">
-          {polygons.map((polygon) => (
-            <div 
-              key={polygon.id} 
-              className={`polygon ${isInitialLoad ? 'fly-in' : ''}`}
-              style={{
-                clipPath: polygon.clipPath,
-                backgroundColor: polygon.color,
-                transform: `translateZ(${polygon.translateZ})`,
-                animationDelay: `${(polygon.id * 0.1)}s`
-              }}
-            />
-          ))}
+
+        {/* Feature Section */}
+        <div className="relative rounded-xl border bg-background/50 backdrop-blur-sm p-8 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)]/5 to-[var(--frozen-turquoise)]/5" />
+          <div className="relative z-10">
+            <h2 className="text-2xl font-semibold mb-6 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+              Why Choose Prana Roots?
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                {
+                  title: "Local Expertise",
+                  description: "Deep understanding of local business landscape and challenges"
+                },
+                {
+                  title: "Custom Solutions",
+                  description: "Tailored technology solutions that fit your specific needs"
+                },
+                {
+                  title: "Future-Ready",
+                  description: "Stay ahead with cutting-edge technology implementation"
+                },
+                {
+                  title: "Dedicated Support",
+                  description: "Continuous assistance and maintenance for your systems"
+                }
+              ].map((feature, index) => (
+                <div key={index} className="space-y-2">
+                  <h3 className="text-lg font-medium">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center space-y-4">
+          <h2 className="text-2xl font-semibold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+            Ready to Transform Your Business?
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Let's discuss how our technology solutions can drive your business forward
+          </p>
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+            disabled:opacity-50 disabled:pointer-events-none ring-offset-background
+            bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
+            h-10 py-2 px-4">
+            Get Started
+          </button>
         </div>
       </div>
-      <ThemeToggle />
     </main>
   );
 }

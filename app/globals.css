@@ -37,13 +37,26 @@ body {
 }
 
 .toucan-container {
+  position: relative;
   width: 400px;
   height: 400px;
-  perspective: 2000px;
   transform-style: preserve-3d;
+  transform: scale(0.8);
+  perspective: 2000px;
   animation: containerHover 2s infinite ease-in-out;
-  position: relative;
   cursor: none;
+}
+
+@media (max-width: 1024px) {
+  .toucan-container {
+    transform: scale(0.6);
+  }
+}
+
+@media (max-width: 640px) {
+  .toucan-container {
+    transform: scale(0.5);
+  }
 }
 
 .toucan-shadow {
