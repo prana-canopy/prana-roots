@@ -212,20 +212,20 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       {/* Sticky Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border/40 bg-background/80">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex flex-col">
+        <div className="max-w-5xl mx-auto px-8 h-20 flex items-center justify-between">
+          <div className="flex flex-col gap-1">
             <span 
-              className="text-xl font-light tracking-wider"
+              className="text-2xl font-light tracking-wider"
               style={{
                 background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                letterSpacing: '0.1em'
+                letterSpacing: '0.15em'
               }}
             >
               PRANA ROOTS
             </span>
-            <span className="text-[10px] tracking-[0.3em] text-muted-foreground font-light uppercase">
+            <span className="text-[11px] tracking-[0.35em] text-muted-foreground font-light uppercase">
               Enterprise Solutions · Local Impact
             </span>
           </div>
@@ -234,23 +234,23 @@ export default function Home() {
       </div>
 
       {/* Hero Section with Toucan and Content */}
-      <div className="w-full max-w-5xl mx-auto px-6 mt-20">
+      <div className="w-full max-w-6xl mx-auto px-8 mt-32 mb-20">
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-start relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-start relative">
           {/* Left Content */}
-          <div className="space-y-12 pt-8 md:pt-12">
+          <div className="space-y-14 pt-8 md:pt-12">
             {/* Hero Title */}
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold 
+            <div className="space-y-8">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold 
                 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
-                bg-clip-text text-transparent leading-[1.15]
+                bg-clip-text text-transparent leading-[1.1]
                 tracking-tight text-shadow max-w-3xl">
                 Elevate Your Business with Modern Solutions
               </h1>
               
               {/* Main Description */}
               <p className="text-xl md:text-2xl leading-relaxed
-                max-w-2xl mx-auto
+                max-w-2xl
                 text-gray-700 dark:text-slate-100 important-text
                 tracking-wide">
                 Transforming local businesses through innovative technology, 
@@ -264,7 +264,7 @@ export default function Home() {
                 <span className="inline-block transform hover:scale-105 transition-transform duration-200">
                   Enterprise Solutions
                 </span>
-                <span className="mx-3 text-gray-400 dark:text-slate-400">·</span>
+                <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
                 <span className="inline-block transform hover:scale-105 transition-transform duration-200">
                   Local Impact
                 </span>
@@ -272,24 +272,24 @@ export default function Home() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-6 justify-start items-center">
+            <div className="flex flex-wrap gap-6 justify-start items-center pt-4">
               <button className="inline-flex items-center justify-center rounded-md text-base font-medium
                 bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
-                px-8 py-3 transition-all duration-200 hover:scale-105
+                px-10 py-4 transition-all duration-200 hover:scale-105
                 shadow-lg hover:shadow-xl">
                 Get Started
               </button>
               <button className="inline-flex items-center justify-center rounded-md text-base font-medium
                 border-2 border-[var(--megaman)] text-[var(--megaman)]
                 hover:bg-[var(--megaman)] hover:text-white
-                px-8 py-3 transition-all duration-200 hover:scale-105">
+                px-10 py-4 transition-all duration-200 hover:scale-105">
                 Learn More
               </button>
             </div>
           </div>
 
-          {/* Toucan Container - Mobile: Below text, Desktop: Absolute positioned */}
-          <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-90px] lg:right-[-40px] xl:right-[-60px]">
+          {/* Toucan Container */}
+          <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-120px] lg:right-[-60px] xl:right-[-80px]">
             <div ref={containerRef} className="toucan-container">
               <div className="toucan-shadow">
                 {polygons.map((polygon) => (
@@ -322,20 +322,22 @@ export default function Home() {
       </div>
 
       {/* Rotating Carousel */}
-      <RotatingCarousel />
+      <div className="w-full py-20 bg-gradient-to-b from-transparent to-background/80">
+        <RotatingCarousel />
+      </div>
 
       {/* Content Sections */}
-      <div className="w-full max-w-5xl mx-auto px-6 mt-16 lg:mt-24 space-y-24 pb-24">
+      <div className="w-full max-w-6xl mx-auto px-8 py-24 space-y-32">
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {[/* ... */].map((service, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-lg border bg-background p-8 hover:shadow-lg transition-all duration-300
+              className="group relative overflow-hidden rounded-2xl border bg-background p-10 hover:shadow-lg transition-all duration-300
                 hover:shadow-[var(--frozen-turquoise)]/10 hover:-translate-y-1"
             >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-lg font-semibold mb-3 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+              <div className="text-4xl mb-6">{service.icon}</div>
+              <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
                 {service.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">{service.description}</p>
@@ -344,16 +346,16 @@ export default function Home() {
         </div>
 
         {/* Feature Section */}
-        <div className="relative rounded-xl border bg-background/50 backdrop-blur-sm p-10 overflow-hidden">
+        <div className="relative rounded-2xl border bg-background/50 backdrop-blur-sm p-12 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)]/5 to-[var(--frozen-turquoise)]/5" />
           <div className="relative z-10">
-            <h2 className="text-2xl font-semibold mb-8 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+            <h2 className="text-3xl font-semibold mb-12 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
               Why Choose Prana Roots?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               {[/* ... */].map((feature, index) => (
-                <div key={index} className="space-y-3">
-                  <h3 className="text-lg font-medium">{feature.title}</h3>
+                <div key={index} className="space-y-4">
+                  <h3 className="text-xl font-medium">{feature.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                 </div>
               ))}
@@ -362,16 +364,17 @@ export default function Home() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center space-y-6">
-          <h2 className="text-2xl font-semibold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+        <div className="text-center space-y-8 py-12">
+          <h2 className="text-3xl font-semibold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Let's discuss how our technology solutions can drive your business forward
           </p>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
+          <button className="inline-flex items-center justify-center rounded-md text-lg font-medium
             bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
-            h-11 px-8 transition-colors">
+            px-10 py-4 transition-all duration-300 hover:scale-105
+            shadow-lg hover:shadow-xl">
             Get Started
           </button>
         </div>
