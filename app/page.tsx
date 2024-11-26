@@ -234,7 +234,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section with Toucan and Content */}
-      <div className="w-full max-w-6xl mx-auto px-8 mt-32 mb-20">
+      <div className="w-full max-w-7xl mx-auto px-8 mt-32 -mb-12 md:-mb-8 lg:mb-0">
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-start relative">
           {/* Left Content */}
@@ -289,7 +289,7 @@ export default function Home() {
           </div>
 
           {/* Toucan Container */}
-          <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-120px] lg:right-[-60px] xl:right-[-80px]">
+          <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-160px] lg:right-[-180px] xl:right-[-240px]">
             <div ref={containerRef} className="toucan-container">
               <div className="toucan-shadow">
                 {polygons.map((polygon) => (
@@ -322,7 +322,7 @@ export default function Home() {
       </div>
 
       {/* Rotating Carousel */}
-      <div className="w-full py-20 bg-gradient-to-b from-transparent to-background/80">
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <RotatingCarousel />
       </div>
 
