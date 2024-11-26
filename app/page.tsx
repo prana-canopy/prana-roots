@@ -69,13 +69,13 @@ export default function Home() {
       const easedBodyTiltX = ease(Math.abs(bodyTiltX) / maxBodyTilt) * Math.sign(bodyTiltX) * maxBodyTilt;
       const easedBodyTiltY = ease(Math.abs(bodyTiltY) / maxBodyTilt) * Math.sign(bodyTiltY) * maxBodyTilt;
 
-      // Apply head tilt
+      // Apply head tilt with hover offset
       toucanWrap.style.transform = `
+        translateY(${Math.sin(Date.now() / 1000) * 15}px)
         rotateX(${-easedTiltY}deg) 
         rotateY(${easedTiltX}deg) 
         rotateZ(${easedTiltX * 0.1}deg)
         translateX(${easedBodyTiltX * 0.5}px)
-        translateY(${easedBodyTiltY * 0.5}px)
       `;
     };
 

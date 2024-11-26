@@ -30,10 +30,20 @@ body {
 }
 
 .toucan-container {
-  perspective: 2000px;
   width: 400px;
   height: 400px;
-  position: relative;
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  animation: containerHover 2s infinite ease-in-out;
+}
+
+@keyframes containerHover {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.02);
+  }
 }
 
 .toucan-wrap {
