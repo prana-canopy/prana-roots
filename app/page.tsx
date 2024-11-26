@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const polygons = [
   // Base Shape
@@ -34,6 +34,14 @@ const polygons = [
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const toucanRef = useRef<HTMLDivElement>(null);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -55,17 +63,14 @@ export default function Home() {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      // Calculate rotation based on mouse position relative to center
       targetRotateY = ((mouseX - centerX) / (window.innerWidth / 2)) * 25;
       targetRotateX = ((mouseY - centerY) / (window.innerHeight / 2)) * -25;
     };
 
     const animate = () => {
-      // Smooth interpolation
       currentRotateX += (targetRotateX - currentRotateX) * 0.1;
       currentRotateY += (targetRotateY - currentRotateY) * 0.1;
 
-      // Apply rotation
       toucan.style.transform = `
         rotateX(${currentRotateX}deg) 
         rotateY(${currentRotateY}deg)
@@ -100,12 +105,12 @@ export default function Home() {
           {polygons.map((polygon) => (
             <div 
               key={polygon.id} 
-              className="polygon fly-in"
+              className={`polygon ${isInitialLoad ? 'fly-in' : ''}`}
               style={{
                 clipPath: polygon.clipPath,
                 backgroundColor: polygon.color,
                 transform: `translateZ(${polygon.translateZ})`,
-                animationDelay: `${polygon.id * 0.15}s`
+                animationDelay: `${(polygon.id * 0.1)}s`
               }}
             />
           ))}
