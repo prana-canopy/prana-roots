@@ -238,22 +238,51 @@ export default function Home() {
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-start relative">
           {/* Left Content */}
-          <div className="space-y-8 pt-4">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent leading-tight">
-              Elevate Your Business with Modern Solutions
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Transforming local businesses through innovative technology, data-driven insights, and seamless integration solutions.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
+          <div className="space-y-12 pt-8 md:pt-12">
+            {/* Hero Title */}
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold 
+                bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
+                bg-clip-text text-transparent leading-[1.15]
+                tracking-tight text-shadow max-w-3xl">
+                Elevate Your Business with Modern Solutions
+              </h1>
+              
+              {/* Main Description */}
+              <p className="text-xl md:text-2xl leading-relaxed
+                max-w-2xl mx-auto
+                text-gray-700 dark:text-slate-100 important-text
+                tracking-wide">
+                Transforming local businesses through innovative technology, 
+                data-driven insights, and seamless integration solutions.
+              </p>
+
+              {/* Subtitle */}
+              <p className="text-lg md:text-xl 
+                text-gray-600 dark:text-slate-200 important-text
+                tracking-wider font-light">
+                <span className="inline-block transform hover:scale-105 transition-transform duration-200">
+                  Enterprise Solutions
+                </span>
+                <span className="mx-3 text-gray-400 dark:text-slate-400">·</span>
+                <span className="inline-block transform hover:scale-105 transition-transform duration-200">
+                  Local Impact
+                </span>
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-6 justify-start items-center">
+              <button className="inline-flex items-center justify-center rounded-md text-base font-medium
                 bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
-                h-11 px-6 transition-colors">
+                px-8 py-3 transition-all duration-200 hover:scale-105
+                shadow-lg hover:shadow-xl">
                 Get Started
               </button>
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
-                border border-[var(--megaman)] text-[var(--megaman)] hover:bg-[var(--megaman)]/5
-                h-11 px-6 transition-colors">
+              <button className="inline-flex items-center justify-center rounded-md text-base font-medium
+                border-2 border-[var(--megaman)] text-[var(--megaman)]
+                hover:bg-[var(--megaman)] hover:text-white
+                px-8 py-3 transition-all duration-200 hover:scale-105">
                 Learn More
               </button>
             </div>

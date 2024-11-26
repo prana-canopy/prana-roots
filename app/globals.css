@@ -38,21 +38,21 @@
 @layer base {
   .dark {
     --background: #0c0a2b;
-    --foreground: #e2e8ff;
+    --foreground: #f8fafc;
     --card: #1e1b4b;
-    --card-foreground: #ffffff;
+    --card-foreground: #f8fafc;
     --popover: #1e1b4b;
-    --popover-foreground: #ffffff;
+    --popover-foreground: #f8fafc;
     --primary: #818cf8;
     --primary-foreground: #ffffff;
     --secondary: #312e81;
-    --secondary-foreground: #ffffff;
+    --secondary-foreground: #f1f5f9;
     --muted: #312e81;
-    --muted-foreground: #a5b4fc;
+    --muted-foreground: #e2e8f0;
     --accent: #312e81;
-    --accent-foreground: #ffffff;
+    --accent-foreground: #f1f5f9;
     --destructive: #7f1d1d;
-    --destructive-foreground: #ffffff;
+    --destructive-foreground: #f8fafc;
     --border: #4338ca;
     --input: #4338ca;
     --ring: #818cf8;
@@ -77,6 +77,105 @@ body {
     rgba(67, 56, 202, 0.8) 100%
   );
   background-color: rgb(30, 27, 75);
+}
+
+.dark {
+  /* Base text colors */
+  color-scheme: dark;
+  color: #f8fafc;  /* Slate 50 for base text */
+}
+
+.dark .prose {
+  color: #f8fafc;
+}
+
+.dark .text-muted-foreground {
+  color: #e2e8f0 !important;  /* Slate 200 for muted text */
+}
+
+.dark .text-subtle {
+  color: #cbd5e1;  /* Slate 300 for subtle text */
+}
+
+.dark .text-primary {
+  color: #f8fafc !important;  /* Ensure primary text is always visible */
+}
+
+/* Specific text enhancements */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #ffffff;
+}
+
+.dark p {
+  color: #f1f5f9;  /* Slate 100 for paragraph text */
+}
+
+.dark .text-base {
+  color: #f1f5f9 !important;
+}
+
+/* Navigation and interactive elements */
+.dark nav {
+  color: #f8fafc;
+}
+
+.dark a:not(.custom-link) {
+  color: #93c5fd !important;  /* Blue 300 */
+}
+
+.dark a:not(.custom-link):hover {
+  color: #bfdbfe !important;  /* Blue 200 */
+}
+
+/* List and content elements */
+.dark li {
+  color: #f1f5f9;
+}
+
+.dark .text-content {
+  color: #f1f5f9 !important;
+}
+
+/* Form elements */
+.dark input, .dark textarea {
+  color: #f8fafc;
+}
+
+.dark label {
+  color: #e2e8f0;
+}
+
+/* Button text */
+.dark button {
+  color: #ffffff;
+}
+
+/* Card and container text */
+.dark .card-content {
+  color: #f1f5f9;
+}
+
+/* Footer and secondary content */
+.dark footer {
+  color: #e2e8f0;
+}
+
+/* Ensure gradients maintain contrast */
+.dark .bg-gradient-text {
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #93c5fd, #818cf8);
+}
+
+/* Add subtle text shadows for better contrast when needed */
+.dark .text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced contrast for important UI elements */
+.dark .important-text {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .toucan-container {
@@ -425,4 +524,97 @@ body {
   background: rgba(99, 102, 241, 0.15);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(129, 140, 248, 0.3);
+}
+
+/* 3D Transform Utilities */
+.perspective {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Hover effect for card flip */
+.hover\:rotate-y-180:hover {
+  transform: rotateY(180deg);
+}
+
+/* Smooth shadow transition */
+.hover\:shadow-2xl:hover {
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+}
+
+/* Add glow effect on hover */
+.hover\:rotate-y-180:hover::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, 
+    rgba(99, 102, 241, 0.3), 
+    rgba(129, 140, 248, 0.3), 
+    rgba(99, 102, 241, 0.3)
+  );
+  filter: blur(15px);
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hover\:rotate-y-180:hover::before {
+  opacity: 1;
+}
+
+/* Scale icon on hover */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+/* Card hover effect */
+.group:hover .group-hover\:rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Smooth rotation transition */
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Dark mode text utilities */
+.dark .text-base {
+  color: #f1f5f9;  /* Slate 100 */
+}
+
+.dark .text-muted {
+  color: #e2e8f0;  /* Slate 200 */
+}
+
+.dark .text-subtle {
+  color: #cbd5e1;  /* Slate 300 */
+}
+
+/* Ensure links are visible in dark mode */
+.dark a:not(.custom-link) {
+  color: #93c5fd;  /* Blue 300 */
+}
+
+.dark a:not(.custom-link):hover {
+  color: #bfdbfe;  /* Blue 200 */
+}
+
+/* Add text shadow for better contrast when needed */
+.dark .text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
