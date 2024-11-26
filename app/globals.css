@@ -35,6 +35,42 @@ body {
   perspective: 2000px;
   transform-style: preserve-3d;
   animation: containerHover 2s infinite ease-in-out;
+  position: relative;
+}
+
+.toucan-shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  filter: blur(4px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.polygon-shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.2;
+  transform-origin: center center;
+  animation: shadowMove 2s infinite ease-in-out;
+}
+
+@keyframes shadowMove {
+  0%, 100% {
+    transform: scale(0.8, 0.15) translateY(350px) rotateX(45deg);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(0.7, 0.1) translateY(350px) rotateX(45deg);
+    opacity: 0.15;
+  }
 }
 
 @keyframes containerHover {

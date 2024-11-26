@@ -38,7 +38,8 @@ export default function Home() {
     const container = containerRef.current;
     if (!container) return;
 
-    const toucanWrap = container.querySelector('.toucan-wrap') as HTMLElement;
+    const toucanWrap = container.querySelector('.toucan-wrap') as HTMLElement | null;
+    if (!toucanWrap) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
@@ -88,17 +89,28 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div ref={containerRef} className="toucan-container">
-        <div className="toucan-wrap">
-          {polygons.map((poly) => (
+      <div className="toucan-container">
+        <div className="toucan-shadow">
+          {polygons.map((polygon) => (
+            <div
+              key={`shadow-${polygon.id}`}
+              className="polygon-shadow"
+              style={{
+                clipPath: polygon.clipPath,
+              }}
+            />
+          ))}
+        </div>
+        <div className="toucan-wrap" ref={containerRef}>
+          {polygons.map((polygon) => (
             <div 
-              key={poly.id} 
+              key={polygon.id} 
               className="polygon fly-in"
               style={{
-                clipPath: poly.clipPath,
-                backgroundColor: poly.color,
-                transform: `translateZ(${poly.translateZ})`,
-                animationDelay: `${poly.id * 0.15}s`
+                clipPath: polygon.clipPath,
+                backgroundColor: polygon.color,
+                transform: `translateZ(${polygon.translateZ})`,
+                animationDelay: `${polygon.id * 0.15}s`
               }}
             />
           ))}
