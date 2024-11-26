@@ -33,63 +33,58 @@ const polygons = [
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const toucanRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    const toucan = toucanRef.current;
+    if (!container || !toucan) return;
 
-    const toucanWrap = container.querySelector('.toucan-wrap') as HTMLElement | null;
-    if (!toucanWrap) return;
+    let bounds = container.getBoundingClientRect();
+    let mouseX = bounds.left + bounds.width / 2;
+    let mouseY = bounds.top + bounds.height / 2;
+    let currentRotateX = 0;
+    let currentRotateY = 0;
+    let targetRotateX = 0;
+    let targetRotateY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      // Calculate angle and distance from center
-      const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-      const distance = Math.min(Math.hypot(e.clientX - centerX, e.clientY - centerY) / (rect.width / 2), 1);
-      
-      // Enhanced movement ranges
-      const maxHeadTilt = 15;
-      const maxBodyTilt = 10;
-      
-      // Calculate movements with smooth easing
-      const ease = (t: number) => t * t * (3 - 2 * t); // Smooth easing function
-      const easedDistance = ease(distance);
-      
-      // Calculate head and body movement
-      const tiltX = (e.clientX - centerX) / (rect.width / 2) * maxHeadTilt;
-      const tiltY = (e.clientY - centerY) / (rect.height / 2) * maxHeadTilt;
-      const bodyTiltX = tiltX * 0.6; // Body moves less than head
-      const bodyTiltY = tiltY * 0.6;
+      bounds = container.getBoundingClientRect();
+      const centerX = bounds.left + bounds.width / 2;
+      const centerY = bounds.top + bounds.height / 2;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
 
-      // Apply transforms with easing
-      const easedTiltX = ease(Math.abs(tiltX) / maxHeadTilt) * Math.sign(tiltX) * maxHeadTilt;
-      const easedTiltY = ease(Math.abs(tiltY) / maxHeadTilt) * Math.sign(tiltY) * maxHeadTilt;
-      const easedBodyTiltX = ease(Math.abs(bodyTiltX) / maxBodyTilt) * Math.sign(bodyTiltX) * maxBodyTilt;
-      const easedBodyTiltY = ease(Math.abs(bodyTiltY) / maxBodyTilt) * Math.sign(bodyTiltY) * maxBodyTilt;
-
-      // Apply head tilt with hover offset
-      toucanWrap.style.transform = `
-        translateY(${Math.sin(Date.now() / 1000) * 15}px)
-        rotateX(${-easedTiltY}deg) 
-        rotateY(${easedTiltX}deg) 
-        rotateZ(${easedTiltX * 0.1}deg)
-        translateX(${easedBodyTiltX * 0.5}px)
-      `;
+      // Calculate rotation based on mouse position relative to center
+      targetRotateY = ((mouseX - centerX) / (window.innerWidth / 2)) * 25;
+      targetRotateX = ((mouseY - centerY) / (window.innerHeight / 2)) * -25;
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
+    const animate = () => {
+      // Smooth interpolation
+      currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+      currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+
+      // Apply rotation
+      toucan.style.transform = `
+        rotateX(${currentRotateX}deg) 
+        rotateY(${currentRotateY}deg)
+      `;
+
+      requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    requestAnimationFrame(animate);
 
     return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="toucan-container">
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <div ref={containerRef} className="toucan-container">
         <div className="toucan-shadow">
           {polygons.map((polygon) => (
             <div
@@ -101,7 +96,7 @@ export default function Home() {
             />
           ))}
         </div>
-        <div className="toucan-wrap" ref={containerRef}>
+        <div ref={toucanRef} className="toucan-wrap">
           {polygons.map((polygon) => (
             <div 
               key={polygon.id} 
@@ -116,6 +111,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

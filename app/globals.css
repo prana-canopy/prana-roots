@@ -11,14 +11,16 @@
   --thallium-flame: #00D948;
   --fake-jade: #2FC18C;
   --deep-loch: #195190;
-  --background: #ffffff;
-  --foreground: #171717;
-  --hover-lift: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
+    --background: #ffffff;
+    --foreground: #171717;
+  }
+
+  .dark {
+    --background: #000;
     --foreground: #ededed;
   }
 }
@@ -29,6 +31,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.dark body {
+  background: linear-gradient(to bottom, transparent 0%, rgb(0, 0, 0) 100%);
+  background-color: rgb(10, 10, 10);
+}
+
 .toucan-container {
   width: 400px;
   height: 400px;
@@ -36,6 +43,7 @@ body {
   transform-style: preserve-3d;
   animation: containerHover 2s infinite ease-in-out;
   position: relative;
+  cursor: none;
 }
 
 .toucan-shadow {
@@ -48,6 +56,8 @@ body {
   filter: blur(4px);
   z-index: -1;
   pointer-events: none;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
 }
 
 .polygon-shadow {
@@ -60,6 +70,8 @@ body {
   opacity: 0.2;
   transform-origin: center center;
   animation: shadowMove 2s infinite ease-in-out;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
 }
 
 @keyframes shadowMove {
@@ -87,8 +99,9 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: none;
   will-change: transform;
+  transform: rotateX(0deg) rotateY(0deg);
 }
 
 .polygon {
@@ -98,7 +111,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -159,17 +172,61 @@ body {
   opacity: 0;
 }
 
-/* Eye styling - no animations */
+/* Eye whites (sclera) */
 .polygon:nth-child(11),
+.polygon:nth-child(13) {
+  background-color: #FFFFFF !important;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+/* Eye pupils - normal state */
 .polygon:nth-child(12),
-.polygon:nth-child(13),
 .polygon:nth-child(14) {
-  /* Keep only essential styles */
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+  background-color: #000000 !important;
+  z-index: 11;
+  transition: all 0.3s ease;
+}
+
+/* Dark mode - keep sclera white but slightly dimmed */
+.dark .polygon:nth-child(11),
+.dark .polygon:nth-child(13) {
+  background-color: #CCCCCC !important;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Dark mode - make pupils red and glowing */
+.dark .polygon:nth-child(12),
+.dark .polygon:nth-child(14) {
+  background-color: #ff0000 !important;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  animation: glowingEyes 2s infinite ease-in-out;
+  opacity: 1;
+  z-index: 11;
+}
+
+/* Ensure other polygons don't interfere with eyes */
+.polygon:not(:nth-child(11), :nth-child(12), :nth-child(13), :nth-child(14)) {
+  z-index: 1;
+}
+
+/* Dark mode skeleton effect - excluding all eye parts */
+.dark .polygon:not(:nth-child(11), :nth-child(12), :nth-child(13), :nth-child(14)) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
+              0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes glowingEyes {
+  0%, 100% {
+    filter: brightness(1) blur(0px);
+    box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  }
+  50% {
+    filter: brightness(1.5) blur(1px);
+    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+  }
 }
 
 /* Wing animations */
@@ -198,5 +255,38 @@ body {
   }
   50% { 
     transform: rotateY(-25deg) rotateX(-10deg) translateZ(15px);
+  }
+}
+
+/* Dark mode transformations */
+.dark .polygon {
+  filter: brightness(0.7) saturate(0) contrast(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Wing bones effect */
+.dark .polygon:nth-child(9),
+.dark .polygon:nth-child(10) {
+  background: 
+    linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.2) 45%, rgba(255, 255, 255, 0.2) 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, rgba(255, 255, 255, 0.2) 45%, rgba(255, 255, 255, 0.2) 55%, transparent 55%),
+    rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced shadow for dark mode */
+.dark .polygon-shadow {
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent 70%);
+  animation: darkShadowMove 2s infinite ease-in-out;
+}
+
+@keyframes darkShadowMove {
+  0%, 100% {
+    transform: scale(0.8, 0.15) translateY(350px) rotateX(45deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.7, 0.1) translateY(350px) rotateX(45deg);
+    opacity: 0.2;
   }
 }
