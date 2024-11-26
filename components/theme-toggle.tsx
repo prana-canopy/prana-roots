@@ -40,10 +40,10 @@ export function ThemeToggle() {
           group-hover:[filter:drop-shadow(0_0_15px_rgba(251,146,60,0.7))]" />
       ) : (
         <Moon className="h-6 w-6 transition-all duration-500 ease-out
-          text-[var(--megaman)] group-hover:text-[var(--frozen-turquoise)]
+          text-[#6366f1] group-hover:text-[#818cf8]
           group-hover:-rotate-180 group-active:rotate-[360deg]
-          [filter:drop-shadow(0_0_12px_var(--frozen-turquoise))]
-          group-hover:[filter:drop-shadow(0_0_20px_var(--megaman))]" />
+          [filter:drop-shadow(0_0_12px_rgba(99,102,241,0.6))]
+          group-hover:[filter:drop-shadow(0_0_20px_rgba(129,140,248,0.8))]" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

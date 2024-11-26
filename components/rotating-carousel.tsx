@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeftIcon, ChevronRightIcon, DotIcon } from './icons';
 
 interface CarouselCard {
   title: string;
@@ -86,52 +87,37 @@ export default function RotatingCarousel() {
     setCurrentIndex((prevIndex) => (prevIndex + newDirection + cards.length) % cards.length);
   };
 
+  const prevSlide = () => {
+    setIsAutoPlaying(false);
+    paginate(-1);
+  };
+
+  const nextSlide = () => {
+    setIsAutoPlaying(false);
+    paginate(1);
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-12 relative overflow-hidden">
       <div className="relative h-[600px] w-full perspective-1000">
-        {/* Arrow Navigation - Moved outside AnimatePresence */}
-        <button 
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-16 h-16 rounded-full 
-            bg-gradient-to-br from-background/20 to-background/5
-            backdrop-blur-lg
-            border-2 border-white/20 
-            hover:border-[var(--megaman)]
-            hover:bg-[var(--megaman)]/10
-            hover:scale-110
-            active:scale-95
-            transition-all duration-300 
-            flex items-center justify-center
-            shadow-lg shadow-black/20
-            hover:shadow-[var(--megaman)]/20"
-          onClick={() => {
-            setIsAutoPlaying(false);
-            paginate(-1);
-          }}
-          aria-label="Previous slide"
-        >
-          <span className="text-3xl transform hover:-translate-x-1 transition-transform duration-300 dark:text-white text-black">←</span>
-        </button>
-
+        {/* Arrow Navigation */}
         <button
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-16 h-16 rounded-full 
-            bg-gradient-to-br from-background/20 to-background/5
-            backdrop-blur-lg
-            border-2 border-white/20 
-            hover:border-[var(--megaman)]
-            hover:bg-[var(--megaman)]/10
-            hover:scale-110
-            active:scale-95
-            transition-all duration-300 
-            flex items-center justify-center
-            shadow-lg shadow-black/20
-            hover:shadow-[var(--megaman)]/20"
-          onClick={() => {
-            setIsAutoPlaying(false);
-            paginate(1);
-          }}
-          aria-label="Next slide"
+          onClick={prevSlide}
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full 
+            bg-white/10 dark:bg-indigo-500/20 backdrop-blur-sm border border-white/20 
+            hover:bg-white/20 dark:hover:bg-indigo-500/30 transition-all duration-300
+            hover:scale-110 active:scale-95 group"
         >
-          <span className="text-3xl transform hover:translate-x-1 transition-transform duration-300 dark:text-white text-black">→</span>
+          <ChevronLeftIcon className="w-6 h-6 text-white/70 dark:text-white group-hover:text-white" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full 
+            bg-white/10 dark:bg-indigo-500/20 backdrop-blur-sm border border-white/20 
+            hover:bg-white/20 dark:hover:bg-indigo-500/30 transition-all duration-300
+            hover:scale-110 active:scale-95 group"
+        >
+          <ChevronRightIcon className="w-6 h-6 text-white/70 dark:text-white group-hover:text-white" />
         </button>
 
         <AnimatePresence initial={false} custom={direction}>
@@ -164,56 +150,26 @@ export default function RotatingCarousel() {
             onHoverEnd={() => setIsAutoPlaying(true)}
           >
             <div className="w-full h-full flex items-center justify-center">
-              <div 
-                className="w-[320px] h-[500px] transform-style-3d rounded-[2rem] p-8 transition-all duration-500 relative group"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(10px)',
-                  boxShadow: `
-                    0 0 1px 1px rgba(255, 255, 255, 0.1),
-                    inset 0 0 30px rgba(255, 255, 255, 0.1),
-                    0 20px 40px -10px rgba(0, 0, 0, 0.5)
-                  `,
-                  border: '1px solid rgba(255, 255, 255, 0.1)'
-                }}
-              >
-                {/* Holographic Effect Overlay */}
-                <div 
-                  className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-30 transition-opacity duration-300"
-                  style={{
-                    background: 'linear-gradient(125deg, transparent 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.3) 70%, transparent 100%)',
-                    backgroundSize: '200% 200%',
-                    animation: 'holographic 2s linear infinite'
-                  }}
-                />
-
-                {/* Card Content */}
-                <div className="relative h-full flex flex-col items-center">
-                  {/* Top Border Design */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--megaman)] to-transparent opacity-50" />
-                  
-                  {/* Icon Container */}
-                  <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 relative">
-                    <div className="text-6xl relative z-10 animate-float">{cards[currentIndex].icon}</div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--megaman)] to-[var(--frozen-turquoise)] opacity-10 rounded-full blur-md" />
-                  </div>
-
-                  {/* Title with Gradient */}
-                  <h3 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
-                    {cards[currentIndex].title}
-                  </h3>
-
-                  {/* Separator Line */}
-                  <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[var(--megaman)] to-transparent mb-6" />
-
-                  {/* Description */}
-                  <p className="text-muted-foreground text-center leading-relaxed">
-                    {cards[currentIndex].description}
-                  </p>
-
-                  {/* Bottom Design Element */}
-                  <div className="mt-auto pt-6 w-full">
-                    <div className="h-1 w-full bg-gradient-to-r from-transparent via-[var(--frozen-turquoise)] to-transparent opacity-30" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-full max-w-4xl h-[500px] rounded-2xl overflow-hidden
+                  bg-white/5 dark:bg-indigo-500/10 backdrop-blur-md
+                  border border-white/20 dark:border-indigo-500/30
+                  shadow-xl hover:shadow-2xl transition-all duration-500
+                  group"
+                >
+                  <div className="relative h-full w-full p-8 flex flex-col items-center justify-center">
+                    {/* Card Content */}
+                    <div className="mb-6 text-6xl">{cards[currentIndex].icon}</div>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center 
+                      bg-clip-text text-transparent 
+                      bg-gradient-to-r from-white to-white/90
+                      dark:from-white dark:to-indigo-200">
+                      {cards[currentIndex].title}
+                    </h3>
+                    <p className="text-lg md:text-xl text-center max-w-2xl
+                      text-white/80 dark:text-white/90">
+                      {cards[currentIndex].description}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -221,8 +177,9 @@ export default function RotatingCarousel() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Dots Navigation */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-4 pb-4">
+        {/* Navigation Dots */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 
+          carousel-navigation flex items-center space-x-2 px-4 py-2 rounded-full">
           {cards.map((_, index) => (
             <button
               key={index}
@@ -230,18 +187,11 @@ export default function RotatingCarousel() {
                 setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
               }}
-              className={`relative h-3 transition-all duration-300 rounded-full 
-                ${index === currentIndex 
-                  ? 'w-12 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)]' 
-                  : 'w-3 bg-white/20 hover:bg-white/40'} 
-                hover:scale-110 active:scale-95`}
-              aria-label={`Go to slide ${index + 1}`}
+              className={`transition-all duration-300 hover:scale-125 ${
+                currentIndex === index ? 'text-white' : 'text-white/50'
+              }`}
             >
-              <div className={`absolute inset-0 rounded-full blur transition-opacity duration-300
-                ${index === currentIndex 
-                  ? 'opacity-50 bg-[var(--megaman)]' 
-                  : 'opacity-0 bg-white/40'}`} 
-              />
+              <DotIcon active={currentIndex === index} className="w-3 h-3" />
             </button>
           ))}
         </div>
