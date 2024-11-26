@@ -34,7 +34,7 @@ export function ThemeToggle() {
     >
       {theme === "light" ? (
         <Sun className="h-6 w-6 transition-all duration-500 ease-out
-          text-amber-500 group-hover:text-orange-500
+          sun-icon text-amber-500 group-hover:text-orange-500
           group-hover:rotate-180 group-active:rotate-[360deg]
           [filter:drop-shadow(0_0_10px_rgba(251,146,60,0.5))]
           group-hover:[filter:drop-shadow(0_0_15px_rgba(251,146,60,0.7))]" />

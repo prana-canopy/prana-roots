@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme } from 'next-themes';
+import RotatingCarousel from '@/components/rotating-carousel';
 
 const polygons = [
   // Base Shape
@@ -118,12 +119,10 @@ export default function Home() {
       const toucanHeight = toucanRect.height;
       
       // Left pupil: polygon(43% 32%, 44.5% 34%, 43.5% 36%)
-      // Using the center point: 43.5% horizontal, 35% vertical (moved forward)
       const leftPupilCenterX = toucanRect.left + (toucanWidth * 0.435);
       const leftPupilCenterY = toucanRect.top + (toucanHeight * 0.35);
       
       // Right pupil: polygon(58% 32%, 59.5% 34%, 58.5% 36%)
-      // Using the center point: 58.5% horizontal, 35% vertical (moved forward)
       const rightPupilCenterX = toucanRect.left + (toucanWidth * 0.585);
       const rightPupilCenterY = toucanRect.top + (toucanHeight * 0.35);
       
@@ -137,7 +136,6 @@ export default function Home() {
     window.addEventListener('resize', updateEyePositions);
     window.addEventListener('scroll', updateEyePositions);
 
-    // Force update after initial render and animation
     const initialUpdateTimeout = setTimeout(updateEyePositions, 100);
     const postAnimationTimeout = setTimeout(updateEyePositions, 2100);
 
@@ -157,24 +155,6 @@ export default function Home() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-
-  useEffect(() => {
-    updateEyePositions();
-
-    window.addEventListener('resize', updateEyePositions);
-    window.addEventListener('scroll', updateEyePositions);
-
-    // Force update after initial render and animation
-    const initialUpdateTimeout = setTimeout(updateEyePositions, 100);
-    const postAnimationTimeout = setTimeout(updateEyePositions, 2100);
-
-    return () => {
-      window.removeEventListener('resize', updateEyePositions);
-      window.removeEventListener('scroll', updateEyePositions);
-      clearTimeout(initialUpdateTimeout);
-      clearTimeout(postAnimationTimeout);
-    };
-  }, [updateEyePositions]);
 
   const shootLaser = useCallback((clickX: number, clickY: number) => {
     // Only shoot lasers in dark mode
@@ -206,7 +186,15 @@ export default function Home() {
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (isThemeToggleClick(e)) return;
+      const target = e.target as Element;
+      
+      // Check if clicking anywhere in the theme toggle button or its children
+      const themeButton = target.closest('button');
+      if (themeButton?.querySelector('.sun-icon') || 
+          themeButton?.querySelector('svg[class*="text-amber"]') ||
+          target.closest('svg[class*="text-amber"]')) {
+        return;
+      }
       
       shootLaser(e.clientX, e.clientY);
     };
@@ -303,6 +291,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Rotating Carousel */}
+      <RotatingCarousel />
 
       {/* Content Sections */}
       <div className="w-full max-w-5xl mx-auto px-6 mt-16 lg:mt-24 space-y-24 pb-24">
