@@ -118,14 +118,14 @@ export default function Home() {
       const toucanHeight = toucanRect.height;
       
       // Left pupil: polygon(43% 32%, 44.5% 34%, 43.5% 36%)
-      // Using the center point: 43.5% horizontal, 34% vertical
+      // Using the center point: 43.5% horizontal, 35% vertical (moved forward)
       const leftPupilCenterX = toucanRect.left + (toucanWidth * 0.435);
-      const leftPupilCenterY = toucanRect.top + (toucanHeight * 0.34);
+      const leftPupilCenterY = toucanRect.top + (toucanHeight * 0.35);
       
       // Right pupil: polygon(58% 32%, 59.5% 34%, 58.5% 36%)
-      // Using the center point: 58.5% horizontal, 34% vertical
+      // Using the center point: 58.5% horizontal, 35% vertical (moved forward)
       const rightPupilCenterX = toucanRect.left + (toucanWidth * 0.585);
-      const rightPupilCenterY = toucanRect.top + (toucanHeight * 0.34);
+      const rightPupilCenterY = toucanRect.top + (toucanHeight * 0.35);
       
       setLeftEyePos({ x: leftPupilCenterX, y: leftPupilCenterY });
       setRightEyePos({ x: rightPupilCenterX, y: rightPupilCenterY });
