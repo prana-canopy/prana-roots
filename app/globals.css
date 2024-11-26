@@ -3,26 +3,66 @@
 @tailwind utilities;
 
 :root {
-  --frozen-turquoise: #54F2F2;
-  --megaman: #4DEEEA;
-  --heart-of-ice: #74F2CE;
-  --lime-lightning: #A8FF3E;
-  --electric-lettuce: #2DFF3E;
+  --background: #fff;
+  --foreground: #020817;
+  --card: #fff;
+  --card-foreground: #020817;
+  --popover: #fff;
+  --popover-foreground: #020817;
+  --primary: #0C4A3F;
+  --primary-foreground: #f9fafb;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #1f2937;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #f3f4f6;
+  --accent-foreground: #1f2937;
+  --destructive: #ef4444;
+  --destructive-foreground: #f9fafb;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #0C4A3F;
+  --radius: 0.5rem;
+
+  /* Custom Brand Colors */
+  --megaman: #0C4A3F;  /* Darker professional green */
+  --frozen-turquoise: #1B7E6B;  /* Complementary green */
+  --lime-lightning: #2A9D8F;
+  --heart-of-ice: #1B7E6B;
+  --electric-lettuce: #2A9D8F;
   --thallium-flame: #00D948;
   --fake-jade: #2FC18C;
   --deep-loch: #195190;
 }
 
 @layer base {
-  :root {
-    --background: #ffffff;
-    --foreground: #171717;
-  }
-
   .dark {
     --background: #000;
     --foreground: #ededed;
+    --card: #020817;
+    --card-foreground: #f9fafb;
+    --popover: #020817;
+    --popover-foreground: #f9fafb;
+    --primary: #1B7E6B;
+    --primary-foreground: #020817;
+    --secondary: #1f2937;
+    --secondary-foreground: #f9fafb;
+    --muted: #1f2937;
+    --muted-foreground: #9ca3af;
+    --accent: #1f2937;
+    --accent-foreground: #f9fafb;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #f9fafb;
+    --border: #1f2937;
+    --input: #1f2937;
+    --ring: #1B7E6B;
   }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -37,25 +77,28 @@ body {
 }
 
 .toucan-container {
-  position: relative;
-  width: 400px;
-  height: 400px;
   transform-style: preserve-3d;
-  transform: scale(0.8);
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.1s ease-out;
+  width: 450px;
+  height: 450px;
+  position: relative;
   perspective: 2000px;
   animation: containerHover 2s infinite ease-in-out;
   cursor: none;
+  transform: scale(0.85);
+  display: block;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 1024px) {
   .toucan-container {
-    transform: scale(0.6);
+    transform: scale(0.95);
   }
 }
 
-@media (max-width: 640px) {
+@media (min-width: 1280px) {
   .toucan-container {
-    transform: scale(0.5);
+    transform: scale(1.1);
   }
 }
 

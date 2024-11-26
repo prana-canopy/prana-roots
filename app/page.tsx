@@ -89,13 +89,13 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center relative">
+    <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       {/* Sticky Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border/40 bg-background/80">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex flex-col">
             <span 
-              className="text-2xl font-light tracking-wider"
+              className="text-xl font-light tracking-wider"
               style={{
                 background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
                 WebkitBackgroundClip: 'text',
@@ -105,7 +105,7 @@ export default function Home() {
             >
               PRANA ROOTS
             </span>
-            <span className="text-xs tracking-[0.3em] text-muted-foreground font-light uppercase">
+            <span className="text-[10px] tracking-[0.3em] text-muted-foreground font-light uppercase">
               Enterprise Solutions · Local Impact
             </span>
           </div>
@@ -114,68 +114,68 @@ export default function Home() {
       </div>
 
       {/* Hero Section with Toucan and Content */}
-      <div className="w-full max-w-6xl mx-auto px-4 mt-24 relative">
-        {/* Toucan Container - Moved outside grid for absolute positioning */}
-        <div className="absolute top-[-50px] right-0 lg:right-[-50px] z-10">
-          <div ref={containerRef} className="toucan-container">
-            <div className="toucan-shadow">
-              {polygons.map((polygon) => (
-                <div
-                  key={`shadow-${polygon.id}`}
-                  className="polygon-shadow"
-                  style={{
-                    clipPath: polygon.clipPath,
-                  }}
-                />
-              ))}
-            </div>
-            <div ref={toucanRef} className="toucan-wrap">
-              {polygons.map((polygon) => (
-                <div 
-                  key={polygon.id} 
-                  className={`polygon ${isInitialLoad ? 'fly-in' : ''}`}
-                  style={{
-                    clipPath: polygon.clipPath,
-                    backgroundColor: polygon.color,
-                    transform: `translateZ(${polygon.translateZ})`,
-                    animationDelay: `${(polygon.id * 0.1)}s`
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
+      <div className="w-full max-w-5xl mx-auto px-6 mt-20">
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-start relative">
           {/* Left Content */}
-          <div className="space-y-6 pt-8">
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+          <div className="space-y-8 pt-4">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent leading-tight">
               Elevate Your Business with Modern Solutions
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Transforming local businesses through innovative technology, data-driven insights, and seamless integration solutions.
             </p>
             <div className="flex flex-wrap gap-4">
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
                 bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
-                h-10 px-8 transition-colors">
+                h-11 px-6 transition-colors">
                 Get Started
               </button>
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
-                border border-input bg-background hover:bg-accent hover:text-accent-foreground
-                h-10 px-8 transition-colors">
+                border border-[var(--megaman)] text-[var(--megaman)] hover:bg-[var(--megaman)]/5
+                h-11 px-6 transition-colors">
                 Learn More
               </button>
+            </div>
+          </div>
+
+          {/* Toucan Container - Mobile: Below text, Desktop: Absolute positioned */}
+          <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-90px] lg:right-[-40px] xl:right-[-60px]">
+            <div ref={containerRef} className="toucan-container">
+              <div className="toucan-shadow">
+                {polygons.map((polygon) => (
+                  <div
+                    key={`shadow-${polygon.id}`}
+                    className="polygon-shadow"
+                    style={{
+                      clipPath: polygon.clipPath,
+                    }}
+                  />
+                ))}
+              </div>
+              <div ref={toucanRef} className="toucan-wrap">
+                {polygons.map((polygon) => (
+                  <div 
+                    key={polygon.id} 
+                    className={`polygon ${isInitialLoad ? 'fly-in' : ''}`}
+                    style={{
+                      clipPath: polygon.clipPath,
+                      backgroundColor: polygon.color,
+                      transform: `translateZ(${polygon.translateZ})`,
+                      animationDelay: `${(polygon.id * 0.1)}s`
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Content Sections */}
-      <div className="w-full max-w-6xl mx-auto px-4 space-y-16 pb-20">
+      <div className="w-full max-w-5xl mx-auto px-6 mt-16 lg:mt-24 space-y-24 pb-24">
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
               title: "Data Analytics",
@@ -195,26 +195,26 @@ export default function Home() {
           ].map((service, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-lg border bg-background p-6 hover:shadow-lg transition-all duration-300
+              className="group relative overflow-hidden rounded-lg border bg-background p-8 hover:shadow-lg transition-all duration-300
                 hover:shadow-[var(--frozen-turquoise)]/10 hover:-translate-y-1"
             >
               <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-lg font-semibold mb-2 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+              <h3 className="text-lg font-semibold mb-3 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground">{service.description}</p>
+              <p className="text-muted-foreground leading-relaxed">{service.description}</p>
             </div>
           ))}
         </div>
 
         {/* Feature Section */}
-        <div className="relative rounded-xl border bg-background/50 backdrop-blur-sm p-8 overflow-hidden">
+        <div className="relative rounded-xl border bg-background/50 backdrop-blur-sm p-10 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)]/5 to-[var(--frozen-turquoise)]/5" />
           <div className="relative z-10">
-            <h2 className="text-2xl font-semibold mb-6 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+            <h2 className="text-2xl font-semibold mb-8 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
               Why Choose Prana Roots?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
               {[
                 {
                   title: "Local Expertise",
@@ -233,9 +233,9 @@ export default function Home() {
                   description: "Continuous assistance and maintenance for your systems"
                 }
               ].map((feature, index) => (
-                <div key={index} className="space-y-2">
+                <div key={index} className="space-y-3">
                   <h3 className="text-lg font-medium">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -243,18 +243,16 @@ export default function Home() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-6">
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Let's discuss how our technology solutions can drive your business forward
           </p>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-            disabled:opacity-50 disabled:pointer-events-none ring-offset-background
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium
             bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
-            h-10 py-2 px-4">
+            h-11 px-8 transition-colors">
             Get Started
           </button>
         </div>
