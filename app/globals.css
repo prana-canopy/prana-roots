@@ -53,26 +53,26 @@
 
 @layer base {
   .dark {
-    --background: #0c0a2b;
+    --background: #050417;
     --foreground: #f8fafc;
-    --card: #1e1b4b;
-    --card-foreground: #f8fafc;
-    --popover: #1e1b4b;
-    --popover-foreground: #f8fafc;
+    --card: #0c0a2b;
+    --card-foreground: #ffffff;
+    --popover: #0c0a2b;
+    --popover-foreground: #ffffff;
     --primary: #818cf8;
     --primary-foreground: #ffffff;
-    --secondary: #312e81;
+    --secondary: #1e1b4b;
     --secondary-foreground: #f1f5f9;
-    --muted: #312e81;
+    --muted: #1e1b4b;
     --muted-foreground: #e2e8f0;
-    --accent: #312e81;
+    --accent: #1e1b4b;
     --accent-foreground: #f1f5f9;
     --destructive: #7f1d1d;
     --destructive-foreground: #f8fafc;
-    --border: #4338ca;
-    --input: #4338ca;
+    --border: #312e81;
+    --input: #312e81;
     --ring: #818cf8;
-    --eye-pupil: #000000;  /* Black for dark mode */
+    --eye-pupil: #000000;
   }
 }
 
@@ -90,10 +90,69 @@ body {
 
 .dark body {
   background: linear-gradient(to bottom, 
-    rgba(30, 27, 75, 0.9) 0%, 
-    rgba(67, 56, 202, 0.8) 100%
+    rgba(5, 4, 23, 0.97) 0%, 
+    rgba(12, 10, 43, 0.95) 50%,
+    rgba(30, 27, 75, 0.93) 100%
   );
-  background-color: rgb(30, 27, 75);
+  background-color: rgb(5, 4, 23);
+  position: relative;
+}
+
+.dark body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-image: 
+    radial-gradient(2px 2px at 5% 5%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 15% 15%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 25% 25%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(2px 2px at 35% 35%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 45% 45%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 55%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 65% 65%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 85%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(2px 2px at 95% 95%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 10% 50%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 30% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 50% 90%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 70% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 10%, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  animation: subtleTwinkle 8s ease-in-out infinite;
+}
+
+.dark body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-image: 
+    radial-gradient(2px 2px at 20% 40%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 60%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 60% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 80% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 0% 100%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 100% 0%, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
+  animation: subtleTwinkle 6s ease-in-out infinite reverse;
+}
+
+.dark body > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes subtleTwinkle {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
 }
 
 .dark {
