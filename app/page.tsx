@@ -86,8 +86,6 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const toucanRef = useRef<HTMLDivElement>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [leftEyePos, setLeftEyePos] = useState({ x: 0, y: 0 });
-  const [rightEyePos, setRightEyePos] = useState({ x: 0, y: 0 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { theme } = useTheme();
 
@@ -160,41 +158,6 @@ export default function Home() {
     return 0;
   }, []);
 
-  const updateEyePositions = useCallback(() => {
-    if (toucanRef.current) {
-      const toucanRect = toucanRef.current.getBoundingClientRect();
-      const toucanWidth = toucanRect.width;
-      const toucanHeight = toucanRect.height;
-      
-      // Left pupil: polygon(43% 32%, 44.5% 34%, 43.5% 36%)
-      const leftPupilCenterX = toucanRect.left + (toucanWidth * 0.435);
-      const leftPupilCenterY = toucanRect.top + (toucanHeight * 0.35);
-      
-      // Right pupil: polygon(58% 32%, 59.5% 34%, 58.5% 36%)
-      const rightPupilCenterX = toucanRect.left + (toucanWidth * 0.585);
-      const rightPupilCenterY = toucanRect.top + (toucanHeight * 0.35);
-      
-      setLeftEyePos({ x: leftPupilCenterX, y: leftPupilCenterY });
-      setRightEyePos({ x: rightPupilCenterX, y: rightPupilCenterY });
-    }
-  }, []);
-
-  useEffect(() => {
-    updateEyePositions();
-    window.addEventListener('resize', updateEyePositions);
-    window.addEventListener('scroll', updateEyePositions);
-
-    const initialUpdateTimeout = setTimeout(updateEyePositions, 100);
-    const postAnimationTimeout = setTimeout(updateEyePositions, 2100);
-
-    return () => {
-      window.removeEventListener('resize', updateEyePositions);
-      window.removeEventListener('scroll', updateEyePositions);
-      clearTimeout(initialUpdateTimeout);
-      clearTimeout(postAnimationTimeout);
-    };
-  }, [updateEyePositions]);
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -203,53 +166,6 @@ export default function Home() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-
-  const shootLaser = useCallback((clickX: number, clickY: number) => {
-    // Only shoot lasers in dark mode
-    if (theme !== 'dark') return;
-
-    [leftEyePos, rightEyePos].forEach((eyePos) => {
-      const laser = document.createElement('div');
-      laser.className = 'laser-beam';
-      document.body.appendChild(laser);
-
-      // Calculate angle and distance
-      const dx = clickX - eyePos.x;
-      const dy = clickY - eyePos.y;
-      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      // Position and size the laser
-      laser.style.left = `${eyePos.x}px`;
-      laser.style.top = `${eyePos.y}px`;
-      laser.style.width = `${distance}px`;
-      laser.style.setProperty('--angle', `${angle}deg`);
-
-      // Remove the laser after animation completes
-      laser.addEventListener('animationend', () => {
-        laser.remove();
-      });
-    });
-  }, [leftEyePos, rightEyePos, theme]);
-
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as Element;
-      
-      // Check if clicking anywhere in the theme toggle button or its children
-      const themeButton = target.closest('button');
-      if (themeButton?.querySelector('.sun-icon') || 
-          themeButton?.querySelector('svg[class*="text-amber"]') ||
-          target.closest('svg[class*="text-amber"]')) {
-        return;
-      }
-      
-      shootLaser(e.clientX, e.clientY);
-    };
-
-    window.addEventListener('click', handleClick);
-    return () => window.removeEventListener('click', handleClick);
-  }, [shootLaser]);
 
   const isThemeToggleClick = (e: MouseEvent) => {
     const target = e.target as Element;
