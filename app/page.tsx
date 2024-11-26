@@ -245,7 +245,7 @@ export default function Home() {
                 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
                 bg-clip-text text-transparent leading-[1.1]
                 tracking-tight text-shadow max-w-3xl">
-                Expert Tech for Local Champions
+                Cutting Edge Tech for Local Businesses
               </h1>
               
               {/* Main Description */}
@@ -253,9 +253,8 @@ export default function Home() {
                 max-w-2xl
                 text-gray-700 dark:text-slate-100 important-text
                 tracking-wide">
-                Bringing world-class digital solutions to local businesses. 
-                We combine deep technical expertise with local business understanding 
-                to help you truly stand out and deliver exceptional customer experiences.
+                Transforming local businesses through innovative technology, 
+                data-driven insights, and seamless integration solutions.
               </p>
 
               {/* Subtitle */}
@@ -263,15 +262,11 @@ export default function Home() {
                 text-gray-600 dark:text-slate-200 important-text
                 tracking-wider font-light">
                 <span className="inline-block transform hover:scale-105 transition-transform duration-200">
-                  Advanced Solutions
+                  Enterprise Solutions
                 </span>
                 <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
                 <span className="inline-block transform hover:scale-105 transition-transform duration-200">
                   Local Impact
-                </span>
-                <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
-                <span className="inline-block transform hover:scale-105 transition-transform duration-200">
-                  Real Results
                 </span>
               </p>
             </div>
