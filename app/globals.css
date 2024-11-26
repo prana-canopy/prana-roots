@@ -346,3 +346,35 @@ body {
     opacity: 0.2;
   }
 }
+
+.laser-beam {
+  position: fixed;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 128, 128, 0.8) 50%,
+    rgba(255, 200, 200, 0.6) 100%
+  );
+  transform-origin: 0 50%;
+  opacity: 0;
+  animation: laserBeam 150ms ease-out forwards;
+  z-index: 100;
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+}
+
+@keyframes laserBeam {
+  0% {
+    opacity: 0;
+    transform: scaleX(0) rotate(var(--angle));
+  }
+  20% {
+    opacity: 1;
+    transform: scaleX(1) rotate(var(--angle));
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1) rotate(var(--angle));
+  }
+}

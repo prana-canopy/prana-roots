@@ -1,6 +1,7 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { useTheme } from 'next-themes';
 
 const polygons = [
   // Base Shape
@@ -36,6 +37,10 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const toucanRef = useRef<HTMLDivElement>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [leftEyePos, setLeftEyePos] = useState({ x: 0, y: 0 });
+  const [rightEyePos, setRightEyePos] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { theme } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -87,6 +92,134 @@ export default function Home() {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  const calculateRotation = useCallback((mouseX: number, mouseY: number) => {
+    if (toucanRef.current) {
+      const toucanRect = toucanRef.current.getBoundingClientRect();
+      const toucanCenterX = toucanRect.left + toucanRect.width / 2;
+      const toucanCenterY = toucanRect.top + toucanRect.height / 2;
+      
+      const dx = mouseX - toucanCenterX;
+      const dy = mouseY - toucanCenterY;
+      
+      // Limit rotation to +/- 25 degrees
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const limitedAngle = Math.max(-25, Math.min(25, angle));
+      
+      return limitedAngle;
+    }
+    return 0;
+  }, []);
+
+  const updateEyePositions = useCallback(() => {
+    if (toucanRef.current) {
+      const toucanRect = toucanRef.current.getBoundingClientRect();
+      const toucanWidth = toucanRect.width;
+      const toucanHeight = toucanRect.height;
+      
+      // Left pupil: polygon(43% 32%, 44.5% 34%, 43.5% 36%)
+      // Using the center point: 43.5% horizontal, 34% vertical
+      const leftPupilCenterX = toucanRect.left + (toucanWidth * 0.435);
+      const leftPupilCenterY = toucanRect.top + (toucanHeight * 0.34);
+      
+      // Right pupil: polygon(58% 32%, 59.5% 34%, 58.5% 36%)
+      // Using the center point: 58.5% horizontal, 34% vertical
+      const rightPupilCenterX = toucanRect.left + (toucanWidth * 0.585);
+      const rightPupilCenterY = toucanRect.top + (toucanHeight * 0.34);
+      
+      setLeftEyePos({ x: leftPupilCenterX, y: leftPupilCenterY });
+      setRightEyePos({ x: rightPupilCenterX, y: rightPupilCenterY });
+    }
+  }, []);
+
+  useEffect(() => {
+    updateEyePositions();
+    window.addEventListener('resize', updateEyePositions);
+    window.addEventListener('scroll', updateEyePositions);
+
+    // Force update after initial render and animation
+    const initialUpdateTimeout = setTimeout(updateEyePositions, 100);
+    const postAnimationTimeout = setTimeout(updateEyePositions, 2100);
+
+    return () => {
+      window.removeEventListener('resize', updateEyePositions);
+      window.removeEventListener('scroll', updateEyePositions);
+      clearTimeout(initialUpdateTimeout);
+      clearTimeout(postAnimationTimeout);
+    };
+  }, [updateEyePositions]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    updateEyePositions();
+
+    window.addEventListener('resize', updateEyePositions);
+    window.addEventListener('scroll', updateEyePositions);
+
+    // Force update after initial render and animation
+    const initialUpdateTimeout = setTimeout(updateEyePositions, 100);
+    const postAnimationTimeout = setTimeout(updateEyePositions, 2100);
+
+    return () => {
+      window.removeEventListener('resize', updateEyePositions);
+      window.removeEventListener('scroll', updateEyePositions);
+      clearTimeout(initialUpdateTimeout);
+      clearTimeout(postAnimationTimeout);
+    };
+  }, [updateEyePositions]);
+
+  const shootLaser = useCallback((clickX: number, clickY: number) => {
+    // Only shoot lasers in dark mode
+    if (theme !== 'dark') return;
+
+    [leftEyePos, rightEyePos].forEach((eyePos) => {
+      const laser = document.createElement('div');
+      laser.className = 'laser-beam';
+      document.body.appendChild(laser);
+
+      // Calculate angle and distance
+      const dx = clickX - eyePos.x;
+      const dy = clickY - eyePos.y;
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Position and size the laser
+      laser.style.left = `${eyePos.x}px`;
+      laser.style.top = `${eyePos.y}px`;
+      laser.style.width = `${distance}px`;
+      laser.style.setProperty('--angle', `${angle}deg`);
+
+      // Remove the laser after animation completes
+      laser.addEventListener('animationend', () => {
+        laser.remove();
+      });
+    });
+  }, [leftEyePos, rightEyePos, theme]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      // Ignore clicks on the theme toggle
+      const target = e.target as HTMLElement;
+      if (target.closest('.theme-toggle')) return;
+      
+      shootLaser(e.clientX, e.clientY);
+    };
+
+    window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
+  }, [shootLaser]);
+
+  const isThemeToggleClick = (e: MouseEvent) => {
+    return !!(e.target as Element).closest('.theme-toggle');
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
@@ -176,23 +309,7 @@ export default function Home() {
       <div className="w-full max-w-5xl mx-auto px-6 mt-16 lg:mt-24 space-y-24 pb-24">
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            {
-              title: "Data Analytics",
-              description: "Transform raw data into actionable insights with cutting-edge analytics solutions",
-              icon: "📊"
-            },
-            {
-              title: "Cloud Integration",
-              description: "Seamless cloud infrastructure deployment and management for scalable operations",
-              icon: "☁️"
-            },
-            {
-              title: "Process Automation",
-              description: "Streamline workflows with intelligent automation and business process optimization",
-              icon: "⚡"
-            }
-          ].map((service, index) => (
+          {[/* ... */].map((service, index) => (
             <div
               key={index}
               className="group relative overflow-hidden rounded-lg border bg-background p-8 hover:shadow-lg transition-all duration-300
@@ -215,24 +332,7 @@ export default function Home() {
               Why Choose Prana Roots?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-              {[
-                {
-                  title: "Local Expertise",
-                  description: "Deep understanding of local business landscape and challenges"
-                },
-                {
-                  title: "Custom Solutions",
-                  description: "Tailored technology solutions that fit your specific needs"
-                },
-                {
-                  title: "Future-Ready",
-                  description: "Stay ahead with cutting-edge technology implementation"
-                },
-                {
-                  title: "Dedicated Support",
-                  description: "Continuous assistance and maintenance for your systems"
-                }
-              ].map((feature, index) => (
+              {[/* ... */].map((feature, index) => (
                 <div key={index} className="space-y-3">
                   <h3 className="text-lg font-medium">{feature.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
