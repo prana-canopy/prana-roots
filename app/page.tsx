@@ -223,10 +223,10 @@ export default function Home() {
                 letterSpacing: '0.15em'
               }}
             >
-              PRANA ROOTS
+              Prana Local
             </span>
             <span className="text-[11px] tracking-[0.35em] text-muted-foreground font-light uppercase">
-              Enterprise Solutions · Local Impact
+              Local Business Digitization Acccelerator
             </span>
           </div>
           <ThemeToggle />
@@ -245,7 +245,7 @@ export default function Home() {
                 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
                 bg-clip-text text-transparent leading-[1.1]
                 tracking-tight text-shadow max-w-3xl">
-                Elevate Your Business with Modern Solutions
+                Expert Tech for Local Champions
               </h1>
               
               {/* Main Description */}
@@ -253,8 +253,9 @@ export default function Home() {
                 max-w-2xl
                 text-gray-700 dark:text-slate-100 important-text
                 tracking-wide">
-                Transforming local businesses through innovative technology, 
-                data-driven insights, and seamless integration solutions.
+                Bringing world-class digital solutions to local businesses. 
+                We combine deep technical expertise with local business understanding 
+                to help you truly stand out and deliver exceptional customer experiences.
               </p>
 
               {/* Subtitle */}
@@ -262,11 +263,15 @@ export default function Home() {
                 text-gray-600 dark:text-slate-200 important-text
                 tracking-wider font-light">
                 <span className="inline-block transform hover:scale-105 transition-transform duration-200">
-                  Enterprise Solutions
+                  Advanced Solutions
                 </span>
                 <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
                 <span className="inline-block transform hover:scale-105 transition-transform duration-200">
                   Local Impact
+                </span>
+                <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
+                <span className="inline-block transform hover:scale-105 transition-transform duration-200">
+                  Real Results
                 </span>
               </p>
             </div>
@@ -350,7 +355,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)]/5 to-[var(--frozen-turquoise)]/5" />
           <div className="relative z-10">
             <h2 className="text-3xl font-semibold mb-12 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
-              Why Choose Prana Roots?
+              Why Choose Prana Local?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               {[/* ... */].map((feature, index) => (
