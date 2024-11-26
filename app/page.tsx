@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const polygons = [
   // Base Shape
@@ -88,7 +89,25 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <main className="flex min-h-screen flex-col items-center justify-center relative">
+      <div 
+        className="fixed top-8 left-8 z-50 flex flex-col md:left-8 left-4"
+      >
+        <span className="text-sm tracking-[0.3em] text-muted-foreground font-light uppercase mb-1 pr-16">
+          Enterprise Solutions · Local Impact
+        </span>
+        <span 
+          className="text-2xl font-light tracking-wider pr-16"
+          style={{
+            background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            letterSpacing: '0.1em'
+          }}
+        >
+          PRANA ROOTS
+        </span>
+      </div>
       <div ref={containerRef} className="toucan-container">
         <div className="toucan-shadow">
           {polygons.map((polygon) => (
@@ -116,6 +135,7 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <ThemeToggle />
     </main>
   );
 }
