@@ -158,7 +158,7 @@ export default function RotatingCarousel() {
                     hover:rotate-y-180 cursor-pointer"
                   >
                     {/* Front Side */}
-                    <div className="absolute w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-pink-500/10 to-purple-600/10 backdrop-blur-md border border-pink-500/20 dark:border-purple-500/30 shadow-xl transition-all duration-500">
+                    <div className="absolute w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-pink-400/20 to-pink-600/20 backdrop-blur-md border border-pink-400/30 shadow-xl transition-all duration-500">
                       <img src="/pinkys.png" alt="App Showcase" className="w-full h-full object-cover rounded-2xl" />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-0 p-4 text-white">
@@ -179,7 +179,7 @@ export default function RotatingCarousel() {
                         {/* Project Header */}
                         <div className="text-center mb-4">
                           <h4 className="text-2xl font-bold mb-2 
-                            bg-gradient-to-r from-pink-400 to-purple-500 
+                            bg-gradient-to-r from-pink-400 to-pink-500 
                             bg-clip-text text-transparent text-shadow">
                             Pinky's Up Social
                           </h4>

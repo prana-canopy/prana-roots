@@ -15,7 +15,6 @@ interface Feature {
   description: string;
 }
 
-
 const features: Feature[] = [
   {
     title: "Enterprise-Grade Solutions",
@@ -250,18 +249,18 @@ export default function Home() {
             <p className="text-lg md:text-xl 
               text-gray-600 dark:text-slate-200 important-text
               tracking-wider font-light">
-              <span className="inline-block transform hover:scale-105 transition-transform duration-200">
+              {/* <span className="inline-block transform hover:scale-105 transition-transform duration-200">
                 Enterprise Solutions
               </span>
               <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
               <span className="inline-block transform hover:scale-105 transition-transform duration-200">
                 Local Impact
-              </span>
+              </span> */}
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-6 justify-start items-center pt-4">
-              <button className="inline-flex items-center justify-center rounded-md text-base font-medium
+              {/* <button className="inline-flex items-center justify-center rounded-md text-base font-medium
                 bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
                 px-10 py-4 transition-all duration-200 hover:scale-105
                 shadow-lg hover:shadow-xl">
@@ -272,7 +271,7 @@ export default function Home() {
                 hover:bg-[var(--megaman)] hover:text-white
                 px-10 py-4 transition-all duration-200 hover:scale-105">
                 Learn More
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -317,20 +316,24 @@ export default function Home() {
 
       {/* Content Sections */}
       <div className="w-full max-w-6xl mx-auto px-8 py-24 space-y-32">
-      
-
         {/* Feature Section */}
-        <div className="relative rounded-2xl border bg-background/50 backdrop-blur-sm p-12 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)]/5 to-[var(--frozen-turquoise)]/5" />
-          <div className="relative z-10">
-            <h2 className="text-3xl font-semibold mb-12 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+        <div className="relative rounded-2xl border bg-gradient-to-r from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] p-12 overflow-hidden shadow-2xl dark:bg-gradient-to-r dark:from-[var(--dark-megaman)] dark:via-[var(--dark-frozen-turquoise)] dark:to-[var(--dark-heart-of-ice)]">
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10 opacity-75 dark:from-[var(--dark-megaman)]/10 dark:to-[var(--dark-frozen-turquoise)]/10" />
+          <div className="relative z-10 space-y-8">
+            <h2 className="text-4xl font-bold mb-12 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent dark:from-[var(--dark-megaman)] dark:to-[var(--dark-frozen-turquoise)]">
               Why Choose Prana Local?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               {features.map((feature, index) => (
-                <div key={index} className="space-y-4">
-                  <h3 className="text-xl font-medium">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                <div key={index} className="space-y-4 transform hover:scale-105 transition-transform duration-300">
+                  <h3 className="text-2xl font-semibold text-[var(--megaman)] dark:text-[var(--dark-megaman)]">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-lg dark:text-muted-foreground-dark">{feature.description}</p>
+                  <button className="mt-2 inline-flex items-center justify-center rounded-md text-base font-medium
+                    bg-[var(--frozen-turquoise)] text-white hover:bg-[var(--megaman)] dark:bg-[var(--dark-frozen-turquoise)] dark:text-white dark:hover:bg-[var(--dark-megaman)]
+                    px-6 py-2 transition-all duration-200 hover:scale-105
+                    shadow-md hover:shadow-lg">
+                    Learn More
+                  </button>
                 </div>
               ))}
             </div>
@@ -338,17 +341,17 @@ export default function Home() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center space-y-8 py-12">
-          <h2 className="text-3xl font-semibold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+        <div className="text-center space-y-8 py-16 bg-gradient-to-b from-[var(--frozen-turquoise)]/10 to-[var(--heart-of-ice)]/10 rounded-2xl shadow-xl">
+          {/* <h2 className="text-4xl font-bold bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Let's discuss how our technology solutions can drive your business forward
-          </p>
-          <button className="inline-flex items-center justify-center rounded-md text-lg font-medium
+          </p> */}
+          <button className="inline-flex items-center justify-center rounded-full text-lg font-medium
             bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
-            px-10 py-4 transition-all duration-300 hover:scale-105
-            shadow-lg hover:shadow-xl">
+            px-12 py-4 transition-all duration-300 hover:scale-110
+            shadow-lg hover:shadow-2xl">
             Get Started
           </button>
         </div>
