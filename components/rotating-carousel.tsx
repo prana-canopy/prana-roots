@@ -14,27 +14,27 @@ const cards: CarouselCard[] = [
   {
     title: "Web Development",
     description: "Creating modern, responsive websites with cutting-edge technologies.",
-    icon: "🌐"
+    icon: ""
   },
   {
     title: "Mobile Apps",
     description: "Native and cross-platform mobile applications for iOS and Android.",
-    icon: "📱"
+    icon: ""
   },
   {
     title: "Cloud Solutions",
     description: "Scalable cloud infrastructure and serverless applications.",
-    icon: "☁️"
+    icon: ""
   },
   {
     title: "AI Integration",
     description: "Implementing AI and machine learning solutions for business growth.",
-    icon: "🤖"
+    icon: ""
   },
   {
     title: "Data Analytics",
     description: "Transform raw data into actionable business insights.",
-    icon: "📊"
+    icon: ""
   }
 ];
 
@@ -161,39 +161,14 @@ export default function RotatingCarousel() {
                     <div className="absolute w-full h-full backface-hidden rounded-2xl
                       bg-gradient-to-br from-pink-500/10 to-purple-600/10 backdrop-blur-md
                       border border-pink-500/20 dark:border-purple-500/30
-                      shadow-xl transition-all duration-500"
-                    >
-                      <div className="h-full w-full p-8 flex flex-col items-center justify-center">
-                        {/* Project Logo/Icon */}
-                        <div className="mb-8 w-24 h-24 rounded-full 
-                          bg-gradient-to-br from-pink-400 to-purple-600
-                          flex items-center justify-center
-                          shadow-lg shadow-pink-500/20">
-                          <span className="text-4xl">🍷</span>
-                        </div>
-
-                        {/* Project Title */}
-                        <h3 className="text-3xl md:text-4xl font-bold mb-4 text-center 
-                          bg-clip-text text-transparent 
-                          bg-gradient-to-r from-pink-400 to-purple-500">
-                          Pinky's Up Social
-                        </h3>
-
-                        {/* Project Brief */}
-                        <p className="text-lg text-center max-w-md
-                          text-white/90 dark:text-slate-100 important-text">
-                          A sophisticated social platform for wine enthusiasts to connect, share, and discover.
-                        </p>
-
-                        {/* Hover Instruction */}
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2
-                          text-sm text-white/70 dark:text-slate-200 flex items-center gap-2">
-                          <span>Hover to see details</span>
-                          <svg className="w-4 h-4 animate-bounce" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 5v14m0 0l-6-6m6 6l6-6" 
-                              stroke="currentColor" strokeWidth="2" 
-                              strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
+                      shadow-xl transition-all duration-500">
+                      <img src="/pinkys.png" alt="App Showcase" className="w-full h-full object-cover rounded-2xl" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-0 p-4 text-white">
+                          <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+                            App Showcase
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed">A stunning visual representation of our app's interface.</p>
                         </div>
                       </div>
                     </div>

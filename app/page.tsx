@@ -178,7 +178,7 @@ export default function Home() {
       <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-border/40 bg-background/85">
         <div className="max-w-5xl mx-auto px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 flex items-center justify-center">
+            <div className="w-10 h-10 flex items-center justify-center cursor-pointer">
               <svg
                 id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -190,36 +190,37 @@ export default function Home() {
                 viewBox="0 0 41.28 41.281"
                 style={{
                   enableBackground: "new 0 0 41.28 41.281",
+                  cursor: "pointer",
                 }}
                 xmlSpace="preserve"
                 className="fill-current text-yellow-500 dark:text-green-500"
               >
                 <g>
                   <g>
-                    <polygon points="37.723,18.175 32.028,18.175 34.874,23.105" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="31.316,18.585 28.469,23.516 34.162,23.516" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="41.28,12.011 35.586,12.011 38.434,16.942" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="27.045,24.338 21.352,24.338 24.199,29.269" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="34.874,12.422 32.028,17.352 37.723,17.352" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="34.162,12.011 28.469,12.011 31.316,16.942" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="12.811,12.011 7.117,12.011 9.964,16.942" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="5.693,12.011 0,12.011 2.847,16.942" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="6.405,12.422 3.558,17.352 9.252,17.352" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="13.523,12.422 10.676,17.352 16.369,17.352" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="27.758,12.422 24.911,17.352 30.604,17.352" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="30.604,18.175 24.911,18.175 27.758,23.105" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="16.369,18.175 10.676,18.175 13.523,23.105" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="9.252,18.175 3.558,18.175 6.405,23.105" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="9.964,18.585 7.117,23.516 12.811,23.516" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="17.081,18.585 14.235,23.516 19.928,23.516" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="24.199,18.585 21.352,23.516 27.045,23.516" className="hover:opacity-70 transition-opacity duration-200" />
-                    <polygon points="19.928,24.338 14.235,24.338 17.081,29.269" className="hover:opacity-70 transition-opacity duration-200" />
+                    <polygon points="37.723,18.175 32.028,18.175 34.874,23.105" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="31.316,18.585 28.469,23.516 34.162,23.516" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="41.28,12.011 35.586,12.011 38.434,16.942" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="27.045,24.338 21.352,24.338 24.199,29.269" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="34.874,12.422 32.028,17.352 37.723,17.352" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="34.162,12.011 28.469,12.011 31.316,16.942" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="12.811,12.011 7.117,12.011 9.964,16.942" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="5.693,12.011 0,12.011 2.847,16.942" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="6.405,12.422 3.558,17.352 9.252,17.352" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="13.523,12.422 10.676,17.352 16.369,17.352" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="27.758,12.422 24.911,17.352 30.604,17.352" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="30.604,18.175 24.911,18.175 27.758,23.105" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="16.369,18.175 10.676,18.175 13.523,23.105" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="9.252,18.175 3.558,18.175 6.405,23.105" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="9.964,18.585 7.117,23.516 12.811,23.516" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="17.081,18.585 14.235,23.516 19.928,23.516" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="24.199,18.585 21.352,23.516 27.045,23.516" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
+                    <polygon points="19.928,24.338 14.235,24.338 17.081,29.269" className="hover:opacity-70 transition-opacity duration-200 cursor-pointer" />
                   </g>
                 </g>
               </svg>
             </div>
             <span 
-              className="text-2xl font-light tracking-wider"
+              className="text-2xl font-semibold tracking-wider"
               style={{
                 background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
                 WebkitBackgroundClip: 'text',
@@ -227,7 +228,7 @@ export default function Home() {
                 letterSpacing: '0.15em'
               }}
             >
-              Prana
+              Prana <em>Local</em>
             </span>
           </div>
           <nav className="flex justify-center items-center gap-8">
@@ -300,19 +301,19 @@ export default function Home() {
 
           {/* Toucan Container */}
           <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-160px] lg:right-[-180px] xl:right-[-240px]">
-            <div ref={containerRef} className="toucan-container">
+            <div ref={containerRef} className="toucan-container cursor-pointer">
               <div className="toucan-shadow">
                 {polygons.map((polygon) => (
                   <div
                     key={`shadow-${polygon.id}`}
-                    className="polygon-shadow"
+                    className="polygon-shadow cursor-pointer"
                     style={{
                       clipPath: polygon.clipPath,
                     }}
                   />
                 ))}
               </div>
-              <div ref={toucanRef} className="toucan-wrap">
+              <div ref={toucanRef} className="toucan-wrap cursor-pointer">
                 {polygons.map((polygon) => (
                   <div 
                     key={polygon.id} 
@@ -321,7 +322,8 @@ export default function Home() {
                       clipPath: polygon.clipPath,
                       backgroundColor: polygon.color,
                       transform: `translateZ(${polygon.translateZ})`,
-                      animationDelay: `${(polygon.id * 0.1)}s`
+                      animationDelay: `${(polygon.id * 0.1)}s`,
+                      cursor: 'pointer'
                     }}
                   />
                 ))}
@@ -343,14 +345,17 @@ export default function Home() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-2xl border bg-background p-10 hover:shadow-lg transition-all duration-300
-                hover:shadow-[var(--frozen-turquoise)]/10 hover:-translate-y-1"
+              className="group relative overflow-hidden rounded-2xl border bg-background p-10 hover:shadow-lg transition-all duration-300 hover:shadow-[var(--frozen-turquoise)]/10 hover:-translate-y-1"
             >
-              <div className="text-4xl mb-6">{service.icon}</div>
-              <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+              <img src="https://via.placeholder.com/300x200" alt="App Showcase" className="w-full h-auto object-cover rounded-2xl shadow-lg" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 p-4 text-white">
+                  <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
+                    App Showcase
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">A stunning visual representation of our app's interface.</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
