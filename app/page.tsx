@@ -15,23 +15,6 @@ interface Feature {
   description: string;
 }
 
-const services: Service[] = [
-  {
-    icon: <div>🚀</div>,
-    title: "Digital Transformation",
-    description: "Transform your business with cutting-edge digital solutions"
-  },
-  {
-    icon: <div>📊</div>,
-    title: "Data Analytics",
-    description: "Make data-driven decisions with powerful analytics tools"
-  },
-  {
-    icon: <div>🔄</div>,
-    title: "Process Automation",
-    description: "Streamline operations with intelligent automation solutions"
-  }
-];
 
 const features: Feature[] = [
   {
@@ -245,42 +228,36 @@ export default function Home() {
       </div>
 
       {/* Hero Section with Toucan and Content */}
-      <div className="w-full max-w-7xl mx-auto px-8 mt-32 -mb-12 md:-mb-8 lg:mb-0">
+      <div className="w-full max-w-7xl mx-auto px-8 mt-16 -mb-12 md:-mb-8 lg:mb-0">
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-start relative">
           {/* Left Content */}
-          <div className="space-y-14 pt-8 md:pt-12">
+          <div className="space-y-14 pt-4 md:pt-8">
             {/* Hero Title */}
-            <div className="space-y-8">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold 
-                bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
-                bg-clip-text text-transparent leading-[1.1]
-                tracking-tight text-shadow max-w-3xl">
-                Cutting Edge Tech for Local Businesses
-              </h1>
-              
-              {/* Main Description */}
-              <p className="text-xl md:text-2xl leading-relaxed
-                max-w-2xl
-                text-gray-700 dark:text-slate-100 important-text
-                tracking-wide">
-                Transforming local businesses through innovative technology, 
-                data-driven insights, and seamless integration solutions.
+            <div className="text-center py-6">
+              <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-gray-300 via-gray-500 to-gray-700 bg-clip-text text-transparent drop-shadow-md">
+                Innovate Locally with Cutting-Edge Technology
+              </h2>
+              <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto italic">
+                Empowering local enterprises with state-of-the-art solutions, insightful analytics, and seamless digital integration to elevate your business.
               </p>
-
-              {/* Subtitle */}
-              <p className="text-lg md:text-xl 
-                text-gray-600 dark:text-slate-200 important-text
-                tracking-wider font-light">
-                <span className="inline-block transform hover:scale-105 transition-transform duration-200">
-                  Enterprise Solutions
-                </span>
-                <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
-                <span className="inline-block transform hover:scale-105 transition-transform duration-200">
-                  Local Impact
-                </span>
-              </p>
+              <button className="mt-6 px-8 py-3 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">
+                Explore Our Solutions
+              </button>
             </div>
+
+            {/* Subtitle */}
+            <p className="text-lg md:text-xl 
+              text-gray-600 dark:text-slate-200 important-text
+              tracking-wider font-light">
+              <span className="inline-block transform hover:scale-105 transition-transform duration-200">
+                Enterprise Solutions
+              </span>
+              <span className="mx-4 text-gray-400 dark:text-slate-400">·</span>
+              <span className="inline-block transform hover:scale-105 transition-transform duration-200">
+                Local Impact
+              </span>
+            </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-6 justify-start items-center pt-4">
@@ -340,25 +317,7 @@ export default function Home() {
 
       {/* Content Sections */}
       <div className="w-full max-w-6xl mx-auto px-8 py-24 space-y-32">
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-2xl border bg-background p-10 hover:shadow-lg transition-all duration-300 hover:shadow-[var(--frozen-turquoise)]/10 hover:-translate-y-1"
-            >
-              <img src="https://via.placeholder.com/300x200" alt="App Showcase" className="w-full h-auto object-cover rounded-2xl shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-0 p-4 text-white">
-                  <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
-                    App Showcase
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">A stunning visual representation of our app's interface.</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      
 
         {/* Feature Section */}
         <div className="relative rounded-2xl border bg-background/50 backdrop-blur-sm p-12 overflow-hidden">

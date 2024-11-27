@@ -14,27 +14,27 @@ const cards: CarouselCard[] = [
   {
     title: "Web Development",
     description: "Creating modern, responsive websites with cutting-edge technologies.",
-    icon: ""
+    icon: "🌐"
   },
   {
     title: "Mobile Apps",
     description: "Native and cross-platform mobile applications for iOS and Android.",
-    icon: ""
+    icon: "📱"
   },
   {
     title: "Cloud Solutions",
     description: "Scalable cloud infrastructure and serverless applications.",
-    icon: ""
+    icon: "☁️"
   },
   {
     title: "AI Integration",
     description: "Implementing AI and machine learning solutions for business growth.",
-    icon: ""
+    icon: "🤖"
   },
   {
     title: "Data Analytics",
     description: "Transform raw data into actionable business insights.",
-    icon: ""
+    icon: "📊"
   }
 ];
 
@@ -158,17 +158,13 @@ export default function RotatingCarousel() {
                     hover:rotate-y-180 cursor-pointer"
                   >
                     {/* Front Side */}
-                    <div className="absolute w-full h-full backface-hidden rounded-2xl
-                      bg-gradient-to-br from-pink-500/10 to-purple-600/10 backdrop-blur-md
-                      border border-pink-500/20 dark:border-purple-500/30
-                      shadow-xl transition-all duration-500">
+                    <div className="absolute w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-pink-500/10 to-purple-600/10 backdrop-blur-md border border-pink-500/20 dark:border-purple-500/30 shadow-xl transition-all duration-500">
                       <img src="/pinkys.png" alt="App Showcase" className="w-full h-full object-cover rounded-2xl" />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-0 p-4 text-white">
                           <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
-                            App Showcase
+                            {cards[currentIndex].title}
                           </h3>
-                          <p className="text-muted-foreground leading-relaxed">A stunning visual representation of our app's interface.</p>
                         </div>
                       </div>
                     </div>
