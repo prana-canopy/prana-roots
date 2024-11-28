@@ -2,30 +2,124 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeftIcon, ChevronRightIcon, DotIcon } from './icons';
-import { Eye, MousePointerClick, Clock, Users } from 'lucide-react';
+import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe } from 'lucide-react';
+
+const PlaceholderChart = () => (
+  <div className="w-full h-full flex flex-col items-center justify-center bg-white/5 rounded-lg border border-white/10">
+    <div className="text-white/70 text-center">
+      <p className="mb-2">Chart Placeholder</p>
+      <p className="text-sm">Visitor metrics visualization will appear here</p>
+      <div className="mt-4 flex gap-4">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[var(--megaman)]" />
+          <span className="text-sm">Visitors</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[var(--frozen-turquoise)]" />
+          <span className="text-sm">Engagement</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[var(--heart-of-ice)]" />
+          <span className="text-sm">Conversions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+interface MetricHistory {
+  date: string;
+  visitors: number;
+  engagement: number;
+  conversions: number;
+}
 
 interface CarouselCard {
   title: string;
   description: string;
-  icon: string;
+  previewImage: string;
+  metrics: {
+    current: {
+      visitors: string;
+      engagement: string;
+      timeSpent: string;
+      conversion: string;
+    };
+    history: MetricHistory[];
+  };
+  features: string[];
+  testimonial?: {
+    quote: string;
+    author: string;
+    company: string;
+    image: string;
+  };
+  techStack: string[];
 }
+
+const generateMetricHistory = (baseline: number, days: number): MetricHistory[] => {
+  return Array.from({ length: days }, (_, i) => ({
+    date: new Date(Date.now() - (days - i - 1) * 24 * 60 * 60 * 1000).toLocaleDateString(),
+    visitors: Math.floor(baseline * (1 + Math.sin(i / 3) * 0.3)),
+    engagement: Math.floor(65 + Math.cos(i / 2) * 15),
+    conversions: Math.floor(8 + Math.sin(i / 4) * 3),
+  }));
+};
 
 const cards: CarouselCard[] = [
   {
-    title: "Web Development",
-    description: "Creating modern, responsive websites with cutting-edge technologies.",
-    icon: "/pinkys.png"
+    title: "EcoTech Solutions Platform",
+    description: "A sustainable approach to digital transformation",
+    previewImage: "/api/placeholder/800/400",
+    metrics: {
+      current: {
+        visitors: "2,847",
+        engagement: "67%",
+        timeSpent: "4m 12s",
+        conversion: "8.9%"
+      },
+      history: generateMetricHistory(2800, 14)
+    },
+    features: [
+      "Carbon footprint tracking",
+      "Sustainable resource management",
+      "Real-time environmental metrics",
+      "Green initiative dashboard"
+    ],
+    testimonial: {
+      quote: "Prana helped us visualize our environmental impact in ways we never imagined possible.",
+      author: "Sarah Chen",
+      company: "EcoTech Solutions",
+      image: "/api/placeholder/64/64"
+    },
+    techStack: ["React", "Next.js", "TailwindCSS", "Node.js"]
   },
   {
-    title: "Coming Soon",
-    description: "Exciting new features are on the way!",
-    icon: "https://source.unsplash.com/random/800x600/?technology"
-  },
-  {
-    title: "Coming Soon",
-    description: "Stay tuned for updates!",
-    icon: "https://source.unsplash.com/random/800x600/?innovation"
+    title: "Biodiversity Analytics Dashboard",
+    description: "Connecting conservation with cutting-edge tech",
+    previewImage: "/api/placeholder/800/400",
+    metrics: {
+      current: {
+        visitors: "3,156",
+        engagement: "72%",
+        timeSpent: "5m 03s",
+        conversion: "9.4%"
+      },
+      history: generateMetricHistory(3100, 14)
+    },
+    features: [
+      "Species tracking visualization",
+      "Habitat health monitoring",
+      "Conservation impact metrics",
+      "Biodiversity mapping"
+    ],
+    testimonial: {
+      quote: "The dashboard has revolutionized how we track and protect local ecosystems.",
+      author: "Michael Torres",
+      company: "Wildlife Conservation Tech",
+      image: "/api/placeholder/64/64"
+    },
+    techStack: ["React", "D3.js", "Python", "PostgreSQL"]
   }
 ];
 
@@ -33,160 +127,88 @@ export default function RotatingCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  const handleFlip = () => {
-    setIsFlipped((prev) => !prev);
-    setIsAutoPlaying(false); // Stop auto-playing
-    setTimeout(() => setIsAutoPlaying(true), 7000); // Restart auto-playing after 7 seconds
-  };
+  const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'features'>('overview');
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
-    }, 7000); // Rotate every 7 seconds
-
+    }, 10000);
     return () => clearInterval(timer);
   }, [isAutoPlaying]);
-
-  useEffect(() => {
-    // Removed the auto-flip interval
-  }, []);
 
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 0.5,
-      rotateY: direction > 0 ? 45 : -45
+      scale: 0.8,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
       scale: 1,
-      rotateY: 0
     },
     exit: (direction: number) => ({
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 0.5,
-      rotateY: direction < 0 ? 45 : -45
+      scale: 0.8,
     })
   };
 
-  const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
-
-  const paginate = (newDirection: number) => {
-    setDirection(newDirection);
-    setCurrentIndex((prevIndex) => (prevIndex + newDirection + cards.length) % cards.length);
-  };
-
-  const handleNextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
-  };
-
-  const handlePrevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + cards.length) % cards.length);
-  };
-
-  const generateRandomMetrics = () => {
-    return Array.from({ length: 12 }).map(() => Math.floor(Math.random() * 100));
-  };
-
-  const [metrics, setMetrics] = useState<number[]>(generateRandomMetrics());
-
-  useEffect(() => {
-    metrics.forEach((metric, index) => {
-      const element = document.getElementById(`metric-${index}`);
-      if (element) {
-        let start = 0;
-        const end = metric;
-        const duration = 2000;
-        const stepTime = Math.abs(Math.floor(duration / end));
-        const timer = setInterval(() => {
-          start += 1;
-          element.innerText = `${start}%`;
-          if (start === end) {
-            clearInterval(timer);
-          }
-        }, stepTime);
-      }
-    });
-  }, [metrics]);
-
-  useEffect(() => {
-    setMetrics(generateRandomMetrics());
-  }, [currentIndex]);
-
-  const statsData = [
-    { name: "Mon", visits: 200 },
-    { name: "Tue", visits: 300 },
-    { name: "Wed", visits: 400 },
-    { name: "Thu", visits: 350 },
-    { name: "Fri", visits: 500 },
-    { name: "Sat", visits: 450 },
-    { name: "Sun", visits: 400 },
-  ];
-
-  function MetricCard({ title, value, change, icon }) {
-    return (
-      <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-medium">{title}</h4>
-          {icon}
-        </div>
-        <div className="text-2xl font-bold mt-2">{value}</div>
-        <p className="text-xs text-muted-foreground mt-1">
-          {change > 0 ? (
-            <span className="text-green-600 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7 7 7" />
-              </svg>
-              {change}%
-            </span>
-          ) : (
-            <span className="text-red-600 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7-7-7" />
-              </svg>
-              {Math.abs(change)}%
-            </span>
-          )}
-        </p>
+  const MetricCard = ({ icon, label, value, trend }) => (
+    <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20 transition-all duration-300 hover:scale-105">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-white/70">{label}</span>
+        {icon}
       </div>
-    );
-  }
+      <div className="text-xl font-bold text-white">{value}</div>
+      <div className={`text-sm ${trend >= 0 ? 'text-green-400' : 'text-red-400'} flex items-center gap-1`}>
+        {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
+        <TrendingUp className="w-4 h-4" />
+      </div>
+    </div>
+  );
+
+  const TabButton = ({ tab, label }) => (
+    <button
+      onClick={() => setActiveTab(tab)}
+      className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+        activeTab === tab 
+          ? 'bg-white/20 text-white' 
+          : 'text-white/70 hover:bg-white/10'
+      }`}
+    >
+      {label}
+    </button>
+  );
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-12 relative overflow-hidden">
-      <div className="relative h-[600px] w-full perspective-1000">
-        {/* Arrow Navigation */}
-        <button
-          onClick={handlePrevSlide}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full 
-            bg-black/30 dark:bg-indigo-500/20 backdrop-blur-sm border border-white/20 
-            hover:bg-black/40 dark:hover:bg-indigo-500/30 transition-all duration-300
-            hover:scale-110 active:scale-95 group"
-        >
-          <ChevronLeftIcon className="w-8 h-8 text-white dark:text-white group-hover:text-white" />
-        </button>
-        <button
-          onClick={handleNextSlide}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full 
-            bg-black/30 dark:bg-indigo-500/20 backdrop-blur-sm border border-white/20 
-            hover:bg-black/40 dark:hover:bg-indigo-500/30 transition-all duration-300
-            hover:scale-110 active:scale-95 group"
-        >
-          <ChevronRightIcon className="w-8 h-8 text-white dark:text-white group-hover:text-white" />
-        </button>
+    <div className="w-full max-w-7xl mx-auto px-4 py-16">
+      <div className="relative h-[700px] perspective">
+        {/* Navigation Buttons */}
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between z-20 px-4">
+          {['prev', 'next'].map((direction) => (
+            <button
+              key={direction}
+              onClick={() => {
+                const newDirection = direction === 'next' ? 1 : -1;
+                setDirection(newDirection);
+                setCurrentIndex((currentIndex + newDirection + cards.length) % cards.length);
+              }}
+              className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 
+                hover:bg-white/20 transition-all duration-300 hover:scale-110 group"
+            >
+              <Leaf 
+                className={`w-6 h-6 text-white transition-transform ${
+                  direction === 'next' ? 'rotate-90' : '-rotate-90'
+                } group-hover:scale-110`}
+              />
+            </button>
+          ))}
+        </div>
 
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -198,138 +220,198 @@ export default function RotatingCarousel() {
             exit="exit"
             transition={{
               x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
+              opacity: { duration: 0.3 },
               scale: { duration: 0.4 }
             }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
-
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1);
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1);
-              }
-            }}
             className="absolute w-full h-full"
-            onHoverStart={() => setIsAutoPlaying(false)}
-            onHoverEnd={() => setIsAutoPlaying(true)}
           >
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="absolute inset-0 flex items-center justify-center">
-                {/* Card Container with Perspective */}
-                <div className="w-full max-w-4xl h-[500px] perspective relative">
-                  {/* Discover More Button */}
-                  <button
-                    onClick={handleFlip}
-                    className="absolute top-4 right-4 z-20 px-6 py-2 rounded-full 
-                      bg-black-900/20 dark:bg-indigo-500/40 backdrop-blur-lg text-gray-800 font-medium shadow-2xl border border-white/30 hover:bg-white/30
-                      transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-                  >
-                    {isFlipped ? 'Preview' : 'Statistics'}
-                  </button>
-                  {/* Flipping Card */}
-                  <div className={`relative w-full h-full transition-transform duration-700 preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
-                    {/* Front Side */}
-                    <div className="absolute w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-pink-400/20 to-pink-600/20 backdrop-blur-md border border-pink-400/30 shadow-xl transition-all duration-500">
-                      <img src={cards[currentIndex].icon} alt="App Showcase" className="w-full h-full object-cover rounded-2xl" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-0 p-4 text-white">
-                          <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] bg-clip-text text-transparent">
-                            {cards[currentIndex].title}
-                          </h3>
+            <div className="w-full h-full rounded-2xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--megaman)]/20 to-[var(--frozen-turquoise)]/20 backdrop-blur-md border border-white/20" />
+              
+              <div className="relative h-full p-8 flex flex-col">
+                {/* Header */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="space-y-2">
+                    <h2 className="text-3xl font-bold text-white">
+                      {cards[currentIndex].title}
+                    </h2>
+                    <p className="text-lg text-white/80">
+                      {cards[currentIndex].description}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <TabButton tab="overview" label="Overview" />
+                    <TabButton tab="metrics" label="Metrics" />
+                    <TabButton tab="features" label="Features" />
+                  </div>
+                </div>
+
+                {/* Content based on active tab */}
+                <div className="flex-1 overflow-hidden">
+                  {activeTab === 'overview' && (
+                    <div className="h-full grid grid-cols-2 gap-8">
+                      {/* Site Preview */}
+                      <div className="relative rounded-lg overflow-hidden border border-white/20">
+                        <img 
+                          src={cards[currentIndex].previewImage}
+                          alt="Site Preview"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                          <div className="flex flex-wrap gap-2">
+                            {cards[currentIndex].techStack.map((tech) => (
+                              <span key={tech} className="px-2 py-1 rounded-full bg-white/20 text-white text-sm">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
+
+                      {/* Quick Stats & Testimonial */}
+                      <div className="space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                          <MetricCard
+                            icon={<Globe className="w-5 h-5 text-white/70" />}
+                            label="Active Users"
+                            value={cards[currentIndex].metrics.current.visitors}
+                            trend={5.2}
+                          />
+                          <MetricCard
+                            icon={<Clock className="w-5 h-5 text-white/70" />}
+                            label="Avg. Session"
+                            value={cards[currentIndex].metrics.current.timeSpent}
+                            trend={3.8}
+                          />
+                        </div>
+                        
+                        {cards[currentIndex].testimonial && (
+                          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
+                            <div className="flex items-center gap-4 mb-4">
+                              <img 
+                                src={cards[currentIndex].testimonial.image}
+                                alt={cards[currentIndex].testimonial.author}
+                                className="w-12 h-12 rounded-full"
+                              />
+                              <div>
+                                <p className="font-medium text-white">
+                                  {cards[currentIndex].testimonial.author}
+                                </p>
+                                <p className="text-white/70 text-sm">
+                                  {cards[currentIndex].testimonial.company}
+                                </p>
+                              </div>
+                            </div>
+                            <p className="text-white/90 italic">
+                              "{cards[currentIndex].testimonial.quote}"
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  )}
 
-                    {/* Back Side */}
-                    <div className="absolute w-full h-full backface-hidden rounded-2xl rotate-y-180
-                      bg-white/5 dark:bg-indigo-500/10 backdrop-blur-md
-                      border border-white/20 dark:border-indigo-500/30
-                      shadow-xl transition-all duration-500"
-                    >
-                      <div className="w-full h-full p-6 flex flex-col items-center justify-between space-y-4 overflow-hidden">
-                        {/* Project Header */}
-                        <div className="text-left mb-2">
-                          <h4 className="text-2xl font-bold mb-1 
-                            bg-gradient-to-r from-pink-400 to-gray-800 
-                            bg-clip-text text-transparent text-shadow">
-                            Pinky's Up Social
-                          </h4>
-                          <p className="text-white/80 dark:text-slate-200 text-base">
-                            Social Media Platform
-                          </p>
-                        </div>
+                  {activeTab === 'metrics' && (
+                    <div className="h-full space-y-6">
+                      <div className="grid grid-cols-4 gap-4">
+                        <MetricCard
+                          icon={<Eye className="w-5 h-5 text-white/70" />}
+                          label="Visitors"
+                          value={cards[currentIndex].metrics.current.visitors}
+                          trend={5.2}
+                        />
+                        <MetricCard
+                          icon={<MousePointerClick className="w-5 h-5 text-white/70" />}
+                          label="Engagement"
+                          value={cards[currentIndex].metrics.current.engagement}
+                          trend={3.8}
+                        />
+                        <MetricCard
+                          icon={<Clock className="w-5 h-5 text-white/70" />}
+                          label="Avg. Time"
+                          value={cards[currentIndex].metrics.current.timeSpent}
+                          trend={-2.1}
+                        />
+                        <MetricCard
+                          icon={<Users className="w-5 h-5 text-white/70" />}
+                          label="Conversion"
+                          value={cards[currentIndex].metrics.current.conversion}
+                          trend={7.4}
+                        />
+                      </div>
 
-                        {/* Key Metrics */}
-                        <div className="w-full p-4 text-black dark:text-white">
-                          <h2 className="text-2xl font-bold mb-4">Website Statistics</h2>
-                          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                            <MetricCard
-                              title="Total Visits"
-                              value="1,234"
-                              change={2.5}
-                              icon={<Eye className="h-4 w-4 text-muted-foreground" />}
-                            />
-                            <MetricCard
-                              title="Bounce Rate"
-                              value="42%"
-                              change={-1.5}
-                              icon={<MousePointerClick className="h-4 w-4 text-muted-foreground" />}
-                            />
-                            <MetricCard
-                              title="Avg. Session"
-                              value="3m 42s"
-                              change={0.8}
-                              icon={<Clock className="h-4 w-4 text-muted-foreground" />}
-                            />
-                            <MetricCard
-                              title="Unique Visitors"
-                              value="876"
-                              change={1.2}
-                              icon={<Users className="h-4 w-4 text-muted-foreground" />}
-                            />
-                          </div>
-                          <div className="mt-4">
-                            <h3 className="text-lg font-semibold">Visits Overview</h3>
-                            <p className="text-center text-sm mt-2">Graphical data representation coming soon!</p>
-                          </div>
-                        </div>
+                      <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 h-[300px]">
+                        <h3 className="text-white mb-4">Performance Trends</h3>
+                        <PlaceholderChart />
+                      </div>
+                    </div>
+                  )}
 
-                        {/* Testimonials with Profile Picture */}
-                        <div className="w-full px-2 py-1 bg-white/20 dark:bg-white/10 rounded-lg shadow-md text-black dark:text-white text-center flex items-center justify-center my-4">
-                          <img src="https://source.unsplash.com/random/100x100/?person" alt="Reviewer" className="w-10 h-10 rounded-full mr-2" />
-                          <div>
-                            <p className="italic">"An exceptional platform that has transformed our engagement!"</p>
-                            <span className="block mt-1 text-xs text-gray-800 dark:text-white/70">- Tech Reviewer</span>
-                          </div>
-                        </div>
-
-                        {/* Additional Information */}
-                        <div className="w-full px-3 py-1 bg-white/20 dark:bg-white/10 rounded-lg shadow-md text-black dark:text-white">
-                          <h5 className="text-base font-semibold mb-1">Features & Highlights</h5>
-                          <ul className="list-disc list-inside space-y-1 text-xs">
-                            <li>Real-time messaging & notifications</li>
-                            <li>Social authentication with multiple providers</li>
-                            <li>Interactive post creation and sharing</li>
-                            <li>Responsive and adaptive design</li>
-                            <li>Comprehensive analytics and reporting tools</li>
+                  {activeTab === 'features' && (
+                    <div className="h-full grid grid-cols-2 gap-8">
+                      <div className="space-y-6">
+                        <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
+                          <h3 className="text-xl font-semibold text-white mb-4">Key Features</h3>
+                          <ul className="space-y-4">
+                            {cards[currentIndex].features.map((feature, idx) => (
+                              <li key={idx} className="flex items-center gap-3 text-white/90">
+                                <div className="w-2 h-2 rounded-full bg-[var(--frozen-turquoise)]" />
+                                {feature}
+                              </li>
+                            ))}
                           </ul>
                         </div>
+
+                        <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
+                          <h3 className="text-xl font-semibold text-white mb-4">Tech Stack</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {cards[currentIndex].techStack.map((tech) => (
+                              <span 
+                                key={tech} 
+                                className="px-3 py-1.5 rounded-full bg-white/20 text-white"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
+                        <h3 className="text-xl font-semibold text-white mb-4">Implementation Timeline</h3>
+                        <div className="space-y-6">
+                          <div className="relative pl-8 border-l-2 border-white/20">
+                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--megaman)]" />
+                            <h4 className="text-white font-medium">Discovery & Planning</h4>
+                            <p className="text-white/70">2 weeks</p>
+                          </div>
+                          <div className="relative pl-8 border-l-2 border-white/20">
+                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--frozen-turquoise)]" />
+                            <h4 className="text-white font-medium">Design & Development</h4>
+                            <p className="text-white/70">6-8 weeks</p>
+                          </div>
+                          <div className="relative pl-8 border-l-2 border-white/20">
+                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--heart-of-ice)]" />
+                            <h4 className="text-white font-medium">Testing & Refinement</h4>
+                            <p className="text-white/70">2 weeks</p>
+                          </div>
+                          <div className="relative pl-8">
+                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--electric-lettuce)]" />
+                            <h4 className="text-white font-medium">Launch & Support</h4>
+                            <p className="text-white/70">Ongoing</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation Dots */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 
-          carousel-navigation flex items-center space-x-2 px-4 py-2 rounded-full bg-white/20 dark:bg-white/10">
+        {/* Dots Navigation */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
           {cards.map((_, index) => (
             <button
               key={index}
@@ -337,9 +419,11 @@ export default function RotatingCarousel() {
                 setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
               }}
-              className={`transition-all duration-300 hover:scale-125 ${
-                currentIndex === index ? 'bg-pink-500 dark:bg-pink-500' : 'bg-gray-300 dark:bg-gray-600'
-              } w-3 h-3 rounded-full`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 
+                ${currentIndex === index 
+                  ? 'bg-white w-6' 
+                  : 'bg-white/50 hover:bg-white/70'
+                }`}
             />
           ))}
         </div>

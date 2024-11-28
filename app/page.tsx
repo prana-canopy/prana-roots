@@ -174,13 +174,13 @@ export default function Home() {
       font-bold leading-tight
       text-gray-600
     ">
-      Innovate Locally{' '}
+      Empowering Businesses with{' '}
       <span className="
         inline-block
         bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)]
         bg-clip-text text-transparent
       ">
-        with Cutting-Edge Technology
+        Nature-Inspired Innovation
       </span>
     </h1>
     
@@ -190,10 +190,9 @@ export default function Home() {
       text-gray-300
       max-w-[100%] sm:max-w-[500px]
       leading-relaxed
+      metallic-shine
     ">
-      Empowering local enterprises with state-of-the-art solutions, 
-      insightful analytics, and seamless digital integration to 
-      elevate your business.
+      Prana's local branch offers boutique-quality websites and data solutions, integrating technology and nature. Our services empower businesses with security and innovation, fostering growth and sustainability.
     </p>
 
     <div className="mt-8 flex flex-wrap gap-4">
