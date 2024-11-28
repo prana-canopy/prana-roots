@@ -4,6 +4,7 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme } from 'next-themes';
 import RotatingCarousel from '@/components/rotating-carousel';
 import { Navbar } from '@/components/navbar';
+import { Toucan } from '@/components/toucan';
 
 interface Feature {
   title: string;
@@ -35,43 +36,13 @@ const features: Feature[] = [
   }
 ];
 
-// Memoized polygon configuration
-const polygons = [
-  // Base Shape
-  { id: 1, clipPath: 'polygon(40% 40%, 60% 40%, 50% 60%)', color: 'var(--frozen-turquoise)', translateZ: '0px' },
-  { id: 2, clipPath: 'polygon(35% 35%, 65% 35%, 50% 45%)', color: 'var(--megaman)', translateZ: '5px' },
-  { id: 3, clipPath: 'polygon(30% 30%, 70% 30%, 50% 40%)', color: 'var(--heart-of-ice)', translateZ: '10px' },
-  
-  // Beak
-  { id: 4, clipPath: 'polygon(45% 40%, 55% 40%, 50% 50%)', color: 'var(--lime-lightning)', translateZ: '20px' },
-  { id: 5, clipPath: 'polygon(47% 42%, 53% 42%, 50% 48%)', color: 'var(--electric-lettuce)', translateZ: '25px' },
-  { id: 6, clipPath: 'polygon(48% 44%, 52% 44%, 50% 46%)', color: 'var(--thallium-flame)', translateZ: '30px' },
-  
-  // Head Detail
-  { id: 7, clipPath: 'polygon(35% 35%, 45% 30%, 40% 40%)', color: 'var(--fake-jade)', translateZ: '15px' },
-  { id: 8, clipPath: 'polygon(55% 30%, 65% 35%, 60% 40%)', color: 'var(--fake-jade)', translateZ: '15px' },
-  
-  // Wings - More Dynamic
-  { id: 9, clipPath: 'polygon(25% 45%, 45% 40%, 35% 60%)', color: 'var(--thallium-flame)', translateZ: '15px' },
-  { id: 10, clipPath: 'polygon(55% 40%, 75% 45%, 65% 60%)', color: 'var(--thallium-flame)', translateZ: '15px' },
-  
-  // Eyes - More Prominent
-  { id: 11, clipPath: 'polygon(42% 31%, 45% 34%, 43% 37%)', color: '#FFFFFF', translateZ: '40px' },
-  { id: 12, clipPath: 'polygon(43% 32%, 44.5% 34%, 43.5% 36%)', color: 'var(--eye-pupil)', translateZ: '45px' },
-  { id: 13, clipPath: 'polygon(57% 31%, 60% 34%, 58% 37%)', color: '#FFFFFF', translateZ: '40px' },
-  { id: 14, clipPath: 'polygon(58% 32%, 59.5% 34%, 58.5% 36%)', color: 'var(--eye-pupil)', translateZ: '45px' },
-  
-  // Additional Detail Layers
-  { id: 15, clipPath: 'polygon(40% 55%, 45% 60%, 42% 65%)', color: 'var(--megaman)', translateZ: '5px' },
-  { id: 16, clipPath: 'polygon(55% 55%, 60% 60%, 58% 65%)', color: 'var(--megaman)', translateZ: '5px' },
-];
-
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const toucanRef = useRef<HTMLDivElement>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { theme } = useTheme();
+
 
   // Consolidated load effect
   useEffect(() => {
@@ -140,10 +111,10 @@ export default function Home() {
       const toucanRect = toucanRef.current.getBoundingClientRect();
       const toucanCenterX = toucanRect.left + toucanRect.width / 2;
       const toucanCenterY = toucanRect.top + toucanRect.height / 2;
-      
+
       const dx = mouseX - toucanCenterX;
       const dy = mouseY - toucanCenterY;
-      
+
       const angle = Math.atan2(dy, dx) * 180 / Math.PI;
       return Math.max(-25, Math.min(25, angle));
     }
@@ -153,8 +124,8 @@ export default function Home() {
   const isThemeToggleClick = useCallback((e: MouseEvent) => {
     const target = e.target as Element;
     return !!(
-      target.closest('.theme-toggle') || 
-      target.closest('button[aria-label="Toggle theme"]') || 
+      target.closest('.theme-toggle') ||
+      target.closest('button[aria-label="Toggle theme"]') ||
       target.closest('svg')
     );
   }, []);
@@ -162,71 +133,83 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       <Navbar />
-
 {/* Hero Section */}
-<div className="w-full max-w-7xl mx-auto px-8 mt-16 -mb-12 md:-mb-8 lg:mb-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-start relative">
-          {/* Left Content */}
-          <div className="space-y-14 pt-4 md:pt-8">
-            <div className="text-center py-6">
-              <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-gray-300 via-gray-500 to-gray-700 bg-clip-text text-transparent drop-shadow-md">
-                Innovate Locally with Cutting-Edge Technology
-              </h1>
-              <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto italic">
-                Empowering local enterprises with state-of-the-art solutions, insightful analytics, and seamless digital integration to elevate your business.
-              </p>
-              <button 
-                className="mt-6 px-8 py-3 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
-                aria-label="Explore Our Solutions"
-              >
-                Explore Our Solutions
-              </button>
-            </div>
+<div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[80vh] flex flex-col justify-center">
+  {/* Toucan Container - Repositioned */}
+  <div className="
+    absolute 
+    right-0 top-1/2 transform -translate-y-1/2
+    w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px]
+    pointer-events-none
+  ">
+    <Toucan 
+      scale={0.4} 
+      enableEyeTracking 
+      className="
+        transform 
+        transition-all duration-500
+        scale-[0.4] sm:scale-[0.5] md:scale-[0.65] lg:scale-[0.85] xl:scale-[1]
+        hover:scale-[0.45] sm:hover:scale-[0.55] md:hover:scale-[0.7] lg:hover:scale-[0.9] xl:hover:scale-[1.05]
+      "
+    />
+  </div>
 
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl 
-              text-gray-600 dark:text-slate-200 important-text
-              tracking-wider font-light">
-            </p>
+  {/* Text Content - Better spacing and layout */}
+  <div className="relative z-10 max-w-[650px]">
+    <h1 className="
+      text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
+      font-bold leading-tight
+      text-white
+    ">
+      Innovate Locally with{' '}
+      <span className="
+        block mt-2
+        bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)]
+        bg-clip-text text-transparent
+      ">
+        Cutting-Edge Technology
+      </span>
+    </h1>
+    
+    <p className="
+      mt-6 text-lg sm:text-xl
+      text-gray-300
+      max-w-[540px]
+      leading-relaxed
+    ">
+      Empowering local enterprises with state-of-the-art solutions, 
+      insightful analytics, and seamless digital integration to 
+      elevate your business.
+    </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-6 justify-start items-center pt-4">
-            </div>
-          </div>
-
-          {/* Toucan Container */}
-          <div className="relative w-full flex justify-center md:justify-end lg:w-auto lg:block lg:absolute lg:top-[-160px] lg:right-[-180px] xl:right-[-240px]">
-            <div ref={containerRef} className="toucan-container cursor-pointer">
-              <div className="toucan-shadow">
-                {polygons.map((polygon) => (
-                  <div
-                    key={`shadow-${polygon.id}`}
-                    className="polygon-shadow cursor-pointer"
-                    style={{
-                      clipPath: polygon.clipPath,
-                    }}
-                  />
-                ))}
-              </div>
-              <div ref={toucanRef} className="toucan-wrap cursor-pointer">
-                {polygons.map((polygon) => (
-                  <div 
-                    key={polygon.id} 
-                    className={`polygon ${isInitialLoad ? 'fly-in' : ''}`}
-                    style={{
-                      clipPath: polygon.clipPath,
-                      backgroundColor: polygon.color,
-                      transform: `translateZ(${polygon.translateZ})`,
-                      animationDelay: `${(polygon.id * 0.1)}s`,
-                      cursor: 'pointer'
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="mt-8 flex flex-wrap gap-4">
+      <button className="
+        px-8 py-4
+        bg-[var(--megaman)] hover:bg-[var(--frozen-turquoise)]
+        text-white font-semibold 
+        rounded-full 
+        shadow-lg hover:shadow-xl 
+        transition-all duration-300
+        hover:scale-105
+        text-lg
+      ">
+        Explore Solutions
+      </button>
+      <button className="
+        px-8 py-4
+        border-2 border-[var(--frozen-turquoise)]
+        text-[var(--frozen-turquoise)]
+        font-semibold 
+        rounded-full 
+        transition-all duration-300
+        hover:bg-[var(--frozen-turquoise)] hover:text-white
+        text-lg
+      ">
+        Learn More
+      </button>
+    </div>
+  </div>
+</div>
 
       {/* Rotating Carousel */}
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
@@ -244,12 +227,12 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               {features.map((feature, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="space-y-4 transform hover:scale-105 transition-transform duration-300"
                   aria-labelledby={`feature-title-${index}`}
                 >
-                  <h3 
+                  <h3
                     id={`feature-title-${index}`}
                     className="text-2xl font-semibold text-[var(--megaman)] dark:text-[var(--dark-megaman)]"
                   >
@@ -259,7 +242,7 @@ export default function Home() {
                     {feature.description}
                   </p>
                   {feature.cta && (
-                    <button 
+                    <button
                       className="mt-2 inline-flex items-center justify-center rounded-md text-base font-medium
                       bg-[var(--frozen-turquoise)] text-white hover:bg-[var(--megaman)]
                       px-6 py-2 transition-all duration-200 hover:scale-105
@@ -277,7 +260,7 @@ export default function Home() {
 
         {/* CTA Section */}
         <div className="text-center space-y-8 py-16 bg-gradient-to-b from-[var(--frozen-turquoise)]/10 to-[var(--heart-of-ice)]/10 rounded-2xl shadow-xl">
-          <button 
+          <button
             className="inline-flex items-center justify-center rounded-full text-lg font-medium
               bg-[var(--megaman)] text-white hover:bg-[var(--frozen-turquoise)]
               px-12 py-4 transition-all duration-300 hover:scale-110
