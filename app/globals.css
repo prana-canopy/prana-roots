@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #fff;
-  --foreground: #1e1b4b;
+  /* --background: #0F1117;   */
+  /* --foreground: #FFFFFF; */
   --card: #fff;
   --card-foreground: #1e1b4b;
   --popover: #fff;
@@ -24,16 +24,25 @@
   --ring: #4338ca;
   --radius: 0.5rem;
 
-  /* Custom Brand Colors */
-  --megaman: #4338ca;  /* Rich indigo */
-  --frozen-turquoise: #6366f1;  /* Electric indigo */
-  --lime-lightning: #818cf8;  /* Bright indigo */
-  --heart-of-ice: #6366f1;  /* Matching frozen-turquoise */
-  --electric-lettuce: #22c55e;  /* Green color */
-  --thallium-flame: #a5b4fc;  /* Light indigo */
-  --fake-jade: #c7d2fe;  /* Softer indigo */
-  --deep-loch: #312e81;  /* Deep indigo */
-  --eye-pupil: #eab308;  /* Yellow for light mode */
+    /* Primary Brand Colors */
+    --primary: #00D5C3;    /* Bright turquoise */
+    --primary-light: #1EEBC3; /* Lighter turquoise */
+    --primary-dark: #00A89D;  /* Darker turquoise */
+
+    /* Accent Colors */
+  --accent-green: #2EE89E;  /* Bright mint green */
+  --accent-blue: #00B4E4;   /* Bright blue */
+
+  /* Updated Toucan Theme Colors */
+  --megaman: #00D5C3;      /* Bright turquoise */
+  --frozen-turquoise: #2EE89E; /* Mint green */
+  --lime-lightning: #1EEBC3;   /* Light turquoise */
+  --heart-of-ice: #00B4E4;     /* Bright blue */
+  --electric-lettuce: #2EE89E; /* Mint green */
+  --thallium-flame: #00A89D;   /* Dark turquoise */
+  --fake-jade: #00D5C3;        /* Bright turquoise */
+  --deep-loch: #0F1117;        /* Dark background */
+  --eye-pupil: #fbcc32;        /* Yellow */
 
   /* Base spacing units */
   --space-1: 0.25rem;    /* 4px */
@@ -51,15 +60,37 @@
   --space-48: 12rem;     /* 192px */
 }
 
+/* Enhanced dark mode gradients */
+.dark body {
+  background: linear-gradient(to bottom, 
+    rgba(15, 17, 23, 0.97) 0%, 
+    rgba(18, 20, 27, 0.95) 50%,
+    rgba(22, 25, 34, 0.93) 100%
+  );
+}
+
+/* Update button gradients */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-green) 100%);
+}
+
+/* Add glow effects */
+.glow {
+  box-shadow: 0 0 20px rgba(46, 232, 158, 0.2);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(46, 232, 158, 0.3);
+}
+
 @layer base {
   .dark {
-    --background: #050417;
+    --background: #0F1117;
     --foreground: #f8fafc;
     --card: #0c0a2b;
     --card-foreground: #ffffff;
     --popover: #0c0a2b;
     --popover-foreground: #ffffff;
-    --primary: #818cf8;
     --primary-foreground: #ffffff;
     --secondary: #1e1b4b;
     --secondary-foreground: #f1f5f9;
@@ -73,6 +104,13 @@
     --input: #312e81;
     --ring: #818cf8;
     --eye-pupil: #000000;
+    --primary: #00B4E4;
+    --primary-light: #1EEBC3;
+    --accent-green: #2EE89E;
+    --accent-blue: #00B4E4;
+    --frozen-turquoise: #00D5C3;
+    --electric-lettuce: #2EE89E;
+    --heart-of-ice: #00B4E4;
   }
 }
 
@@ -300,41 +338,37 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   transform-style: preserve-3d;
-  filter: blur(4px);
+  filter: blur(8px);
   z-index: -1;
-  pointer-events: none;
-  transition: transform 0.1s ease-out;
-  will-change: transform;
+  opacity: 0.4;
+  transform: translateY(20px) scale(0.95);
 }
 
 .polygon-shadow {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  background-color: #000;
-  opacity: 0.2;
-  transform-origin: center center;
-  animation: shadowMove 2s infinite ease-in-out;
-  transition: transform 0.1s ease-out;
-  will-change: transform;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 213, 195, 0.3) 0%,
+    rgba(46, 232, 158, 0.2) 50%,
+    rgba(0, 180, 228, 0.1) 100%
+  );
+  transition: all 0.3s ease-out;
 }
+
 
 @keyframes shadowMove {
   0%, 100% {
-    transform: scale(0.8, 0.15) translateY(350px) rotateX(45deg);
-    opacity: 0.25;
+    transform: translateY(200px) scale(0.95);
+    opacity: 0.4;
   }
   50% {
-    transform: scale(0.7, 0.1) translateY(350px) rotateX(45deg);
-    opacity: 0.15;
+    transform: translateY(25px) scale(0.9);
+    opacity: 0.3;
   }
 }
-
 @keyframes containerHover {
   0%, 100% {
     transform: translateY(0px) scale(1);

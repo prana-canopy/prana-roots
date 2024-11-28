@@ -133,54 +133,62 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       <Navbar />
-{/* Hero Section - Added top padding to account for navbar */}
+{/* Hero Section */}
 <div className="
   relative w-full max-w-7xl mx-auto 
   px-4 sm:px-6 lg:px-8 
   min-h-[80vh] 
   flex flex-col justify-center
-  pt-24 lg:pt-32  // Added padding-top to clear the navbar
+  pt-24 lg:pt-32
 ">
-  {/* Toucan Container */}
+  {/* Toucan Container - Improved responsive positioning */}
   <div className="
     absolute 
-    right-0 top-1/2 transform -translate-y-1/3  // Adjusted vertical position
-    w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px]
+    right-[-20px] sm:right-[40px] md:right-[40px] lg:right-00  // Adjusted right positioning
+    top-1/2 transform -translate-y-1/3
+    w-[50px] sm:w-[300px] md:w-[400px] lg:w-[600px]  // Reduced base width
     pointer-events-none
+    overflow-visible  // Allow overflow for animation
   ">
-    <Toucan 
-      scale={0.4} 
-      enableEyeTracking 
-      className="
-        transform 
-        transition-all duration-500
-        scale-[0.4] sm:scale-[0.5] md:scale-[0.65] lg:scale-[0.85] xl:scale-[1]
-        hover:scale-[0.45] sm:hover:scale-[0.55] md:hover:scale-[0.7] lg:hover:scale-[0.9] xl:hover:scale-[1.05]
-      "
-    />
+    <div className="
+      relative
+      transform-gpu
+      scale-[0.25] sm:scale-[0.35] md:scale-[0.45] lg:scale-[0.85] xl:scale-[1]  // Smaller initial scales
+    ">
+      <Toucan 
+        scale={1}
+        enableEyeTracking 
+        className="
+          transform 
+          transition-all duration-500
+          hover:scale-[1.05]
+        "
+      />
+    </div>
   </div>
 
-  {/* Text Content - Better spacing and layout */}
-  <div className="relative z-10 max-w-[650px]">
+  {/* Text Content - Adjusted max-width for better spacing */}
+  <div className="relative z-10 max-w-[100%] sm:max-w-[80%] md:max-w-[650px]">
     <h1 className="
       text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
       font-bold leading-tight
-      text-white
+      text-gray-600
     ">
-      Innovate Locally with{' '}
+      Innovate Locally{' '}
       <span className="
-        block mt-2
+        inline-block
         bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)]
         bg-clip-text text-transparent
       ">
-        Cutting-Edge Technology
+        with Cutting-Edge Technology
       </span>
     </h1>
     
     <p className="
-      mt-6 text-lg sm:text-xl
+      mt-6 
+      text-base sm:text-lg md:text-xl
       text-gray-300
-      max-w-[540px]
+      max-w-[100%] sm:max-w-[500px]
       leading-relaxed
     ">
       Empowering local enterprises with state-of-the-art solutions, 
@@ -189,30 +197,31 @@ export default function Home() {
     </p>
 
     <div className="mt-8 flex flex-wrap gap-4">
+{/* Update button colors */}
+<button className="
+  px-8 py-4
+  bg-gradient-to-r from-[var(--primary)] to-[var(--accent-green)]
+  text-white font-semibold 
+  rounded-full 
+  shadow-lg hover:shadow-xl 
+  transition-all duration-300
+  hover:scale-105
+  glow
+">
+  Explore Solutions
+</button>
       <button className="
-        px-8 py-4
-        bg-[var(--megaman)] hover:bg-[var(--frozen-turquoise)]
-        text-white font-semibold 
-        rounded-full 
-        shadow-lg hover:shadow-xl 
-        transition-all duration-300
-        hover:scale-105
-        text-lg
-      ">
-        Explore Solutions
-      </button>
-      <button className="
-        px-8 py-4
-        border-2 border-[var(--frozen-turquoise)]
-        text-[var(--frozen-turquoise)]
-        font-semibold 
-        rounded-full 
-        transition-all duration-300
-        hover:bg-[var(--frozen-turquoise)] hover:text-white
-        text-lg
-      ">
-        Learn More
-      </button>
+  px-8 py-4
+  border-2 border-[var(--primary)]
+  text-[var(--primary)]
+  hover:bg-gradient-to-r hover:from-[var(--primary)] hover:to-[var(--accent-green)]
+  font-semibold 
+  rounded-full 
+  transition-all duration-300
+  hover:text-white
+">
+  Learn More
+</button>
     </div>
   </div>
 </div>

@@ -14,8 +14,8 @@ export default {
         foreground: "var(--foreground)",
       },
       animation: {
-        'wing-flap-left': 'wing-flap-left 2s infinite ease-in-out',
-        'wing-flap-right': 'wing-flap-right 2s infinite ease-in-out',
+        'wing-flap-left': 'wing-flap-left 1.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite',
+        'wing-flap-right': 'wing-flap-right 1.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite',
         'hover': 'hover 2s infinite ease-in-out',
         'glow': 'glow 2s infinite ease-in-out',
         'float': 'float 3s infinite ease-in-out',
@@ -23,18 +23,18 @@ export default {
       keyframes: {
         'wing-flap-left': {
           '0%, 100%': { 
-            transform: 'rotateY(-15deg) rotateX(5deg) translateX(-5px) translateZ(20px)'
+            transform: 'rotateY(-15deg) rotateX(10deg) rotateZ(-10deg) translateY(0px)'
           },
           '50%': { 
-            transform: 'rotateY(10deg) rotateX(-5deg) translateX(2px) translateZ(20px)'
+            transform: 'rotateY(-5deg) rotateX(0deg) rotateZ(0deg) translateY(-15px)'
           }
         },
         'wing-flap-right': {
           '0%, 100%': { 
-            transform: 'rotateY(15deg) rotateX(5deg) translateX(5px) translateZ(20px)'
+            transform: 'rotateY(15deg) rotateX(10deg) rotateZ(10deg) translateY(0px)'
           },
           '50%': { 
-            transform: 'rotateY(-10deg) rotateX(-5deg) translateX(-2px) translateZ(20px)'
+            transform: 'rotateY(5deg) rotateX(0deg) rotateZ(0deg) translateY(-15px)'
           }
         },
         hover: {

@@ -3,47 +3,76 @@
 import { useEffect, useRef } from 'react';
 
 const polygons = [
-    // Main Body - More oval/slim shape
-    { id: 1, clipPath: 'polygon(35% 35%, 65% 35%, 62% 70%, 38% 70%)', color: 'var(--megaman)', translateZ: '25px', animationDelay: 0 },
-    { id: 2, clipPath: 'polygon(33% 37%, 67% 37%, 64% 68%, 36% 68%)', color: 'var(--frozen-turquoise)', translateZ: '22px', animationDelay: 0.1 },
+    // Main Body - More cohesive shape
+    { id: 1, clipPath: 'polygon(35% 30%, 65% 30%, 65% 65%, 35% 65%)', color: 'var(--megaman)', translateZ: '25px', animationDelay: 0 },
+    { id: 2, clipPath: 'polygon(33% 32%, 67% 32%, 67% 63%, 33% 63%)', color: 'var(--frozen-turquoise)', translateZ: '22px', animationDelay: 0.1 },
     
-    // Head shape - More curved
-    { id: 3, clipPath: 'polygon(40% 30%, 60% 30%, 65% 40%, 35% 40%)', color: 'var(--megaman)', translateZ: '28px', animationDelay: 0.2 },
+    // Head shape - Adjusted for better eye placement
+    { id: 3, clipPath: 'polygon(40% 25%, 60% 25%, 65% 35%, 35% 35%)', color: 'var(--megaman)', translateZ: '28px', animationDelay: 0.2 },
     
-    // Beak - Longer and more curved
-    { id: 4, clipPath: 'polygon(65% 35%, 95% 32%, 98% 40%, 65% 45%)', color: 'var(--electric-lettuce)', translateZ: '30px', animationDelay: 0.3 },
-    { id: 5, clipPath: 'polygon(65% 45%, 98% 40%, 96% 48%, 65% 50%)', color: 'var(--lime-lightning)', translateZ: '32px', animationDelay: 0.4 },
+    // Beak - Longer and more defined
+    { id: 4, clipPath: 'polygon(63% 33%, 95% 30%, 98% 38%, 63% 43%)', color: 'var(--electric-lettuce)', translateZ: '30px', animationDelay: 0.3 },
+    { id: 5, clipPath: 'polygon(63% 43%, 98% 38%, 96% 46%, 63% 48%)', color: 'var(--lime-lightning)', translateZ: '32px', animationDelay: 0.4 },
     
-      // Curved Smile - slight curve upward
-  { 
-    id: 'smile-1', 
-    clipPath: 'polygon(70% 42%, 85% 42%, 83% 44%, 70% 44%)', 
-    color: '#FFFFFF', 
-    translateZ: '33px', 
-    animationDelay: 0.35 
+    // Enhanced Eye - Closer to beak, more visible
+    { id: 6, clipPath: 'circle(4.5% at 55% 34%)', color: 'gray', translateZ: '35px', animationDelay: 0.5, type: 'eye-socket' },
+    { id: 7, clipPath: 'circle(4% at 55% 34%)', color: '#FFFFFF', translateZ: '36px', animationDelay: 0.6, type: 'eye-white' },
+    { id: 8, clipPath: 'circle(2% at 55% 34%)', color: 'var(--eye-pupil)', translateZ: '37px', animationDelay: 0.7, type: 'eye-pupil' },
+    
+    // Refined Smile - More precise positioning
+    { id: 'smile-1', clipPath: 'polygon(75% 40%, 85% 40%, 83% 42%, 75% 42%)', color: '#FFFFFF', translateZ: '33px', animationDelay: 0.35 },
+    { id: 'smile-2', clipPath: 'polygon(85% 40%, 90% 39%, 88% 41%, 83% 42%)', color: '#FFFFFF', translateZ: '33px', animationDelay: 0.35 },
+// Left Wing - More complex geometric segments
+{ 
+    id: 9, 
+    clipPath: 'polygon(30% 40%, 50% 40%, 45% 60%, 25% 60%)', // Main wing
+    color: 'var(--megaman)', 
+    translateZ: '15px', 
+    animationDelay: 0, 
+    type: 'wing-left' 
   },
   { 
-    id: 'smile-2', 
-    clipPath: 'polygon(85% 42%, 90% 41%, 88% 43%, 83% 44%)', 
-    color: '#FFFFFF', 
-    translateZ: '33px', 
-    animationDelay: 0.35 
+    id: 10, 
+    clipPath: 'polygon(25% 60%, 45% 60%, 40% 75%, 20% 75%)', // Lower segment
+    color: 'var(--frozen-turquoise)', 
+    translateZ: '14px', 
+    animationDelay: 0, 
+    type: 'wing-left' 
+  },
+  { 
+    id: 11, 
+    clipPath: 'polygon(28% 42%, 48% 42%, 43% 58%, 23% 58%)', // Overlay detail
+    color: 'var(--heart-of-ice)', 
+    translateZ: '16px', 
+    animationDelay: 0, 
+    type: 'wing-left' 
   },
   
-    // Enhanced Eye with better movement range
-    { id: 6, clipPath: 'circle(6% at 45% 35%)', color: '#FFFFFF', translateZ: '35px', animationDelay: 0.5, type: 'eye-socket' },
-    { id: 7, clipPath: 'circle(5% at 45% 35%)', color: '#FFFFFF', translateZ: '36px', animationDelay: 0.6, type: 'eye-white' },
-    { id: 8, clipPath: 'circle(2.5% at 45% 35%)', color: 'var(--eye-pupil)', translateZ: '37px', animationDelay: 0.7, type: 'eye-pupil' },
-    
-    // Left Wing Group - More connected segments
-    { id: 9, clipPath: 'polygon(20% 40%, 35% 40%, 33% 70%, 18% 65%)', color: 'var(--megaman)', translateZ: '20px', animationDelay: 0.8, type: 'wing-left' },
-    { id: 10, clipPath: 'polygon(18% 42%, 33% 42%, 31% 68%, 16% 63%)', color: 'var(--frozen-turquoise)', translateZ: '18px', animationDelay: 0.8, type: 'wing-left' },
-    { id: 11, clipPath: 'polygon(16% 44%, 31% 44%, 29% 66%, 14% 61%)', color: 'var(--heart-of-ice)', translateZ: '16px', animationDelay: 0.8, type: 'wing-left' },
-    
-    // Right Wing Group - More connected segments
-    { id: 12, clipPath: 'polygon(65% 40%, 80% 40%, 77% 65%, 63% 70%)', color: 'var(--megaman)', translateZ: '20px', animationDelay: 0.8, type: 'wing-right' },
-    { id: 13, clipPath: 'polygon(67% 42%, 82% 42%, 79% 63%, 65% 68%)', color: 'var(--frozen-turquoise)', translateZ: '18px', animationDelay: 0.8, type: 'wing-right' },
-    { id: 14, clipPath: 'polygon(69% 44%, 84% 44%, 81% 61%, 67% 66%)', color: 'var(--heart-of-ice)', translateZ: '16px', animationDelay: 0.8, type: 'wing-right' },
+  // Right Wing - Mirrored complex segments
+  { 
+    id: 12, 
+    clipPath: 'polygon(65% 40%, 85% 40%, 80% 60%, 60% 60%)', 
+    color: 'var(--megaman)', 
+    translateZ: '15px', 
+    animationDelay: 0, 
+    type: 'wing-right' 
+  },
+  { 
+    id: 13, 
+    clipPath: 'polygon(60% 60%, 80% 60%, 75% 75%, 55% 75%)', 
+    color: 'var(--frozen-turquoise)', 
+    translateZ: '14px', 
+    animationDelay: 0, 
+    type: 'wing-right' 
+  },
+  { 
+    id: 14, 
+    clipPath: 'polygon(63% 42%, 83% 42%, 78% 58%, 58% 58%)', 
+    color: 'var(--heart-of-ice)', 
+    translateZ: '16px', 
+    animationDelay: 0, 
+    type: 'wing-right' 
+  }
   ];
 
 interface ToucanProps {
@@ -52,7 +81,6 @@ interface ToucanProps {
     enableEyeTracking?: boolean;
 }
 
-// Enhanced eye movement function with larger range
 const handleEyeMovement = (e: MouseEvent) => {
     const eyeWhite = document.querySelector('[data-type="eye-white"]') as HTMLDivElement;
     const eyePupil = document.querySelector('[data-type="eye-pupil"]') as HTMLDivElement;
@@ -64,14 +92,14 @@ const handleEyeMovement = (e: MouseEvent) => {
     
     const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
     
-    // Increased movement radius for more noticeable eye movement
-    const radius = 4;
+    // Increased movement radius for more dramatic eye movement
+    const radius = 6;
     
-    const moveX = Math.cos(angle) * radius;
-    const moveY = Math.sin(angle) * radius;
+    // Wider boundaries but still contained
+    const moveX = Math.min(Math.max(Math.cos(angle) * radius, -5), 5);
+    const moveY = Math.min(Math.max(Math.sin(angle) * radius, -5), 5);
     
-    // Smoother transition for eye movement
-    eyePupil.style.transition = 'transform 0.2s ease-out';
+    eyePupil.style.transition = 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)';
     eyePupil.style.transform = `translate(${moveX}px, ${moveY}px) translateZ(37px)`;
   };
 
@@ -123,14 +151,15 @@ export const Toucan = ({
         let animationFrameId: number;
 
         const handleMouseMove = (e: MouseEvent) => {
-            bounds = container.getBoundingClientRect();
-            const centerX = bounds.left + bounds.width / 2;
-            const centerY = bounds.top + bounds.height / 2;
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            targetRotateY = ((mouseX - centerX) / (window.innerWidth / 2)) * 25;
-            targetRotateX = ((mouseY - centerY) / (window.innerHeight / 2)) * -25;
+          bounds = container.getBoundingClientRect();
+          const centerX = bounds.left + bounds.width / 2;
+          const centerY = bounds.top + bounds.height / 2;
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        
+          // Adjust sensitivity by multiplying with a factor (e.g., 1.5)
+          targetRotateY = ((mouseX - centerX) / (window.innerWidth / 2)) * 25 * 1.5;
+          targetRotateX = ((mouseY - centerY) / (window.innerHeight / 2)) * -25 * 1.5;
         };
 
         const animate = () => {
