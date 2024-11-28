@@ -133,12 +133,18 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       <Navbar />
-{/* Hero Section */}
-<div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[80vh] flex flex-col justify-center">
-  {/* Toucan Container - Repositioned */}
+{/* Hero Section - Added top padding to account for navbar */}
+<div className="
+  relative w-full max-w-7xl mx-auto 
+  px-4 sm:px-6 lg:px-8 
+  min-h-[80vh] 
+  flex flex-col justify-center
+  pt-24 lg:pt-32  // Added padding-top to clear the navbar
+">
+  {/* Toucan Container */}
   <div className="
     absolute 
-    right-0 top-1/2 transform -translate-y-1/2
+    right-0 top-1/2 transform -translate-y-1/3  // Adjusted vertical position
     w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px]
     pointer-events-none
   ">
