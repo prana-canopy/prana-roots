@@ -5,6 +5,15 @@ import { useTheme } from 'next-themes';
 import RotatingCarousel from '@/components/rotating-carousel';
 import { Navbar } from '@/components/navbar';
 import { Toucan } from '@/components/toucan';
+import ServicesSection from '@/components/services';
+import WhyChooseSection from '@/components/why-choose';
+import ProcessSection from '@/components/our-process';
+import PortfolioSection from '@/components/portfolio-section';
+import PricingSection from '@/components/pricing';
+import ContactSection from '@/components/contact';
+import FAQSection from '@/components/faq';
+import InsightsSection from '@/components/insights';
+import AboutSection from '@/components/about';
 
 interface Feature {
   title: string;
@@ -229,6 +238,43 @@ export default function Home() {
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <RotatingCarousel />
       </div>
+      {/* Services */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <ServicesSection />
+      </div>
+      {/* About */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <AboutSection />
+      </div>
+      {/* Why Choose */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <WhyChooseSection />
+      </div>
+      {/* Our Process */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <ProcessSection />
+      </div>
+      {/* Portfolio */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <PortfolioSection />
+      </div>
+      {/* Pricing */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <PricingSection />
+      </div>
+      {/* Contact */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <ContactSection />
+      </div>
+      {/* FAQ */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <FAQSection />
+      </div>
+      {/* Insights */}
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <InsightsSection />
+      </div>
+
 
       {/* Content Sections */}
       <div className="w-full max-w-6xl mx-auto px-8 py-24 space-y-32">

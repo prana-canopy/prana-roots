@@ -70,7 +70,7 @@ const cards: CarouselCard[] = [
   {
     title: "EcoTech Solutions Platform",
     description: "A sustainable approach to digital transformation",
-    previewImage: "/api/placeholder/800/400",
+    previewImage: "pinkys.png",
     metrics: {
       current: {
         visitors: "2,847",
@@ -90,14 +90,14 @@ const cards: CarouselCard[] = [
       quote: "Prana helped us visualize our environmental impact in ways we never imagined possible.",
       author: "Sarah Chen",
       company: "EcoTech Solutions",
-      image: "/api/placeholder/64/64"
+      image: "pinkys.png"
     },
     techStack: ["React", "Next.js", "TailwindCSS", "Node.js"]
   },
   {
     title: "Biodiversity Analytics Dashboard",
     description: "Connecting conservation with cutting-edge tech",
-    previewImage: "/api/placeholder/800/400",
+    previewImage: "pinkys.png",
     metrics: {
       current: {
         visitors: "3,156",
@@ -117,7 +117,7 @@ const cards: CarouselCard[] = [
       quote: "The dashboard has revolutionized how we track and protect local ecosystems.",
       author: "Michael Torres",
       company: "Wildlife Conservation Tech",
-      image: "/api/placeholder/64/64"
+      image: "pinkys.png"
     },
     techStack: ["React", "D3.js", "Python", "PostgreSQL"]
   }
