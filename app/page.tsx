@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import RotatingCarousel from '@/components/rotating-carousel';
 import { Navbar } from '@/components/navbar';
 import { Toucan } from '@/components/toucan';
+import AnimatedToucan from '../components/toucan-poly';
 import ServicesSection from '@/components/services';
 import WhyChooseSection from '@/components/why-choose';
 import ProcessSection from '@/components/our-process';
@@ -155,16 +156,16 @@ export default function Home() {
     absolute 
     right-[-20px] sm:right-[40px] md:right-[40px] lg:right-00  // Adjusted right positioning
     top-1/2 transform -translate-y-1/3
-    w-[50px] sm:w-[300px] md:w-[400px] lg:w-[600px]  // Reduced base width
+    w-[150px] sm:w-[500px] md:w-[600px] lg:w-[800px]  // Further increased base width
     pointer-events-none
     overflow-visible  // Allow overflow for animation
   ">
     <div className="
       relative
       transform-gpu
-      scale-[0.25] sm:scale-[0.35] md:scale-[0.45] lg:scale-[0.85] xl:scale-[1]  // Smaller initial scales
+      scale-[0.7] sm:scale-[0.8] md:scale-[0.9] lg:scale-[1.75]  // Further increased initial scales
     ">
-      <Toucan 
+      {/* <Toucan 
         scale={1}
         enableEyeTracking 
         className="
@@ -172,7 +173,8 @@ export default function Home() {
           transition-all duration-500
           hover:scale-[1.05]
         "
-      />
+      /> */}
+      <AnimatedToucan/>
     </div>
   </div>
 
