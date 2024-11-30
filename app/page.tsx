@@ -51,8 +51,7 @@ export default function Home() {
   const toucanRef = useRef<HTMLDivElement>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { theme } = useTheme();
-
+  const { resolvedTheme: theme } = useTheme();
 
   // Consolidated load effect
   useEffect(() => {
@@ -143,98 +142,96 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       <Navbar />
-{/* Hero Section */}
-<div className="
-  relative w-full max-w-7xl mx-auto 
-  px-4 sm:px-6 lg:px-8 
-  min-h-[80vh] 
-  flex flex-col justify-center
-  pt-24 lg:pt-32
-">
-  {/* Toucan Container - Improved responsive positioning */}
-  <div className="
-    absolute 
-    right-[-20px] sm:right-[40px] md:right-[40px] lg:right-00  // Adjusted right positioning
-    top-1/2 transform -translate-y-1/3
-    w-[150px] sm:w-[500px] md:w-[600px] lg:w-[800px]  // Further increased base width
-    pointer-events-none
-    overflow-visible  // Allow overflow for animation
-  ">
-    <div className="
-      relative
-      transform-gpu
-      scale-[0.7] sm:scale-[0.8] md:scale-[0.9] lg:scale-[1.75]  // Further increased initial scales
-    ">
-      {/* <Toucan 
-        scale={1}
-        enableEyeTracking 
-        className="
-          transform 
-          transition-all duration-500
-          hover:scale-[1.05]
-        "
-      /> */}
-      <AnimatedToucan/>
-    </div>
-  </div>
-
-  {/* Text Content - Adjusted max-width for better spacing */}
-  <div className="relative z-10 max-w-[100%] sm:max-w-[80%] md:max-w-[650px]">
-    <h1 className="
-      text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
-      font-bold leading-tight
-      text-gray-600
-    ">
-      Empowering Businesses with{' '}
-      <span className="
-        inline-block
-        bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)]
-        bg-clip-text text-transparent
+      {/* Hero Section */}
+      <div className="
+        relative w-full max-w-7xl mx-auto 
+        px-4 sm:px-6 lg:px-8 
+        min-h-[80vh] 
+        flex flex-col justify-center
+        pt-24 lg:pt-32
       ">
-        Nature-Inspired Innovation
-      </span>
-    </h1>
-    
-    <p className="
-      mt-6 
-      text-base sm:text-lg md:text-xl
-      text-gray-300
-      max-w-[100%] sm:max-w-[500px]
-      leading-relaxed
-      metallic-shine
-    ">
-      Prana's local branch offers boutique-quality websites and data solutions, integrating technology and nature. Our services empower businesses with security and innovation, fostering growth and sustainability.
-    </p>
+        {/* Toucan Container - Improved responsive positioning */}
+        <div className="
+          absolute 
+          right-[-20px] sm:right-[40px] md:right-[40px] lg:right-00  // Adjusted right positioning
+          top-1/2 transform -translate-y-1/3
+          w-[150px] sm:w-[500px] md:w-[600px] lg:w-[800px]  // Further increased base width
+          pointer-events-none
+          overflow-visible  // Allow overflow for animation
+        ">
+          <div className="
+            relative
+            transform-gpu
+            scale-[0.7] sm:scale-[0.8] md:scale-[0.9] lg:scale-[1.75]  // Further increased initial scales
+          ">
+            {/* <Toucan 
+              scale={1}
+              enableEyeTracking 
+              className="
+                transform 
+                transition-all duration-500
+                hover:scale-[1.05]
+              "
+            /> */}
+            <AnimatedToucan />
+          </div>
+        </div>
 
-    <div className="mt-8 flex flex-wrap gap-4">
-{/* Update button colors */}
-<button className="
-  px-8 py-4
-  bg-gradient-to-r from-[var(--primary)] to-[var(--accent-green)]
-  text-white font-semibold 
-  rounded-full 
-  shadow-lg hover:shadow-xl 
-  transition-all duration-300
-  hover:scale-105
-  glow
-">
-  Explore Solutions
-</button>
-      <button className="
-  px-8 py-4
-  border-2 border-[var(--primary)]
-  text-[var(--primary)]
-  hover:bg-gradient-to-r hover:from-[var(--primary)] hover:to-[var(--accent-green)]
-  font-semibold 
-  rounded-full 
-  transition-all duration-300
-  hover:text-white
-">
-  Learn More
-</button>
-    </div>
-  </div>
-</div>
+        {/* Text Content - Adjusted max-width for better spacing */}
+        <div className="relative z-10 max-w-[100%] sm:max-w-[80%] md:max-w-[650px]">
+          <h1 className="
+            text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
+            font-bold leading-tight
+            text-transparent bg-clip-text
+            bg-gradient-to-r from-primary to-primary-dark
+          ">
+            Empowering Businesses with{' '}
+            <span className="
+            ">
+              Nature-Inspired Innovation
+            </span>
+          </h1>
+
+          <p className="
+            mt-6 
+            text-base sm:text-lg md:text-xl
+            text-gray-300
+            max-w-[100%] sm:max-w-[500px]
+            leading-relaxed
+            metallic-shine
+          ">
+            Prana's local branch offers boutique-quality websites and data solutions, integrating technology and nature. Our services empower businesses with security and innovation, fostering growth and sustainability.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            {/* Update button colors */}
+            <button className="
+            px-8 py-4
+            bg-gradient-to-r from-[var(--primary)] to-[var(--accent-green)]
+            text-white font-semibold 
+            rounded-full 
+            shadow-lg hover:shadow-xl 
+            transition-all duration-300
+            hover:scale-105
+            glow
+          ">
+              Explore Solutions
+            </button>
+            <button className="
+            px-8 py-4
+            border-2 border-[var(--primary)]
+            text-[var(--primary)]
+            hover:bg-gradient-to-r hover:from-[var(--primary)] hover:to-[var(--accent-green)]
+            font-semibold 
+            rounded-full 
+            transition-all duration-300
+            hover:text-white
+          ">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Rotating Carousel */}
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
@@ -276,7 +273,6 @@ export default function Home() {
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <InsightsSection />
       </div>
-
 
       {/* Content Sections */}
       <div className="w-full max-w-6xl mx-auto px-8 py-24 space-y-32">

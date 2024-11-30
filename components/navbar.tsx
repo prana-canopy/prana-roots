@@ -97,19 +97,13 @@ export function Navbar() {
                 width="41.28"
                 height="41.281"
                 viewBox="0 0 41.28 41.281"
-                className="fill-current text-yellow-500 dark:text-green-500 transition-colors duration-200"
+                className="fill-current text-primary transition-colors duration-200"
               >
                 {/* Your existing SVG paths */}
               </svg>
             </div>
             <span 
-              className="text-2xl font-semibold tracking-wider hidden sm:inline-block"
-              style={{
-                background: 'linear-gradient(to right, var(--megaman), var(--frozen-turquoise))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '0.15em'
-              }}
+              className="text-2xl font-semibold tracking-wider hidden sm:inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark"
             >
               Prana <em>Local</em>
             </span>
@@ -122,7 +116,7 @@ export function Navbar() {
                 <div key={item.label} className="relative group">
                   <button
                     onClick={() => item.children && toggleDropdown(item.label)}
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[var(--megaman)] dark:hover:text-[var(--frozen-turquoise)] transition-colors duration-200"
+                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200"
                   >
                     {item.label}
                     {item.children && (
@@ -136,19 +130,19 @@ export function Navbar() {
                   
                   {/* Dropdown Menu */}
                   {item.children && isDropdownOpen(item.label) && (
-                    <div className="absolute left-0 mt-2 w-72 rounded-xl bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                    <div className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg ring-1 ring-border/50 overflow-hidden">
                       <div className="p-2">
                         {item.children.map((child) => (
                           <a
                             key={child.label}
                             href={child.href}
-                            className="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                            className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors duration-200"
                           >
-                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            <p className="text-sm font-medium text-foreground">
                               {child.label}
                             </p>
                             {child.description && (
-                              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                              <p className="mt-1 text-sm text-muted-foreground">
                                 {child.description}
                               </p>
                             )}
@@ -161,7 +155,7 @@ export function Navbar() {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--megaman)] hover:bg-[var(--frozen-turquoise)] rounded-full transition-colors duration-200">
+              <button className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md hover:scale-105">
                 Get Started
               </button>
               <ThemeToggle />
@@ -173,7 +167,7 @@ export function Navbar() {
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-[var(--megaman)] dark:hover:text-[var(--frozen-turquoise)] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[var(--megaman)]"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             >
               {isMobileMenuOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
@@ -188,12 +182,12 @@ export function Navbar() {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-800 shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-sm shadow-lg border-t border-border/50">
             {navigationItems.map((item) => (
               <div key={item.label} className="space-y-1">
                 <button
                   onClick={() => item.children && toggleDropdown(item.label)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-[var(--megaman)] dark:hover:text-[var(--frozen-turquoise)]"
+                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary"
                 >
                   {item.label}
                   {item.children && (
@@ -212,9 +206,16 @@ export function Navbar() {
                       <a
                         key={child.label}
                         href={child.href}
-                        className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-[var(--megaman)] dark:hover:text-[var(--frozen-turquoise)]"
+                        className="block px-3 py-2 text-base font-medium text-foreground/70 hover:text-primary"
                       >
-                        {child.label}
+                        <p className="text-sm font-medium">
+                          {child.label}
+                        </p>
+                        {child.description && (
+                          <p className="mt-1 text-xs text-muted-foreground">
+                            {child.description}
+                          </p>
+                        )}
                       </a>
                     ))}
                   </div>
@@ -222,7 +223,7 @@ export function Navbar() {
               </div>
             ))}
             <div className="pt-4">
-              <button className="w-full px-4 py-2 text-base font-medium text-white bg-[var(--megaman)] hover:bg-[var(--frozen-turquoise)] rounded-full transition-colors duration-200">
+              <button className="w-full px-4 py-2 text-base font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md">
                 Get Started
               </button>
             </div>

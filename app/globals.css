@@ -1,89 +1,57 @@
+/* 
+  Prana Roots Global Styles
+  ------------------------
+  1. Tailwind Directives
+  2. Root Variables
+  3. Dark Mode
+  4. Base Styles
+  5. Layout & Spacing
+  6. Media Queries
+  7. Utilities
+*/
+
+/* 1. Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* --background: #0F1117;   */
-  /* --foreground: #FFFFFF; */
-  --card: #fff;
-  --card-foreground: #1e1b4b;
-  --popover: #fff;
-  --popover-foreground: #1e1b4b;
-  --primary: #4338ca;
-  --primary-foreground: #f9fafb;
-  --secondary: #f3f4ff;
-  --secondary-foreground: #312e81;
-  --muted: #f3f4ff;
-  --muted-foreground: #6366f1;
-  --accent: #f3f4ff;
-  --accent-foreground: #312e81;
-  --destructive: #ef4444;
-  --destructive-foreground: #f9fafb;
-  --border: #e0e7ff;
-  --input: #e0e7ff;
-  --ring: #4338ca;
-  --radius: 0.5rem;
-
-    /* Primary Brand Colors */
-    --primary: #00D5C3;    /* Bright turquoise */
-    --primary-light: #1EEBC3; /* Lighter turquoise */
-    --primary-dark: #00A89D;  /* Darker turquoise */
-
-    /* Accent Colors */
-  --accent-green: #2EE89E;  /* Bright mint green */
-  --accent-blue: #00B4E4;   /* Bright blue */
-
-  /* Updated Toucan Theme Colors */
-  --megaman: #00D5C3;      /* Bright turquoise */
-  --frozen-turquoise: #2EE89E; /* Mint green */
-  --lime-lightning: #1EEBC3;   /* Light turquoise */
-  --heart-of-ice: #00B4E4;     /* Bright blue */
-  --electric-lettuce: #2EE89E; /* Mint green */
-  --thallium-flame: #00A89D;   /* Dark turquoise */
-  --fake-jade: #00D5C3;        /* Bright turquoise */
-  --deep-loch: #0F1117;        /* Dark background */
-  --eye-pupil: #6366f1;        /* Yellow */
-
-  /* Base spacing units */
-  --space-1: 0.25rem;    /* 4px */
-  --space-2: 0.5rem;     /* 8px */
-  --space-3: 0.75rem;    /* 12px */
-  --space-4: 1rem;       /* 16px */
-  --space-6: 1.5rem;     /* 24px */
-  --space-8: 2rem;       /* 32px */
-  --space-12: 3rem;      /* 48px */
-  --space-16: 4rem;      /* 64px */
-  --space-20: 5rem;      /* 80px */
-  --space-24: 6rem;      /* 96px */
-  --space-32: 8rem;      /* 128px */
-  --space-40: 10rem;     /* 160px */
-  --space-48: 12rem;     /* 192px */
-}
-
-/* Enhanced dark mode gradients */
-.dark body {
-  background: linear-gradient(to bottom, 
-    rgba(15, 17, 23, 0.97) 0%, 
-    rgba(18, 20, 27, 0.95) 50%,
-    rgba(22, 25, 34, 0.93) 100%
-  );
-}
-
-/* Update button gradients */
-.bg-gradient-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-green) 100%);
-}
-
-/* Add glow effects */
-.glow {
-  box-shadow: 0 0 20px rgba(46, 232, 158, 0.2);
-}
-
-.glow-text {
-  text-shadow: 0 0 10px rgba(46, 232, 158, 0.3);
-}
-
+/* 2. Root Variables */
 @layer base {
+  :root {
+    /* Base theme colors */
+    --background: #ffffff;
+    --foreground: #1e1b4b;
+
+    /* Component colors */
+    --card: #ffffff;
+    --card-foreground: #1e1b4b;
+    --popover: #ffffff;
+    --popover-foreground: #1e1b4b;
+    
+    /* Brand colors */
+    --primary: #00D5C3;
+    --primary-light: #1EEBC3;
+    --primary-dark: #00A89D;
+    --primary-foreground: #ffffff;
+    
+    /* UI colors */
+    --secondary: #f3f4ff;
+    --secondary-foreground: #312e81;
+    --muted: #f3f4ff;
+    --muted-foreground: #6366f1;
+    --accent: #f3f4ff;
+    --accent-foreground: #312e81;
+    --destructive: #ef4444;
+    --destructive-foreground: #f9fafb;
+
+    /* Border and input styles */
+    --border: #e0e7ff;
+    --input: #e0e7ff;
+    --ring: #4338ca;
+    --radius: 0.5rem;
+  }
+
+  /* 3. Dark Mode */
   .dark {
     --background: #0F1117;
     --foreground: #f8fafc;
@@ -99,21 +67,14 @@
     --accent: #1e1b4b;
     --accent-foreground: #f1f5f9;
     --destructive: #7f1d1d;
-    --destructive-foreground: #f8fafc;
-    --border: #312e81;
-    --input: #312e81;
-    --ring: #818cf8;
-    --eye-pupil: #000000;
-    --primary: #00B4E4;
-    --primary-light: #1EEBC3;
-    --accent-green: #2EE89E;
-    --accent-blue: #00B4E4;
-    --frozen-turquoise: #00D5C3;
-    --electric-lettuce: #2EE89E;
-    --heart-of-ice: #00B4E4;
+    --destructive-foreground: #f1f5f9;
+    --border: #1e1b4b;
+    --input: #1e1b4b;
+    --ring: #4338ca;
   }
 }
 
+/* 4. Base Styles */
 html,
 body {
   overflow-x: hidden;
@@ -126,9 +87,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Dark mode background effects */
 .dark body {
-  background: linear-gradient(to bottom, 
-    rgba(5, 4, 23, 0.97) 0%, 
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 4, 23, 0.97) 0%,
     rgba(12, 10, 43, 0.95) 50%,
     rgba(30, 27, 75, 0.93) 100%
   );
@@ -193,631 +156,7 @@ body {
   50% { opacity: 1; }
 }
 
-.dark {
-  /* Base text colors */
-  color-scheme: dark;
-  color: #f8fafc;  /* Slate 50 for base text */
-}
-
-.dark .prose {
-  color: #f8fafc;
-}
-
-.dark .text-muted-foreground {
-  color: #e2e8f0 !important;  /* Slate 200 for muted text */
-}
-
-.dark .text-subtle {
-  color: #cbd5e1;  /* Slate 300 for subtle text */
-}
-
-.dark .text-primary {
-  color: #f8fafc !important;  /* Ensure primary text is always visible */
-}
-
-/* Specific text enhancements */
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-  color: #ffffff;
-}
-
-.dark p {
-  color: #f1f5f9;  /* Slate 100 for paragraph text */
-}
-
-.dark .text-base {
-  color: #f1f5f9 !important;
-}
-
-/* Navigation and interactive elements */
-.dark nav {
-  color: #f8fafc;
-}
-
-.dark a:not(.custom-link) {
-  color: #93c5fd !important;  /* Blue 300 */
-}
-
-.dark a:not(.custom-link):hover {
-  color: #bfdbfe !important;  /* Blue 200 */
-}
-
-/* List and content elements */
-.dark li {
-  color: #f1f5f9;
-}
-
-.dark .text-content {
-  color: #f1f5f9 !important;
-}
-
-/* Form elements */
-.dark input, .dark textarea {
-  color: #f8fafc;
-}
-
-.dark label {
-  color: #e2e8f0;
-}
-
-/* Button text */
-.dark button {
-  color: #ffffff;
-}
-
-/* Card and container text */
-.dark .card-content {
-  color: #f1f5f9;
-}
-
-/* Footer and secondary content */
-.dark footer {
-  color: #e2e8f0;
-}
-
-/* Ensure gradients maintain contrast */
-.dark .bg-gradient-text {
-  color: transparent;
-  background-image: linear-gradient(to right, #93c5fd, #818cf8);
-}
-
-/* Add subtle text shadows for better contrast when needed */
-.dark .text-shadow {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Enhanced contrast for important UI elements */
-.dark .important-text {
-  color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.toucan-container {
-  transform-style: preserve-3d;
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-  transition: transform 0.1s ease-out;
-  width: 800px;
-  height: 800px;
-  position: relative;
-  perspective: 2000px;
-  animation: containerHover 2s infinite ease-in-out;
-  transform: scale(1);
-  display: block;
-}
-
-/* Mobile and tablet sizes */
-@media (max-width: 768px) {
-  .toucan-container {
-    transform: scale(0.55);
-    margin-top: -100px;
-  }
-}
-
-/* Small desktop */
-@media (min-width: 769px) and (max-width: 1023px) {
-  .toucan-container {
-    transform: scale(0.65);
-    margin-top: -80px;
-  }
-}
-
-/* Medium desktop */
-@media (min-width: 1024px) {
-  .toucan-container {
-    transform: scale(0.85);
-  }
-}
-
-/* Large desktop */
-@media (min-width: 1280px) {
-  .toucan-container {
-    transform: scale(1);
-  }
-}
-
-.toucan-shadow {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  filter: blur(8px);
-  z-index: -1;
-  opacity: 0.4;
-  transform: translateY(20px) scale(0.95);
-}
-
-.polygon-shadow {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 213, 195, 0.3) 0%,
-    rgba(46, 232, 158, 0.2) 50%,
-    rgba(0, 180, 228, 0.1) 100%
-  );
-  transition: all 0.3s ease-out;
-}
-
-
-@keyframes shadowMove {
-  0%, 100% {
-    transform: translateY(200px) scale(0.95);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translateY(25px) scale(0.9);
-    opacity: 0.3;
-  }
-}
-@keyframes containerHover {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-15px) scale(1.02);
-  }
-}
-
-.toucan-wrap {
-  transform-style: preserve-3d;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: none;
-  will-change: transform;
-  transform: rotateX(0deg) rotateY(0deg);
-}
-
-.polygon {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.2s ease-out;
-  cursor: none;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  will-change: transform;
-}
-
-.polygon:hover {
-  filter: brightness(1.2) saturate(1.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  transform: translateZ(calc(var(--hover-lift) + 20px)) !important;
-  z-index: 100;
-}
-
-.polygon.clicked {
-  animation: electricBorder 2s infinite linear;
-  z-index: 200;
-}
-
-@keyframes electricBorder {
-  0% {
-    box-shadow: 
-      0 0 10px currentColor,
-      0 0 20px currentColor,
-      0 0 40px rgba(84, 242, 242, 0.6),
-      0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-  50% {
-    box-shadow: 
-      0 0 15px currentColor,
-      0 0 30px currentColor,
-      0 0 60px rgba(168, 255, 62, 0.6),
-      0 15px 25px rgba(0, 0, 0, 0.4);
-  }
-  100% {
-    box-shadow: 
-      0 0 10px currentColor,
-      0 0 20px currentColor,
-      0 0 40px rgba(84, 242, 242, 0.6),
-      0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-}
-
-/* Fly-in animation */
-@keyframes flyIn {
-  0% {
-    opacity: 0;
-    transform: translate(0, -100vh) rotate(-180deg) scale(0) translateZ(var(--translateZ));
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0) scale(1) translateZ(var(--translateZ));
-  }
-}
-
-.fly-in {
-  animation: flyIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  opacity: 0;
-}
-
-/* Eye whites (sclera) */
-.polygon:nth-child(11),
-.polygon:nth-child(13) {
-  background-color: #FFFFFF !important;
-  z-index: 10;
-  transition: all 0.3s ease;
-}
-
-/* Eye pupils - normal state */
-.polygon:nth-child(12),
-.polygon:nth-child(14) {
-  background-color: var(--eye-pupil) !important;
-  z-index: 11;
-  transition: all 0.3s ease;
-}
-
-/* Dark mode - keep sclera white but slightly dimmed */
-.dark .polygon:nth-child(11),
-.dark .polygon:nth-child(13) {
-  background-color: #CCCCCC !important;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-/* Dark mode - make pupils red and glowing */
-.dark .polygon:nth-child(12),
-.dark .polygon:nth-child(14) {
-  background-color: #ff0000 !important;
-  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-  animation: glowingEyes 2s infinite ease-in-out;
-  opacity: 1;
-  z-index: 11;
-}
-
-/* Ensure other polygons don't interfere with eyes */
-.polygon:not(:nth-child(11), :nth-child(12), :nth-child(13), :nth-child(14)) {
-  z-index: 1;
-}
-
-/* Dark mode skeleton effect - excluding all eye parts */
-.dark .polygon:not(:nth-child(11), :nth-child(12), :nth-child(13), :nth-child(14)) {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
-              0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-@keyframes glowingEyes {
-  0%, 100% {
-    filter: brightness(1) blur(0px);
-    box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-  }
-  50% {
-    filter: brightness(1.5) blur(1px);
-    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-  }
-}
-
-/* Wing animations
-.polygon:nth-child(9) {
-  animation: flyIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards, leftWing 2s infinite ease-in-out;
-  --translateZ: 15px;
-}
-
-/* Remove the individual wing animations first, then add these to your globals.css */
-
-/* Create wing group containers */
-.wing-left,
-.wing-right {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  animation: flyIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-.wing-left {
-  animation: flyIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards, leftWing 2s infinite ease-in-out;
-}
-
-.wing-right {
-  animation: flyIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards, rightWing 2s infinite ease-in-out;
-}
-
-/* Update keyframes for unified movement */
-@keyframes leftWing {
-  0%, 100% { 
-    transform: rotateY(-15deg) rotateX(5deg) rotateZ(-5deg);
-  }
-  50% { 
-    transform: rotateY(25deg) rotateX(-10deg) rotateZ(5deg);
-  }
-}
-
-@keyframes rightWing {
-  0%, 100% { 
-    transform: rotateY(15deg) rotateX(5deg) rotateZ(5deg);
-  }
-  50% { 
-    transform: rotateY(-25deg) rotateX(-10deg) rotateZ(-5deg);
-  }
-}
-
-.polygon-shadow {
-  filter: blur(8px);
-  opacity: 0.15;
-  transform: scale(0.95) translateY(20px);
-}
-
-/* Enhanced wing movement */
-@keyframes leftWing {
-  0%, 100% { 
-    transform: rotateY(-15deg) rotateX(5deg) skewX(-5deg) translateX(-5px);
-  }
-  50% { 
-    transform: rotateY(25deg) rotateX(-10deg) skewX(5deg) translateX(5px);
-  }
-}
-
-@keyframes rightWing {
-  0%, 100% { 
-    transform: rotateY(15deg) rotateX(5deg) skewX(5deg) translateX(5px);
-  }
-  50% { 
-    transform: rotateY(-25deg) rotateX(-10deg) skewX(-5deg) translateX(-5px);
-  }
-}
-
-/* Enhanced hover effects */
-.toucan-container:hover .polygon {
-  transition: all 0.3s ease-out;
-}
-
-.toucan-container:hover .polygon:not([class*="wing"]) {
-  transform: translateZ(calc(var(--translateZ) + 5px));
-}
-
-/* Dark mode transformations */
-.dark .polygon {
-  filter: brightness(0.7) saturate(0) contrast(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Wing bones effect */
-.dark .polygon:nth-child(9),
-.dark .polygon:nth-child(10) {
-  background: 
-    linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.2) 45%, rgba(255, 255, 255, 0.2) 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, rgba(255, 255, 255, 0.2) 45%, rgba(255, 255, 255, 0.2) 55%, transparent 55%),
-    rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Enhanced shadow for dark mode */
-.dark .polygon-shadow {
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent 70%);
-  animation: darkShadowMove 2s infinite ease-in-out;
-}
-
-@keyframes darkShadowMove {
-  0%, 100% {
-    transform: scale(0.8, 0.15) translateY(350px) rotateX(45deg);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(0.7, 0.1) translateY(350px) rotateX(45deg);
-    opacity: 0.2;
-  }
-}
-
-.laser-beam {
-  position: fixed;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    rgba(255, 0, 0, 0.8) 0%,
-    rgba(255, 0, 0, 1) 50%,
-    rgba(255, 0, 0, 0.8) 100%
-  );
-  transform-origin: left center;
-  animation: laserFade 0.3s forwards;
-  z-index: 1000;
-  pointer-events: none;
-}
-
-@keyframes laserFade {
-  0% {
-    opacity: 1;
-    transform: rotate(var(--angle)) scaleX(1);
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(var(--angle)) scaleX(0.95);
-  }
-}
-
-.laser-beam {
-  position: fixed;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    rgba(255, 0, 0, 1) 0%,
-    rgba(255, 128, 128, 0.8) 50%,
-    rgba(255, 200, 200, 0.6) 100%
-  );
-  transform-origin: 0 50%;
-  opacity: 0;
-  animation: laserBeam 150ms ease-out forwards;
-  z-index: 100;
-  pointer-events: none;
-  will-change: transform;
-  box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
-}
-
-@keyframes laserBeam {
-  0% {
-    opacity: 0;
-    transform: scaleX(0) rotate(var(--angle));
-  }
-  20% {
-    opacity: 1;
-    transform: scaleX(1) rotate(var(--angle));
-  }
-  100% {
-    opacity: 0;
-    transform: scaleX(1) rotate(var(--angle));
-  }
-}
-
-/* Holographic animation */
-@keyframes holographic {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Floating animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.dark .carousel-card {
-  background: rgba(99, 102, 241, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(129, 140, 248, 0.2);
-  box-shadow: 0 4px 30px rgba(129, 140, 248, 0.1);
-}
-
-.dark .carousel-text {
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.dark .carousel-navigation {
-  background: rgba(99, 102, 241, 0.15);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(129, 140, 248, 0.3);
-}
-
-/* 3D Transform Utilities */
-.perspective {
-  perspective: 2000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
-
-/* Hover effect for card flip */
-.hover\:rotate-y-180:hover {
-  transform: rotateY(180deg);
-}
-
-/* Smooth shadow transition */
-.hover\:shadow-2xl:hover {
-  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
-}
-
-/* Add glow effect on hover */
-.hover\:rotate-y-180:hover::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(45deg, 
-    rgba(99, 102, 241, 0.3), 
-    rgba(129, 140, 248, 0.3), 
-    rgba(99, 102, 241, 0.3)
-  );
-  filter: blur(15px);
-  z-index: -1;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.hover\:rotate-y-180:hover::before {
-  opacity: 1;
-}
-
-/* Scale icon on hover */
-.group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
-}
-
-/* Card hover effect */
-.group:hover .group-hover\:rotate-y-180 {
-  transform: rotateY(180deg);
-}
-
-/* Smooth rotation transition */
-.transform-gpu {
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-/* Dark mode text utilities */
-.dark .text-base {
-  color: #f1f5f9;  /* Slate 100 */
-}
-
-.dark .text-muted {
-  color: #e2e8f0;  /* Slate 200 */
-}
-
-.dark .text-subtle {
-  color: #cbd5e1;  /* Slate 300 */
-}
-
-/* Ensure links are visible in dark mode */
-.dark a:not(.custom-link) {
-  color: #93c5fd;  /* Blue 300 */
-}
-
-.dark a:not(.custom-link):hover {
-  color: #bfdbfe;  /* Blue 200 */
-}
-
-/* Add text shadow for better contrast when needed */
-.dark .text-shadow {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Professional Spacing System */
+/* 5. Layout & Spacing */
 .main-content {
   max-width: 1440px;
   width: 100%;
@@ -825,19 +164,6 @@ body {
   padding: var(--space-4);
 }
 
-@media (min-width: 640px) {
-  .main-content {
-    padding: var(--space-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .main-content {
-    padding: var(--space-8);
-  }
-}
-
-/* Improved Container Spacing */
 .content-grid {
   display: grid;
   gap: var(--space-6);
@@ -845,38 +171,10 @@ body {
   max-width: 100%;
 }
 
-@media (min-width: 768px) {
-  .content-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-8);
-  }
-}
-
-@media (min-width: 1024px) {
-  .content-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-12);
-  }
-}
-
-/* Section Spacing */
 .section {
   margin: var(--space-12) 0;
 }
 
-@media (min-width: 768px) {
-  .section {
-    margin: var(--space-16) 0;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section {
-    margin: var(--space-20) 0;
-  }
-}
-
-/* Header Spacing */
 .header {
   position: fixed;
   top: 0;
@@ -889,44 +187,16 @@ body {
   padding: 0 var(--space-4);
 }
 
-@media (min-width: 640px) {
-  .header {
-    padding: 0 var(--space-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .header {
-    padding: 0 var(--space-8);
-  }
-}
-
-/* Card and Feature Spacing */
 .feature-card {
   padding: var(--space-6);
   margin-bottom: var(--space-4);
   border-radius: var(--radius);
 }
 
-@media (min-width: 768px) {
-  .feature-card {
-    padding: var(--space-8);
-    margin-bottom: var(--space-6);
-  }
-}
-
-/* Button Spacing */
 button {
   padding: var(--space-3) var(--space-6);
 }
 
-@media (min-width: 768px) {
-  button {
-    padding: var(--space-4) var(--space-8);
-  }
-}
-
-/* Text Spacing */
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: var(--space-4);
   line-height: 1.2;
@@ -937,7 +207,6 @@ p {
   line-height: 1.6;
 }
 
-/* List Spacing */
 ul, ol {
   margin: var(--space-4) 0;
   padding-left: var(--space-6);
@@ -945,4 +214,69 @@ ul, ol {
 
 li {
   margin-bottom: var(--space-2);
+}
+
+/* 6. Media Queries */
+@media (min-width: 640px) {
+  .main-content { padding: var(--space-6); }
+  .header { padding: 0 var(--space-6); }
+}
+
+@media (min-width: 768px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+  .section { margin: var(--space-16) 0; }
+  .feature-card {
+    padding: var(--space-8);
+    margin-bottom: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-content { padding: var(--space-8); }
+  .header { padding: 0 var(--space-8); }
+  .content-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+  }
+  .section { margin: var(--space-20) 0; }
+}
+
+/* 7. Utilities */
+@layer utilities {
+  /* Gradient backgrounds */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary-light;
+  }
+
+  /* Glow effects */
+  .glow {
+    @apply shadow-[0_0_20px_rgba(0,213,195,0.2)];
+  }
+
+  .glow-text {
+    @apply [text-shadow:0_0_10px_rgba(0,213,195,0.3)];
+  }
+
+  /* Dark mode text utilities */
+  .dark .text-base { color: #f1f5f9; }
+  .dark .text-muted { color: #e2e8f0; }
+  .dark .text-subtle { color: #cbd5e1; }
+  .dark .text-primary { color: #f8fafc !important; }
+  
+  /* Dark mode link styles */
+  .dark a:not(.custom-link) {
+    color: #93c5fd !important;
+  }
+  
+  .dark a:not(.custom-link):hover {
+    color: #bfdbfe !important;
+  }
+  
+  /* Dark mode contrast helpers */
+  .dark .text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
 }
