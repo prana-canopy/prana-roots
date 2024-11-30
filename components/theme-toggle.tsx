@@ -14,8 +14,19 @@ export function ThemeToggle() {
     setMounted(true)
   }, [])
 
+  // Show a placeholder button while mounting
   if (!mounted) {
-    return <div className="fixed top-8 right-8 w-9 h-9" />
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className="w-10 h-10 rounded-full bg-transparent 
+          transition-all duration-300 ease-in-out
+          opacity-50"
+      >
+        <div className="h-6 w-6 rounded-full bg-primary/50 animate-pulse" />
+      </Button>
+    )
   }
 
   return (

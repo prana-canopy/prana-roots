@@ -65,7 +65,7 @@ export default function RootLayout({
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#2ee89e" />
       </head>
       <body 
         className={`
@@ -75,6 +75,9 @@ export default function RootLayout({
           text-foreground 
           antialiased
           overflow-x-hidden
+          selection:bg-primary/20
+          selection:text-primary-dark
+          relative
         `}
       >
         <ThemeProvider
@@ -83,8 +86,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <ThemeToggle />
+          <main className="relative">
+            {children}
+          </main>
+          <div className="fixed bottom-4 right-4 z-50">
+            <ThemeToggle />
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>

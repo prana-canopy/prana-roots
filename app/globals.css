@@ -53,34 +53,34 @@
 
   /* 3. Dark Mode */
   .dark {
-    --background: #151515;  /* Darkest toucan feather */
-    --foreground: #FFFFFF;
+    --background: #000000;  /* Pure black */
+    --foreground: #F8F9F7;
     
     /* Component colors */
-    --card: #1a1a1a;  /* Medium feather tone */
-    --card-foreground: #FFFFFF;
-    --popover: #1a1a1a;
-    --popover-foreground: #FFFFFF;
+    --card: #0A0A0A;  /* Very slightly lighter black for cards */
+    --card-foreground: #F8F9F7;
+    --popover: #0A0A0A;
+    --popover-foreground: #F8F9F7;
     
     /* Brand colors - Night theme */
-    --primary: #1eebc3;  /* Brighter turquoise for dark mode */
+    --primary: #1eebc3;  /* Keep accent colors */
     --primary-light: #2ee89e;
     --primary-dark: #00b4e4;
-    --primary-foreground: #151515;
+    --primary-foreground: #000000;
     
     /* UI colors */
-    --secondary: #202020;  /* Medium-dark feather tone */
-    --secondary-foreground: #FFFFFF;
-    --muted: #252525;  /* Lightest feather tone */
-    --muted-foreground: #ffd700;  /* Golden yellow from face */
-    --accent: #00d5c3;  /* Turquoise accent */
-    --accent-foreground: #151515;
+    --secondary: #0A0A0A;  /* Very slightly lighter black */
+    --secondary-foreground: #F8F9F7;
+    --muted: #111111;  /* Slightly lighter black for muted areas */
+    --muted-foreground: #999999;  /* Neutral gray for muted text */
+    --accent: #00d5c3;
+    --accent-foreground: #000000;
     --destructive: #991B1B;
-    --destructive-foreground: #FFFFFF;
+    --destructive-foreground: #F8F9F7;
 
     /* Border and input styles */
-    --border: #202020;
-    --input: #202020;
+    --border: #0A0A0A;
+    --input: #0A0A0A;
     --ring: #1eebc3;
   }
 }
@@ -96,75 +96,6 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Dark mode background effects */
-.dark body {
-  background: linear-gradient(
-    to bottom,
-    rgba(5, 4, 23, 0.97) 0%,
-    rgba(12, 10, 43, 0.95) 50%,
-    rgba(30, 27, 75, 0.93) 100%
-  );
-  background-color: rgb(5, 4, 23);
-  position: relative;
-}
-
-.dark body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  background-image: 
-    radial-gradient(2px 2px at 5% 5%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-    radial-gradient(2.5px 2.5px at 15% 15%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 25% 25%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(2px 2px at 35% 35%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(2px 2px at 45% 45%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 55% 55%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(2.5px 2.5px at 65% 65%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 85% 85%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(2px 2px at 95% 95%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(2px 2px at 10% 50%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 30% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(2.5px 2.5px at 50% 90%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 70% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 90% 10%, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
-  animation: subtleTwinkle 8s ease-in-out infinite;
-}
-
-.dark body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  background-image: 
-    radial-gradient(2px 2px at 20% 40%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 40% 60%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(2.5px 2.5px at 60% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 80% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 0% 100%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-    radial-gradient(2px 2px at 100% 0%, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
-  animation: subtleTwinkle 6s ease-in-out infinite reverse;
-}
-
-.dark body > * {
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes subtleTwinkle {
-  0%, 100% { opacity: 0.85; }
-  50% { opacity: 1; }
 }
 
 /* 5. Layout & Spacing */
