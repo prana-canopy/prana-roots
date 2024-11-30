@@ -91,7 +91,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center gap-4">
-            <div className="w-10 h-10 flex items-center justify-center cursor-pointer">
+            <div className="w-10 h-10 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-200">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="41.28"
@@ -102,9 +102,7 @@ export function Navbar() {
                 {/* Your existing SVG paths */}
               </svg>
             </div>
-            <span 
-              className="text-2xl font-semibold tracking-wider hidden sm:inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark"
-            >
+            <span className="text-2xl font-semibold tracking-wider hidden sm:inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark hover:scale-105 transition-transform duration-200 cursor-pointer">
               Prana <em>Local</em>
             </span>
           </div>
@@ -116,12 +114,12 @@ export function Navbar() {
                 <div key={item.label} className="relative group">
                   <button
                     onClick={() => item.children && toggleDropdown(item.label)}
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200"
+                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200 hover:scale-105 group"
                   >
                     {item.label}
                     {item.children && (
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
+                        className={`w-4 h-4 transition-all duration-200 group-hover:text-primary ${
                           isDropdownOpen(item.label) ? 'rotate-180' : ''
                         }`}
                       />
@@ -130,19 +128,19 @@ export function Navbar() {
                   
                   {/* Dropdown Menu */}
                   {item.children && isDropdownOpen(item.label) && (
-                    <div className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg ring-1 ring-border/50 overflow-hidden">
+                    <div className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg ring-1 ring-border/50 overflow-hidden backdrop-blur-sm">
                       <div className="p-2">
                         {item.children.map((child) => (
                           <a
                             key={child.label}
                             href={child.href}
-                            className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors duration-200"
+                            className="block px-4 py-3 rounded-lg hover:bg-muted transition-all duration-200 hover:scale-[1.02] hover:shadow-sm group"
                           >
-                            <p className="text-sm font-medium text-foreground">
+                            <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-200">
                               {child.label}
                             </p>
                             {child.description && (
-                              <p className="mt-1 text-sm text-muted-foreground">
+                              <p className="mt-1 text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-200">
                                 {child.description}
                               </p>
                             )}
@@ -155,19 +153,23 @@ export function Navbar() {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <button className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md hover:scale-105">
+              <button className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md hover:scale-110 hover:rotate-1">
                 Get Started
               </button>
-              <ThemeToggle />
+              <div className="hover:scale-110 transition-transform duration-200">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center lg:hidden gap-4">
-            <ThemeToggle />
+            <div className="hover:scale-110 transition-transform duration-200">
+              <ThemeToggle />
+            </div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 hover:scale-110 transition-all duration-200"
             >
               {isMobileMenuOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
@@ -187,12 +189,12 @@ export function Navbar() {
               <div key={item.label} className="space-y-1">
                 <button
                   onClick={() => item.children && toggleDropdown(item.label)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary"
+                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group"
                 >
                   {item.label}
                   {item.children && (
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
+                      className={`w-4 h-4 transition-all duration-200 group-hover:text-primary ${
                         isDropdownOpen(item.label) ? 'rotate-180' : ''
                       }`}
                     />
@@ -206,13 +208,13 @@ export function Navbar() {
                       <a
                         key={child.label}
                         href={child.href}
-                        className="block px-3 py-2 text-base font-medium text-foreground/70 hover:text-primary"
+                        className="block px-3 py-2 text-base font-medium text-foreground/70 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group"
                       >
-                        <p className="text-sm font-medium">
+                        <p className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-200">
                           {child.label}
                         </p>
                         {child.description && (
-                          <p className="mt-1 text-xs text-muted-foreground">
+                          <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground/70 group-hover:translate-x-1 transition-all duration-200">
                             {child.description}
                           </p>
                         )}
@@ -223,7 +225,7 @@ export function Navbar() {
               </div>
             ))}
             <div className="pt-4">
-              <button className="w-full px-4 py-2 text-base font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md">
+              <button className="w-full px-4 py-2 text-base font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md hover:scale-105 hover:rotate-1">
                 Get Started
               </button>
             </div>

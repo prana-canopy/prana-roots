@@ -19,58 +19,69 @@
 @layer base {
   :root {
     /* Base theme colors */
-    --background: #ffffff;
-    --foreground: #1e1b4b;
+    --background: #FFFFFF;
+    --foreground: #151515;  /* Toucan's darkest feather color */
 
     /* Component colors */
-    --card: #ffffff;
-    --card-foreground: #1e1b4b;
-    --popover: #ffffff;
-    --popover-foreground: #1e1b4b;
+    --card: #FFFFFF;
+    --card-foreground: #151515;
+    --popover: #FFFFFF;
+    --popover-foreground: #151515;
     
-    /* Brand colors */
-    --primary: #00D5C3;
-    --primary-light: #1EEBC3;
-    --primary-dark: #00A89D;
-    --primary-foreground: #ffffff;
+    /* Brand colors - Toucan inspired */
+    --primary: #2ee89e;  /* Vibrant toucan beak green */
+    --primary-light: #1eebc3;  /* Light turquoise from beak */
+    --primary-dark: #00b4e4;  /* Deep turquoise from beak */
+    --primary-foreground: #FFFFFF;
     
-    /* UI colors */
-    --secondary: #f3f4ff;
-    --secondary-foreground: #312e81;
-    --muted: #f3f4ff;
-    --muted-foreground: #6366f1;
-    --accent: #f3f4ff;
-    --accent-foreground: #312e81;
-    --destructive: #ef4444;
-    --destructive-foreground: #f9fafb;
+    /* UI colors - Toucan palette */
+    --secondary: #fff06e;  /* Bright yellow from face */
+    --secondary-foreground: #151515;
+    --muted: #ffe566;  /* Softer yellow from face */
+    --muted-foreground: #252525;  /* Lighter feather tone */
+    --accent: #00d5c3;  /* Turquoise accent from beak */
+    --accent-foreground: #FFFFFF;
+    --destructive: #DC2626;
+    --destructive-foreground: #FFFFFF;
 
     /* Border and input styles */
-    --border: #e0e7ff;
-    --input: #e0e7ff;
-    --ring: #4338ca;
+    --border: #E5E7EB;
+    --input: #E5E7EB;
+    --ring: #2ee89e;
     --radius: 0.5rem;
   }
 
   /* 3. Dark Mode */
   .dark {
-    --background: #0F1117;
-    --foreground: #f8fafc;
-    --card: #0c0a2b;
-    --card-foreground: #ffffff;
-    --popover: #0c0a2b;
-    --popover-foreground: #ffffff;
-    --primary-foreground: #ffffff;
-    --secondary: #1e1b4b;
-    --secondary-foreground: #f1f5f9;
-    --muted: #1e1b4b;
-    --muted-foreground: #e2e8f0;
-    --accent: #1e1b4b;
-    --accent-foreground: #f1f5f9;
-    --destructive: #7f1d1d;
-    --destructive-foreground: #f1f5f9;
-    --border: #1e1b4b;
-    --input: #1e1b4b;
-    --ring: #4338ca;
+    --background: #151515;  /* Darkest toucan feather */
+    --foreground: #FFFFFF;
+    
+    /* Component colors */
+    --card: #1a1a1a;  /* Medium feather tone */
+    --card-foreground: #FFFFFF;
+    --popover: #1a1a1a;
+    --popover-foreground: #FFFFFF;
+    
+    /* Brand colors - Night theme */
+    --primary: #1eebc3;  /* Brighter turquoise for dark mode */
+    --primary-light: #2ee89e;
+    --primary-dark: #00b4e4;
+    --primary-foreground: #151515;
+    
+    /* UI colors */
+    --secondary: #202020;  /* Medium-dark feather tone */
+    --secondary-foreground: #FFFFFF;
+    --muted: #252525;  /* Lightest feather tone */
+    --muted-foreground: #ffd700;  /* Golden yellow from face */
+    --accent: #00d5c3;  /* Turquoise accent */
+    --accent-foreground: #151515;
+    --destructive: #991B1B;
+    --destructive-foreground: #FFFFFF;
+
+    /* Border and input styles */
+    --border: #202020;
+    --input: #202020;
+    --ring: #1eebc3;
   }
 }
 
