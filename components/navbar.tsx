@@ -18,19 +18,19 @@ const navigationItems: NavItem[] = [
     href: "#",
     children: [
       {
-        label: "Analytics Platform",
-        href: "/solutions/analytics",
-        description: "Powerful insights for your business"
+        label: "Data & Analytics",
+        href: "/solutions/data",
+        description: "BI, ML, data pipelines, visualization & insights"
       },
       {
-        label: "Integration Tools",
-        href: "/solutions/integration",
-        description: "Seamlessly connect your systems"
+        label: "Development",
+        href: "/solutions/development",
+        description: "Web, mobile, desktop & full-stack solutions"
       },
       {
-        label: "Security Suite",
-        href: "/solutions/security",
-        description: "Enterprise-grade protection"
+        label: "Design & UX",
+        href: "/solutions/design",
+        description: "UI/UX, branding & digital experience design"
       }
     ]
   },
@@ -39,29 +39,29 @@ const navigationItems: NavItem[] = [
     href: "#",
     children: [
       {
-        label: "Consulting",
-        href: "/services/consulting",
-        description: "Expert guidance and support"
+        label: "Tech Strategy",
+        href: "/services/strategy",
+        description: "From concept to scalable architecture"
       },
       {
-        label: "Implementation",
-        href: "/services/implementation",
-        description: "Seamless deployment solutions"
+        label: "Custom Solutions",
+        href: "/services/custom",
+        description: "Tailored tech for your unique challenges"
       },
       {
-        label: "Training",
-        href: "/services/training",
-        description: "Comprehensive learning programs"
+        label: "Digital Growth",
+        href: "/services/growth",
+        description: "Modernize & scale your local business"
       }
     ]
   },
   {
-    label: "About",
-    href: "/about"
+    label: "Success Stories",
+    href: "/stories"
   },
   {
-    label: "Contact",
-    href: "/contact"
+    label: "Connect",
+    href: "/connect"
   }
 ];
 
