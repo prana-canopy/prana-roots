@@ -94,10 +94,10 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo Section */}
-          <div className="flex-shrink-0 flex items-center gap-4">
+          <div className="flex-shrink-0 flex items-center gap-2 sm:gap-4">
             <div 
               onClick={scrollToTop}
-              className="w-24 h-12 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200"
+              className="w-16 sm:w-24 h-8 sm:h-12 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200"
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -157,7 +157,7 @@ export function Navbar() {
             </div>
             <span 
               onClick={scrollToTop} 
-              className="text-2xl font-semibold tracking-wider hidden sm:inline-block text-foreground hover:text-primary transition-colors duration-200 cursor-pointer relative group"
+              className="text-lg sm:text-2xl font-semibold tracking-wider text-foreground hover:text-primary transition-colors duration-200 cursor-pointer relative group"
             >
               Prana <em>Local</em>
               <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
@@ -220,7 +220,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center lg:hidden gap-4">
+          <div className="flex items-center lg:hidden gap-2 sm:gap-4">
             <div className="hover:scale-110 transition-transform duration-200">
               <ThemeToggle />
             </div>

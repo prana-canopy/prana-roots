@@ -19,57 +19,54 @@ const PortfolioSection = () => {
 
   const projects = [
     {
-      title: "Pinky's Up Social",
-      type: "Social Platform",
-      image: "/api/placeholder/800/600",
-      description: "A modern social platform for mocktail enthusiasts, featuring real-time updates and interactive recipes.",
+      title: "Digital Wellness Platform",
+      type: "Web Application",
+      image: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=800&q=80",
+      description: "A comprehensive platform helping users track and improve their digital well-being.",
       metrics: {
         performance: 98,
         accessibility: 100,
-        seo: 96
+        seo: 100
       },
-      tags: ["React", "Next.js", "Tailwind CSS", "Real-time Data"],
+      tags: ["React", "Node.js", "MongoDB"],
       features: [
         "Interactive Recipe Builder",
         "Social Sharing",
-        "Real-time Comments",
-        "Mobile-First Design"
+        "Real-time Updates"
       ]
     },
     {
-      title: "EcoTech Dashboard",
-      type: "Data Visualization",
-      image: "/api/placeholder/800/600",
-      description: "Environmental impact tracking dashboard with custom D3.js visualizations and real-time data updates.",
+      title: "Mindfulness Analytics",
+      type: "Data Analytics",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+      description: "Advanced analytics dashboard for tracking mindfulness and meditation progress.",
       metrics: {
         performance: 95,
         accessibility: 98,
-        seo: 94
+        seo: 98
       },
-      tags: ["D3.js", "React", "Node.js", "WebSocket"],
+      tags: ["Vue.js", "Python", "TensorFlow"],
       features: [
         "Real-time Data Streaming",
         "Custom Visualizations",
-        "Interactive Filters",
-        "Export Capabilities"
+        "Predictive Analytics"
       ]
     },
     {
-      title: "Mindful Cafe",
-      type: "Business Website",
-      image: "/api/placeholder/800/600",
-      description: "A nature-inspired website for a local eco-friendly cafe, featuring online ordering and sustainability metrics.",
+      title: "Eco-Tech Solutions",
+      type: "Enterprise Solution",
+      image: "https://images.unsplash.com/photo-1536147210925-5cb7a4a4f63b?auto=format&fit=crop&w=800&q=80",
+      description: "Sustainable technology solutions for environmentally conscious businesses.",
       metrics: {
         performance: 97,
         accessibility: 100,
-        seo: 98
+        seo: 99
       },
-      tags: ["Next.js", "Framer Motion", "Stripe", "CMS"],
+      tags: ["Next.js", "GraphQL", "AWS"],
       features: [
         "Online Ordering System",
         "Sustainability Tracker",
-        "Event Calendar",
-        "Newsletter Integration"
+        "Resource Management"
       ]
     }
   ];
@@ -215,8 +212,7 @@ const PortfolioSection = () => {
               key={index}
               onClick={() => setActiveProject(index)}
               className={`flex-shrink-0 w-72 rounded-xl overflow-hidden transition-all duration-300
-                ${activeProject === index ? 'ring-2 ring-[var(--frozen-turquoise)]' : 'opacity-60 hover:opacity-80'}
-              `}
+                ${activeProject === index ? 'ring-2 ring-[var(--frozen-turquoise)]' : 'opacity-60 hover:opacity-80'}`}
             >
               <div className="aspect-[4/3]">
                 <img 

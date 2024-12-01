@@ -23,26 +23,26 @@ const InsightsSection = () => {
 
   const articles = [
     {
-      title: "The Future of Data Visualization in Web Development",
+      title: "The Future of Digital Wellness",
       excerpt: "Exploring how interactive data visualization is transforming user experiences and decision-making processes.",
       category: "data",
       readTime: "5 min",
-      image: "/api/placeholder/600/400",
+      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80",
       featured: true
     },
     {
-      title: "Building Sustainable Digital Solutions",
+      title: "Mindful Technology Integration",
       excerpt: "How eco-friendly web development practices can reduce carbon footprint while maintaining performance.",
       category: "sustainability",
       readTime: "4 min",
-      image: "/api/placeholder/600/400"
+      image: "https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=600&q=80"
     },
     {
-      title: "Modern Web Development Best Practices",
-      excerpt: "Key principles and techniques for creating efficient, scalable web applications in 2024.",
+      title: "Sustainable Tech Practices",
+      excerpt: "Modern approaches to building scalable and maintainable web applications.",
       category: "development",
       readTime: "6 min",
-      image: "/api/placeholder/600/400"
+      image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
     }
   ];
 
