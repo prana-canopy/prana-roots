@@ -11,24 +11,20 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    title: "Enterprise-Grade Solutions",
-    description: "Access powerful tools and technologies typically reserved for large enterprises",
-    cta: "Explore Solutions"
+    title: "Local SEO Mastery",
+    description: "Dominate local search results and attract more customers from your community with targeted optimization."
   },
   {
-    title: "Local Support",
-    description: "Get personalized support from our local team of experts",
-    cta: "Contact Team"
+    title: "Digital Storefront",
+    description: "Convert browsers into buyers with a stunning, mobile-first website that showcases your local brand."
   },
   {
-    title: "Scalable Platform",
-    description: "Grow your business with solutions that scale with your needs",
-    cta: "View Options"
+    title: "Smart Analytics",
+    description: "Make data-driven decisions with real-time insights into your local customer behavior and trends."
   },
   {
-    title: "Data Security",
-    description: "Keep your business data secure with enterprise-level security measures",
-    cta: "Learn More"
+    title: "Community Connect",
+    description: "Build lasting relationships with automated social media and review management tools."
   }
 ];
 
@@ -116,14 +112,14 @@ export default function Hero() {
             <div className="space-y-6 relative backdrop-blur-sm lg:backdrop-blur-none bg-background/50 lg:bg-transparent rounded-2xl lg:rounded-none p-6 lg:p-0">
               <div className="absolute -left-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-primary/70 text-transparent bg-clip-text leading-[1.1] relative">
-                Elevate Your Digital Presence
+                Accelerate Your Local Business Growth
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground relative">
-                Transform your online presence with our cutting-edge web solutions. We specialize in creating stunning, high-performance websites that drive results.
+                Transform your local presence into digital dominance. We empower small businesses with cutting-edge tech solutions that drive real community engagement and revenue growth.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg text-lg font-medium transition-colors">
-                  Get Started
+                  Boost Your Business
                 </button>
               </div>
             </div>
