@@ -85,7 +85,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full mt-24 overflow-hidden">
+    <section className="relative w-full mt-12 sm:mt-24 overflow-hidden">
       {/* Background with grid */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
       
@@ -112,7 +112,7 @@ export default function Hero() {
         {/* Content Grid */}
         <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[calc(100vh-80px)]">
           {/* Main Content - Takes up more space */}
-          <div className="lg:col-span-7 xl:col-span-6 space-y-8 pt-8 lg:pt-0">
+          <div className="lg:col-span-7 xl:col-span-6 space-y-8 pt-4 sm:pt-8 lg:pt-0">
             <div className="space-y-6 relative backdrop-blur-sm lg:backdrop-blur-none bg-background/50 lg:bg-transparent rounded-2xl lg:rounded-none p-6 lg:p-0">
               <div className="absolute -left-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-primary/70 text-transparent bg-clip-text leading-[1.1] relative">
