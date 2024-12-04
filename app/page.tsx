@@ -1,11 +1,9 @@
 'use client';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme } from 'next-themes';
 import RotatingCarousel from '@/components/rotating-carousel';
 import { Navbar } from '@/components/navbar';
-import { Toucan } from '@/components/toucan';
-import AnimatedToucan from '../components/toucan-poly';
 import ServicesSection from '@/components/services';
 import WhyChooseSection from '@/components/why-choose';
 import ProcessSection from '@/components/our-process';
@@ -15,6 +13,7 @@ import ContactSection from '@/components/contact';
 import FAQSection from '@/components/faq';
 import InsightsSection from '@/components/insights';
 import AboutSection from '@/components/about';
+import Hero from '@/components/hero';
 
 interface Feature {
   title: string;
@@ -47,192 +46,18 @@ const features: Feature[] = [
 ];
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const toucanRef = useRef<HTMLDivElement>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { resolvedTheme: theme } = useTheme();
 
-  // Consolidated load effect
   useEffect(() => {
     const timer = setTimeout(() => setIsInitialLoad(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Optimized toucan animation
-  useEffect(() => {
-    const container = containerRef.current;
-    const toucan = toucanRef.current;
-    if (!container || !toucan) return;
-
-    let bounds = container.getBoundingClientRect();
-    let mouseX = bounds.left + bounds.width / 2;
-    let mouseY = bounds.top + bounds.height / 2;
-    let currentRotateX = 0;
-    let currentRotateY = 0;
-    let targetRotateX = 0;
-    let targetRotateY = 0;
-    let animationFrameId: number;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      bounds = container.getBoundingClientRect();
-      const centerX = bounds.left + bounds.width / 2;
-      const centerY = bounds.top + bounds.height / 2;
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      targetRotateY = ((mouseX - centerX) / (window.innerWidth / 2)) * 25;
-      targetRotateX = ((mouseY - centerY) / (window.innerHeight / 2)) * -25;
-    };
-
-    const animate = () => {
-      currentRotateX += (targetRotateX - currentRotateX) * 0.1;
-      currentRotateY += (targetRotateY - currentRotateY) * 0.1;
-
-      toucan.style.transform = `
-        rotateX(${currentRotateX}deg) 
-        rotateY(${currentRotateY}deg)
-      `;
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    animationFrameId = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const calculateRotation = useCallback((mouseX: number, mouseY: number) => {
-    if (toucanRef.current) {
-      const toucanRect = toucanRef.current.getBoundingClientRect();
-      const toucanCenterX = toucanRect.left + toucanRect.width / 2;
-      const toucanCenterY = toucanRect.top + toucanRect.height / 2;
-
-      const dx = mouseX - toucanCenterX;
-      const dy = mouseY - toucanCenterY;
-
-      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-      return Math.max(-25, Math.min(25, angle));
-    }
-    return 0;
-  }, []);
-
-  const isThemeToggleClick = useCallback((e: MouseEvent) => {
-    const target = e.target as Element;
-    return !!(
-      target.closest('.theme-toggle') ||
-      target.closest('button[aria-label="Toggle theme"]') ||
-      target.closest('svg')
-    );
-  }, []);
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       <Navbar />
-      {/* Hero Section */}
-      <div className="
-        relative w-full max-w-7xl mx-auto 
-        px-4 sm:px-6 lg:px-8 
-        min-h-[80vh] 
-        flex flex-col justify-center
-        pt-24 lg:pt-32
-      ">
-        {/* Toucan Container - Improved responsive positioning */}
-        <div className="
-          absolute 
-          right-[-20px] sm:right-[40px] md:right-[40px] lg:right-00  // Adjusted right positioning
-          top-1/2 transform -translate-y-1/3
-          w-[150px] sm:w-[500px] md:w-[600px] lg:w-[800px]  // Further increased base width
-          pointer-events-none
-          overflow-visible  // Allow overflow for animation
-        ">
-          <div className="
-            relative
-            transform-gpu
-            scale-[0.7] sm:scale-[0.8] md:scale-[0.9] lg:scale-[1.75]  // Further increased initial scales
-          ">
-            {/* <Toucan 
-              scale={1}
-              enableEyeTracking 
-              className="
-                transform 
-                transition-all duration-500
-                hover:scale-[1.05]
-              "
-            /> */}
-            <AnimatedToucan />
-          </div>
-        </div>
-
-        {/* Text Content - Adjusted max-width for better spacing */}
-        <div className="relative z-10 max-w-[100%] sm:max-w-[80%] md:max-w-[650px]">
-          <h1 className="
-            text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
-            font-bold leading-tight
-            text-transparent bg-clip-text
-            bg-gradient-to-r from-primary to-primary-dark
-          ">
-            Empowering Businesses with{' '}
-            <span className="
-            ">
-              Nature-Inspired Innovation
-            </span>
-          </h1>
-
-          <p className="
-            mt-6 
-            text-base sm:text-lg md:text-xl
-            text-gray-300
-            max-w-[100%] sm:max-w-[500px]
-            leading-relaxed
-            metallic-shine
-          ">
-            Prana's local branch offers boutique-quality websites and data solutions, integrating technology and nature. Our services empower businesses with security and innovation, fostering growth and sustainability.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            {/* Update button colors */}
-            <button className="
-            px-8 py-4
-            bg-gradient-to-r from-[var(--primary)] to-[var(--accent-green)]
-            text-white font-semibold 
-            rounded-full 
-            shadow-lg hover:shadow-xl 
-            transition-all duration-300
-            hover:scale-105
-            glow
-          ">
-              Explore Solutions
-            </button>
-            <button className="
-            px-8 py-4
-            border-2 border-[var(--primary)]
-            text-[var(--primary)]
-            hover:bg-gradient-to-r hover:from-[var(--primary)] hover:to-[var(--accent-green)]
-            font-semibold 
-            rounded-full 
-            transition-all duration-300
-            hover:text-white
-          ">
-              Learn More
-            </button>
-          </div>
-        </div>
-      </div>
-
+      <Hero />
       {/* Rotating Carousel */}
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <RotatingCarousel />

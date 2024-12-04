@@ -84,20 +84,28 @@ const AnimatedToucan = () => {
   ];
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-8">
-      <div className="relative w-full max-w-3xl">
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="relative w-full max-w-4xl">
         <div className="absolute inset-0 bg-[#00D5C3] opacity-5 blur-3xl rounded-full" />
-        <motion.div animate={floatingAnimation} className="w-full">
-          <svg viewBox="0 0 500 500" className="w-full relative z-10">
+        <motion.div 
+          animate={floatingAnimation} 
+          className="w-full"
+        >
+          <motion.svg 
+            viewBox="0 0 500 500" 
+            className="w-full relative z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             {mainPaths.map((path, index) => (
               <motion.path
                 key={index}
                 d={path.d}
                 fill={path.fill}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1,
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
                   ...((shimmering === index) ? shimmerAnimation : {})
                 }}
                 transition={{ duration: 0.6, delay: index * 0.01, ease: [0.43, 0.13, 0.23, 0.96] }}
@@ -172,7 +180,7 @@ const AnimatedToucan = () => {
                 style={{ transformOrigin: "300px 147px", filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))" }}
               />
             ))}
-          </svg>
+          </motion.svg>
         </motion.div>
       </div>
     </div>
