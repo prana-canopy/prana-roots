@@ -11,20 +11,20 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    title: "Local SEO Mastery",
-    description: "Dominate local search results and attract more customers from your community with targeted optimization."
+    title: "Technical Excellence",
+    description: "Bringing enterprise-grade engineering expertise to create solutions that scale with your ambitions."
   },
   {
-    title: "Digital Storefront",
-    description: "Convert browsers into buyers with a stunning, mobile-first website that showcases your local brand."
+    title: "Creative Vision",
+    description: "Thoughtfully crafted digital experiences that resonate with your audience and elevate your brand."
   },
   {
-    title: "Smart Analytics",
-    description: "Make data-driven decisions with real-time insights into your local customer behavior and trends."
+    title: "Strategic Growth",
+    description: "Data-driven strategies and solutions that consistently deliver meaningful results for your business."
   },
   {
-    title: "Community Connect",
-    description: "Build lasting relationships with automated social media and review management tools."
+    title: "Proven Expertise",
+    description: "Years of experience solving complex technical challenges, now focused on empowering local businesses."
   }
 ];
 
@@ -90,11 +90,11 @@ export default function Hero() {
         {/* Floating Toucan Container - Positioned absolutely */}
         <div 
           ref={containerRef} 
-          className="absolute top-12 lg:top-1/2 left-1/2 -translate-x-1/2 lg:left-auto lg:right-0 lg:-translate-x-0 lg:-translate-y-1/2 
-                     w-screen lg:w-[800px] h-screen lg:h-[800px] xl:w-[900px] xl:h-[900px] 
+          className="absolute top-12 lg:top-0 left-1/2 -translate-x-1/2 lg:left-auto lg:right-0 lg:-translate-x-[5%]
+                     w-screen lg:w-[800px] h-screen lg:h-[800px] xl:w-[900px] xl:h-[900px] 2xl:w-[1000px] 2xl:h-[1000px]
                      transform-gpu pointer-events-none
                      opacity-15 lg:opacity-90 transition-opacity duration-300
-                     flex items-start lg:items-center justify-center"
+                     flex items-start lg:items-start justify-center"
           style={{ willChange: 'transform' }}
         >
           <div 
@@ -106,36 +106,35 @@ export default function Hero() {
         </div>
 
         {/* Content Grid */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[calc(100vh-80px)]">
-          {/* Main Content - Takes up more space */}
-          <div className="lg:col-span-7 xl:col-span-6 space-y-8 pt-4 sm:pt-8 lg:pt-0">
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-start min-h-[calc(100vh-80px)]">
+          {/* Main Content */}
+          <div className="space-y-8 pt-4 sm:pt-8 lg:pt-12">
             <div className="space-y-6 relative backdrop-blur-sm lg:backdrop-blur-none bg-background/50 lg:bg-transparent rounded-2xl lg:rounded-none p-6 lg:p-0">
               <div className="absolute -left-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-primary/70 text-transparent bg-clip-text leading-[1.1] relative">
-                Accelerate Your Local Business Growth
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-sky-300 text-transparent bg-clip-text leading-[1.1] pb-1 relative">
+                Crafted with Purpose.<br/>
+                <span className="inline-block mt-1">Built for Growth.</span>
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground relative">
-                Transform your local presence into digital dominance. We empower small businesses with cutting-edge tech solutions that drive real community engagement and revenue growth.
+                Deep technical expertise meets genuine creative vision. We build sophisticated digital solutions that help ambitious local businesses thrive in the modern landscape.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg text-lg font-medium transition-colors">
-                  Boost Your Business
+                <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg text-lg 
+                  font-medium transition-colors cursor-pointer">
+                  Start Your Journey
                 </button>
               </div>
             </div>
 
-            {/* Features Grid - Spans full width on mobile, partial on desktop */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative">
-              <div className="absolute -right-24 bottom-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+            {/* Features Grid - Mobile Only */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative lg:hidden">
               {features.map((feature, index) => (
                 <div 
                   key={index} 
-                  className="
-                    p-6 rounded-xl border bg-background/80 backdrop-blur-sm
+                  className="p-6 rounded-xl bg-background/80 backdrop-blur-sm
                     hover:bg-background/90 transition-colors duration-200
                     shadow-sm hover:shadow-md
-                    relative z-10
-                  "
+                    relative z-10 cursor-pointer"
                 >
                   <h3 className="font-semibold mb-2 text-lg">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.description}</p>
@@ -144,8 +143,78 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Spacer for Toucan overlap - only visible on large screens */}
-          <div className="hidden lg:block lg:col-span-5 xl:col-span-6 relative min-h-[600px]"></div>
+          {/* Features Grid - Desktop Only */}
+          <div className="hidden lg:block relative">
+            <div className="relative mt-[15%] pr-12">
+              {features.map((feature, index) => {
+                const positions = [
+                  "left-0 top-0",
+                  "left-[50%] top-0",
+                  "left-0 top-[60%]",
+                  "left-[50%] top-[60%]"
+                ];
+                
+                return (
+                  <div 
+                    key={index} 
+                    className={`absolute ${positions[index]} w-[280px] group
+                      transition-transform duration-300 ease-out hover:z-10`}
+                  >
+                    <div className="relative bg-background/60 backdrop-blur-md 
+                      rounded-xl shadow-sm
+                      hover:bg-background/80 hover:shadow-md
+                      transition-all duration-300 cursor-pointer">
+                      
+                      {/* Content */}
+                      <div className="p-5 min-h-[100px] select-none">
+                        {/* The title that shows by default */}
+                        <h3 className="font-medium text-lg text-foreground/90 
+                          transition-colors duration-300 group-hover:opacity-0">
+                          {feature.title}
+                        </h3>
+                        
+                        {/* Description with integrated title */}
+                        <div className="absolute inset-0 rounded-xl bg-background/95 
+                          opacity-0 group-hover:opacity-100 transition-all duration-300
+                          flex items-center p-5">
+                          <p className="text-sm text-foreground/90 leading-relaxed">
+                            {feature.title === "Technical Excellence" && (
+                              <>
+                                Our <span className="font-medium text-primary">Technical Excellence</span> drives 
+                                innovation through enterprise-grade engineering practices and cutting-edge solutions.
+                              </>
+                            )}
+                            {feature.title === "Creative Vision" && (
+                              <>
+                                With a clear <span className="font-medium text-primary">Creative Vision</span>, we 
+                                craft digital experiences that captivate and convert.
+                              </>
+                            )}
+                            {feature.title === "Strategic Growth" && (
+                              <>
+                                Focused on <span className="font-medium text-primary">Strategic Growth</span>, we 
+                                align technology with your business objectives for lasting success.
+                              </>
+                            )}
+                            {feature.title === "Proven Expertise" && (
+                              <>
+                                Our <span className="font-medium text-primary">Proven Expertise</span> in digital 
+                                transformation helps local businesses thrive in the modern landscape.
+                              </>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Minimal accent line */}
+                      <div className="absolute left-0 bottom-0 w-0 h-[2px] bg-primary/50
+                        group-hover:w-full transition-all duration-300" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
