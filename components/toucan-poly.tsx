@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 const AnimatedToucan = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isWingFluttering, setIsWingFluttering] = useState(false);
   const [shimmering, setShimmering] = useState(null);
+  const { resolvedTheme: theme } = useTheme();
 
   const floatingAnimation = {
     y: [-5, 5, -5],

@@ -101,7 +101,7 @@ export default function Hero() {
             ref={toucanRef} 
             className="w-[90vw] h-[90vw] sm:w-[70vw] sm:h-[70vw] lg:w-full lg:h-full"
           >
-            <AnimatedToucan theme={theme || 'dark'} />
+            <AnimatedToucan />
           </div>
         </div>
 
@@ -165,6 +165,7 @@ export default function Hero() {
                       hover:bg-background/80 hover:shadow-md
                       transition-all duration-300 cursor-pointer">
                       
+
                       {/* Content */}
                       <div className="p-5 min-h-[100px] select-none">
                         {/* The title that shows by default */}
