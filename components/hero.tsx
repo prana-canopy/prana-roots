@@ -1,117 +1,129 @@
 'use client';
-import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
 import AnimatedToucan from './toucan-poly';
-
-interface Feature {
-  title: string;
-  description: string;
-  cta?: string;
-}
-
-const features: Feature[] = [
-  {
-    title: "Technical Excellence",
-    description: "Bringing enterprise-grade engineering expertise to create solutions that scale with your ambitions."
-  },
-  {
-    title: "Creative Vision",
-    description: "Thoughtfully crafted digital experiences that resonate with your audience and elevate your brand."
-  },
-  {
-    title: "Strategic Growth",
-    description: "Data-driven strategies and solutions that consistently deliver meaningful results for your business."
-  },
-  {
-    title: "Proven Expertise",
-    description: "Years of experience solving complex technical challenges, now focused on empowering local businesses."
-  }
-];
+import { features } from '@/lib/constants';
 
 export default function Hero() {
-  const { resolvedTheme: theme } = useTheme();
-
   return (
-    <section className="relative w-full mt-12 sm:mt-24 overflow-hidden">
-      {/* Background with grid */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+    <section className="relative w-full min-h-[calc(100vh-5rem)] mt-20 overflow-hidden">
+      {/* Sophisticated Background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,226,132,0.1),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 2 }}
+          className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,rgba(255,255,255,0.1),transparent)]"
+        />
+      </div>
       
       {/* Main Hero Content */}
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-80px)]">
-        {/* Floating Toucan Container */}
-        <div className="absolute top-12 lg:top-0 left-1/2 -translate-x-1/2 lg:left-auto lg:right-[15%] lg:-translate-x-0
-                     w-screen lg:w-[600px] h-screen lg:h-[600px] xl:w-[700px] xl:h-[700px] 2xl:w-[800px] 2xl:h-[800px]
-                     transform-gpu pointer-events-none
-                     opacity-15 lg:opacity-90 transition-opacity duration-300
-                     flex items-start lg:items-start justify-center">
-          <div className="w-[90vw] h-[90vw] sm:w-[70vw] sm:h-[70vw] lg:w-full lg:h-full">
-            <AnimatedToucan />
-          </div>
-        </div>
-
-        {/* Content Grid */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] gap-8 items-start min-h-[calc(100vh-80px)]">
-          {/* Main Content */}
-          <div className="space-y-8 pt-4 sm:pt-8 lg:pt-12">
-            <div className="space-y-6 relative backdrop-blur-sm lg:backdrop-blur-none bg-background/50 lg:bg-transparent rounded-2xl lg:rounded-none p-6 lg:p-0">
-              <div className="absolute -left-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-sky-300 text-transparent bg-clip-text leading-[1.1] pb-1 relative">
-                Crafted with Purpose.<br/>
-                <span className="inline-block mt-1">Built for Growth.</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground relative max-w-xl">
-                Deep technical expertise meets genuine creative vision. We build sophisticated digital solutions that help ambitious local businesses thrive in the modern landscape.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg text-lg 
-                  font-medium transition-colors cursor-pointer">
-                  Start Your Journey
-                </button>
+      <div className="relative w-full max-w-[1920px] mx-auto h-[calc(100vh-5rem)] flex items-center justify-center">
+        <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center px-6">
+          {/* Left Content */}
+          <div className="flex flex-col items-center lg:items-end justify-center lg:w-[70%] z-10 lg:h-full lg:py-[15vh]">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center lg:text-right lg:max-w-[85%] xl:max-w-[80%]"
+            >
+              <div className="relative">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute -top-2 left-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent w-full"
+                />
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-br from-primary via-sky-300 to-primary/80 
+                  text-transparent bg-clip-text leading-[1.1] tracking-tight pb-1 mt-2">
+                  Crafted with Purpose.<br/>
+                  <span className="inline-block mt-2">Built for Growth.</span>
+                </h1>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute -bottom-2 left-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent w-full"
+                />
               </div>
-            </div>
 
-            {/* Features Grid - Mobile Only */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative lg:hidden">
-              {features.map((feature, index) => (
-                <div 
-                  key={index} 
-                  className="p-6 rounded-xl bg-background/80 backdrop-blur-sm
-                    hover:bg-background/90 transition-colors duration-200
-                    shadow-sm hover:shadow-md
-                    relative z-10 cursor-pointer"
-                >
-                  <h3 className="font-semibold mb-2 text-lg">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </div>
-              ))}
-            </div>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-8 max-w-2xl"
+              >
+                <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground font-light tracking-wide">
+                  Deep technical expertise meets creative vision. We craft sophisticated digital solutions.
+                </p>
+              </motion.div>
+            </motion.div>
           </div>
 
-          {/* Features Grid - Desktop Only */}
-          <div className="hidden lg:block relative">
-            <div className="grid grid-cols-1 gap-4 pt-24">
-              {features.map((feature, index) => (
-                <div 
-                  key={index} 
-                  className="p-6 rounded-xl bg-background/80 backdrop-blur-sm
-                    hover:bg-background/90 transition-colors duration-200
-                    shadow-sm hover:shadow-md
-                    relative z-10 cursor-pointer"
-                >
-                  <h3 className="font-semibold mb-2 text-lg">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </div>
-              ))}
+          {/* Right Content */}
+          <div className="flex flex-col items-center lg:items-start justify-center lg:w-[30%] lg:h-full lg:py-[15vh]">
+            <div className="flex flex-col items-center relative">
+              {/* Toucan */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] 
+                         lg:w-[min(30vw,500px)] lg:h-[min(30vw,500px)]
+                         transform-gpu pointer-events-none -mb-32"
+              >
+                <AnimatedToucan />
+              </motion.div>
+
+              {/* CTA Button */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="flex justify-center gap-6"
+              >
+                <button className="group relative px-8 py-3 overflow-hidden">
+                  <div className="absolute inset-0 w-3 bg-primary transition-all duration-[250ms] ease-out group-hover:w-full" />
+                  <span className="relative text-lg font-medium text-primary group-hover:text-primary-foreground">
+                    Start Your Journey
+                  </span>
+                </button>
+              </motion.div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Gradient Transition */}
-      <div className="
-        absolute bottom-0 left-0 right-0 h-32
-        bg-gradient-to-b from-transparent to-background/95
-        pointer-events-none
-      "/>
+      {/* Features Grid */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-20 w-full max-w-7xl mx-auto px-6 py-24 lg:py-32"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 + (index * 0.1) }}
+              className="group p-8 rounded-2xl bg-background/40 backdrop-blur-sm
+                border border-white/5
+                hover:bg-background/60 transition-all duration-500
+                hover:shadow-[0_0_25px_-5px_rgba(0,0,0,0.1),0_0_10px_-5px_rgba(0,0,0,0.04)]
+                relative cursor-pointer"
+            >
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <h3 className="font-medium text-xl mb-3">{feature.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
