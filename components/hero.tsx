@@ -95,7 +95,7 @@ export default function Hero() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[500px] h-[500px] lg:w-[700px] lg:h-[700px]"
+              className="w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] -ml-16"
             >
               <AnimatedToucan />
             </motion.div>
@@ -109,7 +109,6 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="group relative px-8 py-3 overflow-hidden 
                        -mt-64 sm:-mt-64 md:-mt-64 lg:-mt-80
-                       ml-12 sm:ml-16 md:ml-20
                        bg-background/80 backdrop-blur-sm
                        shadow-lg hover:shadow-xl
                        transition-all duration-300"
