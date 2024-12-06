@@ -55,7 +55,7 @@ export default function Hero() {
           </div>
 
           {/* Right Content - Simplified Toucan Container */}
-          <div className="flex flex-col items-center justify-center lg:w-[40%] mt-12 lg:mt-0">
+          <div className="flex flex-col items-center justify-center lg:w-[40%] -mt-24 lg:-mt-48 md:-mt-24 sm:-mt-24">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -74,7 +74,7 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group relative px-8 py-3 overflow-hidden 
-                       -mt-32 sm:-mt-40 md:-mt-48 lg:-mt-64
+                       -mt-56 sm:-mt-56 md:-mt-56 lg:-mt-72
                        ml-12 sm:ml-16 md:ml-20
                        bg-background/80 backdrop-blur-sm
                        shadow-lg hover:shadow-xl
