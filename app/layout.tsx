@@ -3,7 +3,6 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/providers"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Toaster } from "@/components/ui/toaster"
 
 // More comprehensive font configuration
 const inter = Inter({ 
@@ -91,10 +90,6 @@ export default function RootLayout({
           <main className="relative">
             {children}
           </main>
-          <div className="fixed bottom-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>
