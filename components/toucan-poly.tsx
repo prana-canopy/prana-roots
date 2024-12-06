@@ -1,31 +1,99 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
 const AnimatedToucan = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isWingFluttering, setIsWingFluttering] = useState(false);
-  const [shimmering, setShimmering] = useState<string | number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme: theme } = useTheme();
+
+  // 3D rotation effect
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let bounds = container.getBoundingClientRect();
+    let mouseX = bounds.left + bounds.width / 2;
+    let mouseY = bounds.top + bounds.height / 2;
+    let currentRotateX = 0;
+    let currentRotateY = 0;
+    let targetRotateX = 0;
+    let targetRotateY = 0;
+    let animationFrameId: number;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      bounds = container.getBoundingClientRect();
+      const centerX = bounds.left + bounds.width / 2;
+      const centerY = bounds.top + bounds.height / 2;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      targetRotateY = ((mouseX - centerX) / (window.innerWidth / 2)) * 25;
+      targetRotateX = ((mouseY - centerY) / (window.innerHeight / 2)) * -25;
+    };
+
+    const animate = () => {
+      currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+      currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+
+      container.style.transform = `
+        rotateX(${currentRotateX}deg) 
+        rotateY(${currentRotateY}deg)
+      `;
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   const floatingAnimation = {
     y: [-5, 5, -5],
-    transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
   };
 
   const beakAnimation = {
     y: [0, 2, 0],
-    transition: { duration: 0.5, repeat: Infinity, repeatDelay: 5, ease: "easeInOut" }
+    transition: {
+      duration: 0.5,
+      repeat: Infinity,
+      repeatDelay: 5,
+      ease: "easeInOut"
+    }
   };
 
   const wingFlutterAnimation = {
-    rotate: [0, -5, 0],
-    transition: { duration: 0.3, repeat: 3, ease: "easeInOut" }
+    initial: { rotate: 0 },
+    animate: { 
+      rotate: isWingFluttering ? [-5, 0, -5] : 0,
+      transition: {
+        duration: 0.3,
+        repeat: isWingFluttering ? Infinity : 0,
+        ease: "easeInOut"
+      }
+    }
   };
 
-  const shimmerAnimation = {
-    filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
-    transition: { duration: 0.5, ease: "easeInOut" }
+  const shimmerVariants = {
+    initial: { filter: "brightness(1)" },
+    hover: {
+      filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut"
+      }
+    }
   };
 
   const mainPaths = [
@@ -87,7 +155,7 @@ const AnimatedToucan = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="relative w-full max-w-4xl">
+      <div ref={containerRef} className="relative w-full max-w-4xl">
         <div className="absolute inset-0 bg-[#00D5C3] opacity-5 blur-3xl rounded-full" />
         <motion.div 
           animate={floatingAnimation} 
@@ -100,86 +168,104 @@ const AnimatedToucan = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            {mainPaths.map((path, index) => (
-              <motion.path
-                key={index}
-                d={path.d}
-                fill={path.fill}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  ...((shimmering === index) ? shimmerAnimation : {})
-                }}
-                transition={{ duration: 0.6, delay: index * 0.01, ease: [0.43, 0.13, 0.23, 0.96] }}
-                whileHover={{ scale: 1.05, filter: "brightness(1.2)", z: 10, transition: { duration: 0.2 } }}
-                onClick={() => {
-                  setShimmering(index);
-                  setTimeout(() => setShimmering(null), 500);
-                }}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                style={{
-                  filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))",
-                  opacity: hoveredIndex === null || hoveredIndex === index || (mainPaths[hoveredIndex] && mainPaths[hoveredIndex].group === path.group) ? 1 : 0.7,
-                  cursor: 'pointer'
-                }}
-              />
-            ))}
+            <AnimatePresence>
+              {mainPaths.map((path, index) => (
+                <motion.path
+                  key={index}
+                  d={path.d}
+                  fill={path.fill}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  variants={shimmerVariants}
+                  whileHover="hover"
+                  transition={{ 
+                    opacity: { duration: 0.6, delay: index * 0.01 },
+                    filter: { duration: 0.3 }
+                  }}
+                  onHoverStart={() => setHoveredIndex(index)}
+                  onHoverEnd={() => setHoveredIndex(null)}
+                  style={{
+                    filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))",
+                    opacity: hoveredIndex === null || hoveredIndex === index || 
+                      (mainPaths[hoveredIndex] && mainPaths[hoveredIndex].group === path.group) ? 1 : 0.7,
+                    cursor: 'pointer'
+                  }}
+                />
+              ))}
+            </AnimatePresence>
+
             <motion.g
-              animate={isWingFluttering ? wingFlutterAnimation : {}}
+              variants={wingFlutterAnimation}
+              initial="initial"
+              animate="animate"
               onHoverStart={() => setIsWingFluttering(true)}
               onHoverEnd={() => setIsWingFluttering(false)}
-              style={{ transformOrigin: "240,160" }}
+              style={{ transformOrigin: "240px 160px" }}
             >
               {wingPaths.map((path, index) => (
                 <motion.path
                   key={`wing-${index}`}
                   d={path.d}
                   fill={path.fill}
-                  animate={(shimmering === `wing-${index}`) ? shimmerAnimation : {}}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShimmering(`wing-${index}`);
-                    setTimeout(() => setShimmering(null), 500);
+                  variants={shimmerVariants}
+                  whileHover="hover"
+                  transition={{ filter: { duration: 0.3 } }}
+                  style={{ 
+                    filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))",
+                    cursor: 'pointer'
                   }}
-                  whileHover={{ filter: "brightness(1.2)", transition: { duration: 0.2 } }}
-                  style={{ filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))", cursor: 'pointer' }}
                 />
               ))}
             </motion.g>
+
             {tailPaths.map((path, index) => (
               <motion.path
                 key={`tail-${index}`}
                 d={path.d}
                 fill={path.fill}
-                animate={(shimmering === `tail-${index}`) ? shimmerAnimation : {}}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShimmering(`tail-${index}`);
-                  setTimeout(() => setShimmering(null), 500);
+                variants={shimmerVariants}
+                whileHover="hover"
+                transition={{ filter: { duration: 0.3 } }}
+                style={{ 
+                  filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))",
+                  cursor: 'pointer'
                 }}
-                whileHover={{ scale: 1.05, filter: "brightness(1.2)", transition: { duration: 0.2 } }}
-                style={{ filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))", cursor: 'pointer' }}
               />
             ))}
+
             {lowerBeakPaths.map((path, index) => (
               <motion.path
-                key={`beak-${index}`}
+                key={`beak-lower-${index}`}
                 d={path.d}
                 fill={path.fill}
                 animate={beakAnimation}
-                whileHover={{ scale: 1.05, filter: "brightness(1.2)", transition: { duration: 0.2 } }}
-                style={{ filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))" }}
+                variants={shimmerVariants}
+                whileHover="hover"
+                style={{ 
+                  filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))",
+                  cursor: 'pointer'
+                }}
               />
             ))}
+
             {eyeParts.map((eye, index) => (
               <motion.path
                 key={`eye-${index}`}
                 d={eye.d}
                 fill={eye.fill}
                 initial={{ opacity: 1, scaleY: 1 }}
-                animate={{ scaleY: [1, 0.1, 1], transition: { duration: 0.2, repeat: Infinity, repeatDelay: 3 } }}
-                style={{ transformOrigin: "300px 147px", filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))" }}
+                animate={{ 
+                  scaleY: [1, 0.1, 1], 
+                  transition: { 
+                    duration: 0.2, 
+                    repeat: Infinity, 
+                    repeatDelay: 3 
+                  } 
+                }}
+                style={{ 
+                  transformOrigin: "300px 147px",
+                  filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))"
+                }}
               />
             ))}
           </motion.svg>
