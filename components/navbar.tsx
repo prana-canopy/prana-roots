@@ -97,6 +97,18 @@ export function Navbar() {
     return openDropdowns.has(label);
   }, [openDropdowns]);
 
+  const toggleMobileDropdown = useCallback((label: string) => {
+    setOpenDropdowns(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(label)) {
+        newSet.delete(label);
+      } else {
+        newSet.add(label);
+      }
+      return newSet;
+    });
+  }, []);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-border/40 bg-background/85">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -259,7 +271,7 @@ export function Navbar() {
             {navigationItems.map((item) => (
               <div key={item.label} className="space-y-1">
                 <button
-                  onClick={() => item.children && openDropdown(item.label)}
+                  onClick={() => item.children && toggleMobileDropdown(item.label)}
                   className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group"
                 >
                   {item.label}
