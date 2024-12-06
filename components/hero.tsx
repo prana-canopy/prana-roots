@@ -35,12 +35,20 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-center lg:text-right lg:max-w-[85%] xl:max-w-[80%]"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
-                bg-gradient-to-br from-primary via-sky-300 to-primary/80 
-                text-transparent bg-clip-text leading-[1.1] tracking-tight">
-                Crafted with Purpose.<br/>
-                <span className="inline-block mt-2">Built for Growth.</span>
-              </h1>
+              <motion.h1 
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
+                text-transparent bg-clip-text leading-[1.1] tracking-tight cursor-pointer"
+                style={{
+                  backgroundImage: "linear-gradient(to bottom right, var(--primary), #7dd3fc, var(--primary))"
+                }}
+                whileHover={{
+                  backgroundImage: "linear-gradient(to bottom right, #7dd3fc, var(--primary), #7dd3fc)"
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                Built to Elevate.<br/>
+                <span className="inline-block mt-2">Designed to Inspire.</span>
+              </motion.h1>
 
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -49,7 +57,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="mt-8 text-lg sm:text-xl lg:text-2xl text-muted-foreground font-light tracking-wide"
               >
-                Deep technical expertise meets creative vision. We craft sophisticated digital solutions.
+                We create cutting-edge digital solutions that transform businesses—small and large—unlocking their full potential with innovation and precision
               </motion.p>
             </motion.div>
           </div>
