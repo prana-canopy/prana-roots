@@ -2,19 +2,33 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import AnimatedToucan from './toucan-poly';
 import { features } from '@/lib/constants';
+import { useTheme } from 'next-themes';
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
+  const { resolvedTheme: theme } = useTheme();
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
-      {/* Background with enhanced light mode effects */}
+      {/* Theme-dependent background effects */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(255,255,255,0))]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,226,132,0.08),rgba(255,255,255,0))]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,213,195,0.08),rgba(255,255,255,0))]" />
+        <div className={`absolute inset-0 ${
+          theme === 'dark' 
+            ? 'bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(255,255,255,0))]'
+            : 'bg-[radial-gradient(circle_at_50%_120%,rgba(45,212,191,0.25),rgba(255,255,255,0))]'
+        }`} />
+        <div className={`absolute inset-0 ${
+          theme === 'dark'
+            ? 'bg-[radial-gradient(circle_at_50%_0%,rgba(255,226,132,0.08),rgba(255,255,255,0))]'
+            : 'bg-[radial-gradient(circle_800px_at_50%_50%,rgba(56,189,248,0.2),transparent)]'
+        }`} />
+        <div className={`absolute inset-0 ${
+          theme === 'dark'
+            ? ''
+            : 'bg-[radial-gradient(circle_600px_at_60%_50%,rgba(94,234,212,0.15),transparent)]'
+        }`} />
         <motion.div 
           style={{ opacity }}
           className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,rgba(255,255,255,0.1),transparent)]"
@@ -26,7 +40,7 @@ export default function Hero() {
         style={{ scale }}
         className="relative w-full max-w-[1920px] mx-auto min-h-screen flex items-center justify-center pt-20"
       >
-        <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center px-6 py-12 lg:py-0">
+        <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center px-6 py-0 lg:py-0">
           {/* Left Content */}
           <div className="flex flex-col items-center lg:items-end justify-center lg:w-[60%] z-10">
             <motion.div 
@@ -70,7 +84,7 @@ export default function Hero() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[450px] h-[450px] lg:w-[600px] lg:h-[600px]"
+              className="w-[500px] h-[500px] lg:w-[700px] lg:h-[700px]"
             >
               <AnimatedToucan />
             </motion.div>
@@ -83,7 +97,7 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group relative px-8 py-3 overflow-hidden 
-                       -mt-56 sm:-mt-56 md:-mt-56 lg:-mt-72
+                       -mt-64 sm:-mt-64 md:-mt-64 lg:-mt-80
                        ml-12 sm:ml-16 md:ml-20
                        bg-background/80 backdrop-blur-sm
                        shadow-lg hover:shadow-xl
