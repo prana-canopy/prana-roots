@@ -70,8 +70,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prana Roots",
-    description: "Your Gateway to Wellness"
+    title: "Prana Local",
+    description: "Beautiful Digital Solutions, Inspired by Nature"
   },
   robots: {
     index: true,
