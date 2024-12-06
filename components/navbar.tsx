@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -68,6 +68,7 @@ const navigationItems: NavItem[] = [
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
+  const [isScrolled, setIsScrolled] = useState(false);
   const closeTimeoutRef = useRef<{ [key: string]: NodeJS.Timeout }>({});
 
   const scrollToTop = () => {
@@ -109,8 +110,20 @@ export function Navbar() {
     });
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-background/60 backdrop-blur-md shadow-sm' 
+        : 'bg-background/5 backdrop-blur-[2px]'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo Section */}
@@ -241,7 +254,7 @@ export function Navbar() {
               <button className="group relative px-4 py-2 text-sm font-medium bg-primary hover:bg-primary/90 dark:bg-primary-light dark:hover:bg-primary text-black dark:text-black rounded-full transition-all duration-200 hover:shadow-md hover:scale-110 hover:rotate-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden"
               >
                 <div className="absolute inset-0 w-0 bg-black transition-all duration-300 ease-out group-hover:w-full opacity-10" />
-                <span className="relative">I'm Interested!</span>
+                <span className="relative">Give us a 📱</span>
               </button>
               <div className="hover:scale-110 transition-transform duration-200">
                 <ThemeToggle />
