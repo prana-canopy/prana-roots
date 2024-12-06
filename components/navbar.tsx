@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -68,21 +68,29 @@ const navigationItems: NavItem[] = [
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
+  const closeTimeoutRef = useRef<{ [key: string]: NodeJS.Timeout }>({});
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const toggleDropdown = useCallback((label: string) => {
-    setOpenDropdowns(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(label)) {
+  const openDropdown = useCallback((label: string) => {
+    // Clear any existing close timeout for this dropdown
+    if (closeTimeoutRef.current[label]) {
+      clearTimeout(closeTimeoutRef.current[label]);
+    }
+    setOpenDropdowns(prev => new Set([...prev, label]));
+  }, []);
+
+  const closeDropdown = useCallback((label: string) => {
+    // Set a timeout to close the dropdown after a small delay
+    closeTimeoutRef.current[label] = setTimeout(() => {
+      setOpenDropdowns(prev => {
+        const newSet = new Set(prev);
         newSet.delete(label);
-      } else {
-        newSet.add(label);
-      }
-      return newSet;
-    });
+        return newSet;
+      });
+    }, 150); // Small delay before closing
   }, []);
 
   const isDropdownOpen = useCallback((label: string) => {
@@ -168,9 +176,13 @@ export function Navbar() {
           <div className="hidden lg:flex lg:items-center lg:gap-8">
             <div className="flex space-x-8">
               {navigationItems.map((item) => (
-                <div key={item.label} className="relative group">
+                <div 
+                  key={item.label} 
+                  className="relative group"
+                  onMouseEnter={() => item.children && openDropdown(item.label)}
+                  onMouseLeave={() => item.children && closeDropdown(item.label)}
+                >
                   <button
-                    onClick={() => item.children && toggleDropdown(item.label)}
                     className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200 hover:scale-105 group"
                   >
                     {item.label}
@@ -185,7 +197,9 @@ export function Navbar() {
                   
                   {/* Dropdown Menu */}
                   {item.children && isDropdownOpen(item.label) && (
-                    <div className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg ring-1 ring-border/50 overflow-hidden backdrop-blur-sm">
+                    <div 
+                      className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg ring-1 ring-border/50 overflow-hidden backdrop-blur-sm"
+                    >
                       <div className="p-2">
                         {item.children.map((child) => (
                           <a
@@ -245,7 +259,7 @@ export function Navbar() {
             {navigationItems.map((item) => (
               <div key={item.label} className="space-y-1">
                 <button
-                  onClick={() => item.children && toggleDropdown(item.label)}
+                  onClick={() => item.children && openDropdown(item.label)}
                   className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group"
                 >
                   {item.label}
