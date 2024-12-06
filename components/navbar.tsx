@@ -195,16 +195,18 @@ export function Navbar() {
                   onMouseLeave={() => item.children && closeDropdown(item.label)}
                 >
                   <button
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200 hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="group relative flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden rounded-lg"
                   >
-                    {item.label}
-                    {item.children && (
-                      <ChevronDown
-                        className={`w-4 h-4 transition-all duration-200 group-hover:text-primary ${
-                          isDropdownOpen(item.label) ? 'rotate-180' : ''
-                        }`}
-                      />
-                    )}
+                    <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+                    <span className="relative z-10 group-hover:text-black">
+                      {item.label}
+                      {item.children && (
+                        <ChevronDown
+                          className="relative inline-block w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </span>
                   </button>
                   
                   {/* Dropdown Menu */}
@@ -236,8 +238,10 @@ export function Navbar() {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <button className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md hover:scale-110 hover:rotate-1">
-                Get Started
+              <button className="group relative px-4 py-2 text-sm font-medium bg-primary hover:bg-primary/90 dark:bg-primary-light dark:hover:bg-primary text-black dark:text-black rounded-full transition-all duration-200 hover:shadow-md hover:scale-110 hover:rotate-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden"
+              >
+                <div className="absolute inset-0 w-0 bg-black transition-all duration-300 ease-out group-hover:w-full opacity-10" />
+                <span className="relative">Get Free Quote</span>
               </button>
               <div className="hover:scale-110 transition-transform duration-200">
                 <ThemeToggle />
@@ -252,7 +256,7 @@ export function Navbar() {
             </div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus:ring-2 focus:ring-[#2ee89e] hover:scale-110 transition-all duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] hover:scale-110 transition-all duration-200"
             >
               {isMobileMenuOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
@@ -272,16 +276,20 @@ export function Navbar() {
               <div key={item.label} className="space-y-1">
                 <button
                   onClick={() => item.children && toggleMobileDropdown(item.label)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="group relative w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden rounded-lg"
                 >
-                  {item.label}
-                  {item.children && (
-                    <ChevronDown
-                      className={`w-4 h-4 transition-all duration-200 group-hover:text-primary ${
-                        isDropdownOpen(item.label) ? 'rotate-180' : ''
-                      }`}
-                    />
-                  )}
+                  <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+                  <span className="relative z-10 group-hover:text-black">
+                    {item.label}
+                    {item.children && (
+                      <ChevronDown
+                        className={`relative inline-block w-5 h-5 ml-1 transition-transform duration-200 ${
+                          isDropdownOpen(item.label) ? 'rotate-180' : ''
+                        }`}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </span>
                 </button>
                 
                 {/* Mobile Dropdown */}
@@ -308,8 +316,10 @@ export function Navbar() {
               </div>
             ))}
             <div className="pt-4">
-              <button className="w-full px-4 py-2 text-base font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-full transition-all duration-200 hover:shadow-md hover:scale-105 hover:rotate-1">
-                Get Started
+              <button className="group relative w-full px-4 py-2 text-base font-medium bg-primary text-black dark:text-black rounded-full transition-all duration-200 hover:shadow-md hover:scale-105 hover:rotate-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden"
+              >
+                <div className="absolute inset-0 w-0 bg-black transition-all duration-300 ease-out group-hover:w-full opacity-10" />
+                <span className="relative">Get Free Quote</span>
               </button>
             </div>
           </div>
