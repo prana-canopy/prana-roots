@@ -154,8 +154,8 @@ const AnimatedToucan = () => {
   ];
 
   return (
-    <div className="w-full flex items-center justify-center">
-      <div ref={containerRef} className="relative w-full">
+    <div className="w-full h-full flex items-center justify-center">
+      <div ref={containerRef} className="relative w-full max-w-4xl">
         <div className="absolute inset-0 bg-[#00D5C3] opacity-5 blur-3xl rounded-full" />
         <motion.div 
           animate={floatingAnimation} 
