@@ -10,10 +10,11 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
-      {/* Background remains the same */}
+      {/* Background with enhanced light mode effects */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(255,255,255,0))]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,226,132,0.08),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,213,195,0.08),rgba(255,255,255,0))]" />
         <motion.div 
           style={{ opacity }}
           className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,rgba(255,255,255,0.1),transparent)]"
