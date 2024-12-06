@@ -66,7 +66,7 @@
     --primary: #1eebc3;  /* Keep accent colors */
     --primary-light: #2ee89e;
     --primary-dark: #00b4e4;
-    --primary-foreground: #000000;
+    --primary-foreground: #F8F9F7;  /* Changed from #000000 to #F8F9F7 for better contrast */
     
     /* UI colors */
     --secondary: #0A0A0A;  /* Very slightly lighter black */
