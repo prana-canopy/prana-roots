@@ -38,8 +38,8 @@ export default function Hero() {
       {/* Main Hero Content */}
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-80px)]">
         {/* Floating Toucan Container */}
-        <div className="absolute top-12 lg:top-0 left-1/2 -translate-x-1/2 lg:left-auto lg:right-0 lg:-translate-x-[5%]
-                     w-screen lg:w-[800px] h-screen lg:h-[800px] xl:w-[900px] xl:h-[900px] 2xl:w-[1000px] 2xl:h-[1000px]
+        <div className="absolute top-12 lg:top-0 left-1/2 -translate-x-1/2 lg:left-auto lg:right-[15%] lg:-translate-x-0
+                     w-screen lg:w-[600px] h-screen lg:h-[600px] xl:w-[700px] xl:h-[700px] 2xl:w-[800px] 2xl:h-[800px]
                      transform-gpu pointer-events-none
                      opacity-15 lg:opacity-90 transition-opacity duration-300
                      flex items-start lg:items-start justify-center">
@@ -49,7 +49,7 @@ export default function Hero() {
         </div>
 
         {/* Content Grid */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-start min-h-[calc(100vh-80px)]">
+        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] gap-8 items-start min-h-[calc(100vh-80px)]">
           {/* Main Content */}
           <div className="space-y-8 pt-4 sm:pt-8 lg:pt-12">
             <div className="space-y-6 relative backdrop-blur-sm lg:backdrop-blur-none bg-background/50 lg:bg-transparent rounded-2xl lg:rounded-none p-6 lg:p-0">
@@ -58,7 +58,7 @@ export default function Hero() {
                 Crafted with Purpose.<br/>
                 <span className="inline-block mt-1">Built for Growth.</span>
               </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground relative">
+              <p className="text-lg sm:text-xl text-muted-foreground relative max-w-xl">
                 Deep technical expertise meets genuine creative vision. We build sophisticated digital solutions that help ambitious local businesses thrive in the modern landscape.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
