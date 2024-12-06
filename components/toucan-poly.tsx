@@ -76,10 +76,10 @@ const AnimatedToucan = () => {
   const wingFlutterAnimation = {
     initial: { rotate: 0 },
     animate: { 
-      rotate: isWingFluttering ? [-5, 0, -5] : 0,
+      rotate: isWingFluttering ? [-4, 0, -4] : [-3, 0, -3],
       transition: {
-        duration: 0.3,
-        repeat: isWingFluttering ? Infinity : 0,
+        duration: isWingFluttering ? 0.4 : 1.5,
+        repeat: Infinity,
         ease: "easeInOut"
       }
     }
@@ -195,12 +195,19 @@ const AnimatedToucan = () => {
             </AnimatePresence>
 
             <motion.g
-              variants={wingFlutterAnimation}
+              key={0}
               initial="initial"
               animate="animate"
-              onHoverStart={() => setIsWingFluttering(true)}
-              onHoverEnd={() => setIsWingFluttering(false)}
-              style={{ transformOrigin: "240px 160px" }}
+              variants={wingFlutterAnimation}
+              style={{ originX: 0.5, originY: 0 }}
+              onHoverStart={() => {
+                setHoveredIndex(0);
+                setIsWingFluttering(true);
+              }}
+              onHoverEnd={() => {
+                setHoveredIndex(null);
+                setIsWingFluttering(false);
+              }}
             >
               {wingPaths.map((path, index) => (
                 <motion.path
