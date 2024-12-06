@@ -10,7 +10,7 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-[calc(100vh-5rem)] mt-20 overflow-hidden">
-      {/* Optimized Background with reduced complexity */}
+      {/* Background remains the same */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(255,255,255,0))]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,226,132,0.08),rgba(255,255,255,0))]" />
@@ -20,14 +20,14 @@ export default function Hero() {
         />
       </div>
       
-      {/* Main Hero Content with Parallax */}
+      {/* Main Content */}
       <motion.div 
         style={{ scale }}
-        className="relative w-full max-w-[1920px] mx-auto h-[calc(100vh-5rem)] flex items-center justify-center"
+        className="relative w-full max-w-[1920px] mx-auto min-h-[calc(100vh-5rem)] flex items-center justify-center"
       >
-        <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center px-6">
+        <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center px-6 py-12 lg:py-0">
           {/* Left Content */}
-          <div className="flex flex-col items-center lg:items-end justify-center lg:w-[60%] z-10 lg:h-full lg:py-[15vh]">
+          <div className="flex flex-col items-center lg:items-end justify-center lg:w-[60%] z-10">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -35,14 +35,12 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-center lg:text-right lg:max-w-[85%] xl:max-w-[80%]"
             >
-              <div className="relative">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
-                  bg-gradient-to-br from-primary via-sky-300 to-primary/80 
-                  text-transparent bg-clip-text leading-[1.1] tracking-tight">
-                  Crafted with Purpose.<br/>
-                  <span className="inline-block mt-2">Built for Growth.</span>
-                </h1>
-              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
+                bg-gradient-to-br from-primary via-sky-300 to-primary/80 
+                text-transparent bg-clip-text leading-[1.1] tracking-tight">
+                Crafted with Purpose.<br/>
+                <span className="inline-block mt-2">Built for Growth.</span>
+              </h1>
 
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -56,36 +54,37 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Content with Improved Toucan Container */}
-          <div className="flex flex-col items-center lg:items-start justify-center lg:w-[40%] lg:h-full lg:py-[15vh]">
-            <div className="flex flex-col items-center relative">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] 
-                         lg:w-[min(35vw,500px)] lg:h-[min(35vw,500px)]
-                         transform-gpu -mb-32"
-              >
-                <AnimatedToucan />
-              </motion.div>
-
-              <motion.button 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="group relative px-8 py-3 overflow-hidden mt-8"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="absolute inset-0 w-3 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
-                <span className="relative text-lg font-medium text-primary group-hover:text-primary-foreground">
-                  Start Your Journey
-                </span>
-              </motion.button>
-            </div>
+          {/* Right Content - Simplified Toucan Container */}
+          <div className="flex flex-col items-center justify-center lg:w-[40%] mt-12 lg:mt-0">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[450px] h-[450px] lg:w-[600px] lg:h-[600px]"
+            >
+              <AnimatedToucan />
+            </motion.div>
+            
+            <motion.button 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-3 overflow-hidden 
+                       -mt-32 sm:-mt-40 md:-mt-48 lg:-mt-64
+                       ml-12 sm:ml-16 md:ml-20
+                       bg-background/80 backdrop-blur-sm
+                       shadow-lg hover:shadow-xl
+                       transition-all duration-300"
+            >
+              <div className="absolute inset-0 w-3 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+              <span className="relative text-lg font-medium text-primary group-hover:text-primary-foreground">
+                Start Your Journey
+              </span>
+            </motion.button>
           </div>
         </div>
       </motion.div>
