@@ -9,7 +9,7 @@ export default function Hero() {
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-5rem)] mt-20 overflow-hidden">
+    <section className="relative w-full min-h-screen overflow-hidden">
       {/* Background remains the same */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(255,255,255,0))]" />
@@ -23,7 +23,7 @@ export default function Hero() {
       {/* Main Content */}
       <motion.div 
         style={{ scale }}
-        className="relative w-full max-w-[1920px] mx-auto min-h-[calc(100vh-5rem)] flex items-center justify-center"
+        className="relative w-full max-w-[1920px] mx-auto min-h-screen flex items-center justify-center pt-20"
       >
         <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center px-6 py-12 lg:py-0">
           {/* Left Content */}

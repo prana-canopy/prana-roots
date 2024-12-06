@@ -110,7 +110,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-border/40 bg-background/85">
+    <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo Section */}
@@ -271,7 +271,7 @@ export function Navbar() {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-sm shadow-lg border-t border-border/50">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-md shadow-lg border-t border-border/50">
             {navigationItems.map((item) => (
               <div key={item.label} className="space-y-1">
                 <button
