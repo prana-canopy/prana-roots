@@ -3,32 +3,43 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import AnimatedToucan from './toucan-poly';
 import { features } from '@/lib/constants';
 import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
   const { resolvedTheme: theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
       {/* Theme-dependent background effects */}
       <div className="absolute inset-0 -z-10">
-        <div className={`absolute inset-0 ${
-          theme === 'dark' 
-            ? 'bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(255,255,255,0))]'
-            : 'bg-[radial-gradient(circle_at_50%_120%,rgba(45,212,191,0.25),rgba(255,255,255,0))]'
-        }`} />
-        <div className={`absolute inset-0 ${
-          theme === 'dark'
-            ? 'bg-[radial-gradient(circle_at_50%_0%,rgba(255,226,132,0.08),rgba(255,255,255,0))]'
-            : 'bg-[radial-gradient(circle_800px_at_50%_50%,rgba(56,189,248,0.2),transparent)]'
-        }`} />
-        <div className={`absolute inset-0 ${
-          theme === 'dark'
-            ? ''
-            : 'bg-[radial-gradient(circle_600px_at_60%_50%,rgba(94,234,212,0.15),transparent)]'
-        }`} />
+        <style jsx>{`
+          .gradient-1-light {
+            background: radial-gradient(circle at 50% 120%, rgba(45, 212, 191, 0.25), rgba(255, 255, 255, 0));
+          }
+          .gradient-1-dark {
+            background: radial-gradient(circle at 50% 120%, rgba(120, 119, 198, 0.2), rgba(255, 255, 255, 0));
+          }
+          .gradient-2-light {
+            background: radial-gradient(circle 800px at 50% 50%, rgba(56, 189, 248, 0.2), transparent);
+          }
+          .gradient-2-dark {
+            background: radial-gradient(circle at 50% 0%, rgba(255, 226, 132, 0.08), rgba(255, 255, 255, 0));
+          }
+          .gradient-3-light {
+            background: radial-gradient(circle 600px at 60% 50%, rgba(94, 234, 212, 0.15), transparent);
+          }
+        `}</style>
+        <div className={`absolute inset-0 ${mounted ? (theme === 'dark' ? 'gradient-1-dark' : 'gradient-1-light') : ''}`} />
+        <div className={`absolute inset-0 ${mounted ? (theme === 'dark' ? 'gradient-2-dark' : 'gradient-2-light') : ''}`} />
+        <div className={`absolute inset-0 ${mounted ? (theme === 'dark' ? '' : 'gradient-3-light') : ''}`} />
         <motion.div 
           style={{ opacity }}
           className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,rgba(255,255,255,0.1),transparent)]"
@@ -104,12 +115,8 @@ export default function Hero() {
                        transition-all duration-300"
             >
               <div className="absolute inset-0 w-3 border border-primary bg-primary/0 transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary/10 group-active:bg-primary" />
-              <span className={`relative text-lg font-medium ${
-                theme === 'light' 
-                  ? 'text-gray-700 group-hover:text-gray-900'
-                  : 'text-primary group-hover:text-primary'
-              } group-active:text-primary-foreground transition-all duration-75`}>
-              Fly into the future
+              <span className="relative text-lg font-medium text-foreground group-hover:text-primary group-active:text-primary-foreground transition-all duration-75">
+                Fly into the future
               </span>
             </motion.button>
           </div>
