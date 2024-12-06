@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/providers"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 // More comprehensive font configuration
 const inter = Inter({ 
