@@ -287,19 +287,19 @@ export function Navbar() {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-md shadow-lg border-t border-border/50">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-card backdrop-blur-md border-border-t border-border/10 shadow-lg">
             {navigationItems.map((item) => (
               <div key={item.label} className="space-y-1">
                 <button
                   onClick={() => item.children && toggleMobileDropdown(item.label)}
-                  className="group relative w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden border border-transparent active:border-primary active:bg-transparent"
+                  className="group relative w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden border border-transparent active:border-primary active:bg-transparent"
                 >
                   <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full group-active:w-0" />
                   <span className="relative z-10 group-hover:text-black group-active:text-primary">
                     {item.label}
                     {item.children && (
                       <ChevronDown
-                        className={`relative inline-block w-5 h-5 ml-1 transition-transform duration-200 ${
+                        className={`relative inline-block w-4 h-4 ml-1 transition-transform duration-200 ${
                           isDropdownOpen(item.label) ? 'rotate-180' : ''
                         }`}
                         aria-hidden="true"
@@ -315,13 +315,13 @@ export function Navbar() {
                       <a
                         key={child.label}
                         href={child.href}
-                        className="block px-3 py-2 text-base font-medium text-foreground/70 hover:text-primary hover:bg-muted/50 transition-all duration-200 group"
+                        className="block px-4 py-3 rounded-lg hover:bg-muted transition-all duration-200 hover:scale-[1.02] hover:shadow-sm group"
                       >
-                        <p className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-200">
+                        <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-200">
                           {child.label}
                         </p>
                         {child.description && (
-                          <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground/70 group-hover:translate-x-1 transition-all duration-200">
+                          <p className="mt-1 text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-200">
                             {child.description}
                           </p>
                         )}
@@ -335,7 +335,10 @@ export function Navbar() {
               <button className="group relative w-full px-4 py-2 text-base font-medium bg-primary text-black dark:text-black rounded-full transition-all duration-200 hover:shadow-md hover:scale-105 hover:rotate-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden"
               >
                 <div className="absolute inset-0 w-0 bg-black transition-all duration-300 ease-out group-hover:w-full opacity-10" />
-                <span className="relative">Get Free Quote</span>
+                <span className="relative flex items-center justify-center gap-2">
+                  <Phone className="w-4 h-4" />
+                  Let's Talk
+                </span>
               </button>
             </div>
           </div>
