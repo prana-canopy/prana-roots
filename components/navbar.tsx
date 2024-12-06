@@ -195,10 +195,10 @@ export function Navbar() {
                   onMouseLeave={() => item.children && closeDropdown(item.label)}
                 >
                   <button
-                    className="group relative flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden"
+                    className="group relative flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden border border-transparent active:border-primary active:bg-transparent"
                   >
-                    <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
-                    <span className="relative z-10 group-hover:text-black">
+                    <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full group-active:w-0" />
+                    <span className="relative z-10 group-hover:text-black group-active:text-primary">
                       {item.label}
                       {item.children && (
                         <ChevronDown
@@ -276,10 +276,10 @@ export function Navbar() {
               <div key={item.label} className="space-y-1">
                 <button
                   onClick={() => item.children && toggleMobileDropdown(item.label)}
-                  className="group relative w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden"
+                  className="group relative w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] overflow-hidden border border-transparent active:border-primary active:bg-transparent"
                 >
-                  <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
-                  <span className="relative z-10 group-hover:text-black">
+                  <div className="absolute inset-0 w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full group-active:w-0" />
+                  <span className="relative z-10 group-hover:text-black group-active:text-primary">
                     {item.label}
                     {item.children && (
                       <ChevronDown
