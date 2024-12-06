@@ -195,7 +195,7 @@ export function Navbar() {
                   onMouseLeave={() => item.children && closeDropdown(item.label)}
                 >
                   <button
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200 hover:scale-105 group"
+                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200 hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary/20"
                   >
                     {item.label}
                     {item.children && (
@@ -210,7 +210,7 @@ export function Navbar() {
                   {/* Dropdown Menu */}
                   {item.children && isDropdownOpen(item.label) && (
                     <div 
-                      className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg ring-1 ring-border/50 overflow-hidden backdrop-blur-sm"
+                      className="absolute left-0 mt-2 w-72 rounded-xl bg-card shadow-lg border border-[#2ee89e] overflow-hidden backdrop-blur-sm"
                     >
                       <div className="p-2">
                         {item.children.map((child) => (
@@ -252,7 +252,7 @@ export function Navbar() {
             </div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 hover:scale-110 transition-all duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus:ring-2 focus:ring-[#2ee89e] hover:scale-110 transition-all duration-200"
             >
               {isMobileMenuOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
@@ -272,7 +272,7 @@ export function Navbar() {
               <div key={item.label} className="space-y-1">
                 <button
                   onClick={() => item.children && toggleMobileDropdown(item.label)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group"
+                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-primary/20"
                 >
                   {item.label}
                   {item.children && (
