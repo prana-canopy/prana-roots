@@ -86,11 +86,13 @@ const AnimatedToucan = () => {
   };
 
   const shimmerVariants = {
-    initial: { filter: "brightness(1)" },
+    initial: { 
+      opacity: 1 
+    },
     hover: {
-      filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
+      opacity: 0.7,
       transition: {
-        duration: 0.5,
+        duration: 0.2,
         ease: "easeInOut"
       }
     }
@@ -186,8 +188,6 @@ const AnimatedToucan = () => {
                   onHoverEnd={() => setHoveredIndex(null)}
                   style={{
                     filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.15))",
-                    opacity: hoveredIndex === null || hoveredIndex === index || 
-                      (mainPaths[hoveredIndex] && mainPaths[hoveredIndex].group === path.group) ? 1 : 0.7,
                     cursor: 'pointer'
                   }}
                 />
