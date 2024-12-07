@@ -72,8 +72,9 @@ export default function Hero() {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                Built to Elevate.<br/>
-                <span className="inline-block mt-2">Designed to Inspire.</span>
+                Inhale Innovation.
+                <br/>
+                <span className="inline-block mt-2"> Exhale Growth.</span>
               </motion.h1>
 
               <motion.p 
