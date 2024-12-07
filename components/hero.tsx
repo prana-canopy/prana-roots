@@ -1,6 +1,7 @@
 'use client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import AnimatedToucan from './toucan-poly';
+import ParticleEffect from './ParticleEffect';
 import { features } from '@/lib/constants';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
@@ -18,6 +19,7 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
+      <ParticleEffect />
       {/* Theme-dependent background effects */}
       <div className="absolute inset-0 -z-10">
         <style jsx>{`
