@@ -65,6 +65,7 @@ const ProcessSection = () => {
     }
   ];
 
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -82,14 +83,13 @@ const ProcessSection = () => {
 
   return (
     <section ref={sectionRef} className="w-full max-w-7xl mx-auto px-4 py-24 relative overflow-hidden">
-      {/* Animated Background Pattern */}
+      {/* Updated Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,var(--megaman),transparent_70%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,var(--frozen-turquoise),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,var(--primary),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,var(--accent),transparent_70%)]" />
       </div>
 
       <div className="relative z-10">
-        {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-5xl font-bold mb-6 text-white">
             Our Process
@@ -99,17 +99,15 @@ const ProcessSection = () => {
           </p>
         </div>
 
-        {/* Interactive Timeline */}
         <div className="relative">
-          {/* Connection Line */}
+          {/* Updated Connection Line */}
           <div className="absolute top-[45px] left-0 w-full h-px bg-white/20">
             <div 
-              className="h-full bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] transition-all duration-500"
+              className="h-full bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transition-all duration-500"
               style={{ width: `${((activeStep + 1) * 100) / steps.length}%` }}
             />
           </div>
 
-          {/* Steps */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {steps.map((step, index) => (
               <div
@@ -119,14 +117,14 @@ const ProcessSection = () => {
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
-                {/* Step Number & Icon */}
+                {/* Updated Step Number & Icon */}
                 <button
                   onClick={() => setActiveStep(index)}
                   className={`relative z-10 w-[90px] h-[90px] rounded-full border-2 
                     flex items-center justify-center mb-8 mx-auto
                     transition-all duration-300 group
                     ${activeStep >= index 
-                      ? 'bg-gradient-to-br from-[var(--megaman)] to-[var(--frozen-turquoise)] border-transparent' 
+                      ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] border-transparent' 
                       : 'bg-white/10 border-white/20 hover:bg-white/20'
                     }`}
                 >
@@ -136,7 +134,7 @@ const ProcessSection = () => {
                   </div>
                 </button>
 
-                {/* Step Content */}
+                {/* Step Content remains the same */}
                 <div className={`text-center transition-all duration-500 ${
                   activeStep === index ? 'transform-none opacity-100' : 'opacity-60'
                 }`}>
@@ -150,12 +148,11 @@ const ProcessSection = () => {
                     {step.description}
                   </p>
 
-                  {/* Details List */}
                   <div className={`space-y-3 text-left transition-all duration-500 max-h-0 overflow-hidden
                     ${activeStep === index ? 'max-h-[200px]' : ''}`}>
                     {step.details.map((detail, dIndex) => (
                       <div key={dIndex} className="flex items-center text-white/60 text-sm">
-                        <ChevronRight className="w-4 h-4 mr-2 text-[var(--frozen-turquoise)]" />
+                        <ChevronRight className="w-4 h-4 mr-2 text-[var(--accent)]" />
                         {detail}
                       </div>
                     ))}
@@ -166,10 +163,10 @@ const ProcessSection = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
+        {/* Updated Call to Action */}
         <div className="mt-20 text-center">
           <button className="px-8 py-4 rounded-full relative group overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] transition-transform duration-300 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transition-transform duration-300 group-hover:scale-105" />
             <span className="relative z-10 text-white font-semibold">
               Start Your Journey
             </span>
