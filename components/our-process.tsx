@@ -9,6 +9,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
 
 const ProcessSection = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -92,17 +93,40 @@ const ProcessSection = () => {
     <section ref={sectionRef} className="w-full max-w-7xl mx-auto px-4 py-24 relative overflow-hidden">
       <div className="relative z-10">
         <div className="text-center mb-20">
-          <h2 className={`text-5xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+          <motion.h2 
+            className="text-5xl font-bold mb-6 text-transparent bg-clip-text cursor-pointer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{
+              backgroundImage: theme === 'dark'
+                ? "linear-gradient(to bottom right, #ffffff, #8c8c8c, #e5e5e5)"
+                : "linear-gradient(to bottom right, #1a1a1a, #4a4a4a, #2d2d2d)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+            whileHover={{
+              backgroundImage: theme === 'dark'
+                ? "linear-gradient(to bottom right, #e5e5e5, #ffffff, #8c8c8c)"
+                : "linear-gradient(to bottom right, #2d2d2d, #1a1a1a, #4a4a4a)"
+            }}
+            transition={{ duration: 0.3 }}
+          >
             Our Process
-          </h2>
-          <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-white/80' : 'text-gray-600'}`}>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300"
+          >
             A systematic approach to creating elegant, efficient solutions
-          </p>
+          </motion.p>
         </div>
 
         <div className="relative">
           {/* Updated Connection Line */}
-          <div className={`absolute top-[45px] left-0 w-full h-px ${theme === 'dark' ? 'bg-white/20' : 'bg-gray-300'}`}>
+          <div className={`absolute top-[45px] left-0 w-full h-px bg-gray-300 dark:bg-white/20`}>
             <div 
               className="h-full bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transition-all duration-500"
               style={{ width: `${((activeStep + 1) * 100) / steps.length}%` }}
@@ -126,17 +150,13 @@ const ProcessSection = () => {
                     transition-all duration-300 group
                     ${activeStep >= index 
                       ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] border-transparent' 
-                      : theme === 'dark' 
-                        ? 'bg-white/10 border-white/20 hover:bg-white/20'
-                        : 'bg-gray-100 border-gray-200 hover:bg-gray-200'
+                      : 'border-gray-300 dark:border-white/20 hover:border-gray-200 dark:hover:border-white/20'
                     }`}
                 >
                   <div className={`transition-transform duration-300 group-hover:scale-110
                     ${activeStep >= index 
                       ? 'text-white' 
-                      : theme === 'dark' 
-                        ? 'text-white/60'
-                        : 'text-gray-500'
+                      : 'text-gray-500 dark:text-white/60'
                     }`}>
                     {step.icon}
                   </div>
@@ -146,20 +166,20 @@ const ProcessSection = () => {
                 <div className={`text-center transition-all duration-500 ${
                   activeStep === index ? 'transform-none opacity-100' : 'opacity-60'
                 }`}>
-                  <h3 className={`text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                  <h3 className={`text-xl font-semibold mb-2 text-gray-800 dark:text-white`}>
                     {step.title}
                   </h3>
-                  <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-white/60' : 'text-gray-500'}`}>
+                  <p className={`text-sm mb-4 text-gray-500 dark:text-white/60`}>
                     {step.duration}
                   </p>
-                  <p className={`mb-6 ${theme === 'dark' ? 'text-white/80' : 'text-gray-600'}`}>
+                  <p className={`mb-6 text-gray-600 dark:text-white/80`}>
                     {step.description}
                   </p>
 
                   <div className={`space-y-3 text-left transition-all duration-500 max-h-0 overflow-hidden
                     ${activeStep === index ? 'max-h-[200px]' : ''}`}>
                     {step.details.map((detail, dIndex) => (
-                      <div key={dIndex} className={`flex items-center text-sm ${theme === 'dark' ? 'text-white/60' : 'text-gray-500'}`}>
+                      <div key={dIndex} className={`flex items-center text-sm text-gray-500 dark:text-white/60`}>
                         <ChevronRight className="w-4 h-4 mr-2 text-[var(--accent)]" />
                         {detail}
                       </div>
@@ -169,16 +189,6 @@ const ProcessSection = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Updated Call to Action */}
-        <div className="mt-20 text-center">
-          <button className="px-8 py-4 rounded-full relative group overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transition-transform duration-300 group-hover:scale-105" />
-            <span className="relative z-10 text-white font-semibold">
-              Start Your Journey
-            </span>
-          </button>
         </div>
       </div>
     </section>
