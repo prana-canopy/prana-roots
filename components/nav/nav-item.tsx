@@ -1,10 +1,10 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
-import { NavItem } from '@/lib/navigation';
+import type { NavItem as NavigationItem } from '@/lib/navigation';
 
 interface NavItemProps {
-  item: NavItem;
+  item: NavigationItem;
   isOpen: boolean;
   onOpen: (label: string) => void;
   onClose: (label: string) => void;
