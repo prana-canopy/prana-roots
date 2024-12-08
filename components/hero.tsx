@@ -118,7 +118,7 @@ export default function Hero() {
             >
               <div className="absolute inset-0 w-3 border border-primary bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary group-active:bg-background border-active:border-primary" />
               <span className="relative text-lg font-medium text-foreground group-hover:text-primary-foreground group-active:text-primary transition-all duration-75">
-              Take a Fresh Breath
+              Fly with us
               </span>
             </motion.button>
           </div>
