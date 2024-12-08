@@ -6,7 +6,8 @@ const ParticleEffect = dynamic(() => import('./ParticleEffect'), { ssr: false })
 const AnimatedToucan = dynamic(() => import('./toucan-poly'), { ssr: false });
 import { features } from '@/lib/constants';
 import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import ProcessSection from './our-process';
 
 export default React.memo(function Hero() {
   const { scrollY } = useScroll();
@@ -14,13 +15,18 @@ export default React.memo(function Hero() {
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
   const { resolvedTheme: theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const processRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const scrollToProcess = () => {
+    processRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
-    <section className="relative w-full min-h-screen overflow-hidden" aria-labelledby="hero-heading">
+    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-background to-muted/50" aria-labelledby="hero-heading">
       <ParticleEffect />
       {/* Theme-dependent background effects */}
       <div className="absolute inset-0 -z-10" aria-hidden="true">
@@ -113,6 +119,7 @@ export default React.memo(function Hero() {
               transition={{ duration: 0.8, delay: 0.3 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={scrollToProcess}
               className="group relative px-8 py-3 overflow-hidden 
                        -mt-64 sm:-mt-64 md:-mt-64 lg:-mt-80
                        bg-background/80 backdrop-blur-sm
@@ -158,6 +165,9 @@ export default React.memo(function Hero() {
           ))}
         </motion.div>
       </div> */}
+      <div ref={processRef}>
+        <ProcessSection />
+      </div>
     </section>
   );
 });

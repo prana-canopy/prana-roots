@@ -92,7 +92,7 @@ const ProcessSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full max-w-7xl mx-auto px-4 py-24 relative overflow-hidden">
+    <div ref={sectionRef} className="w-full max-w-7xl mx-auto px-4 py-24 relative overflow-hidden">
       <div className="relative z-10">
         <div className="text-center mb-20">
           <motion.h2 
@@ -182,7 +182,7 @@ const ProcessSection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
