@@ -11,6 +11,7 @@ import ProcessSection from './our-process';
 import PricingSection from './pricing';
 import ContactSection from './contact';
 import FAQSection from './faq';
+import RotatingCarousel from './rotating-carousel';
 
 export default React.memo(function Hero() {
   const { scrollY } = useScroll();
@@ -169,9 +170,10 @@ export default React.memo(function Hero() {
         </motion.div>
       </div> */}
       <div ref={processRef}>
+      <RotatingCarousel />
         <ProcessSection />
-        <FAQSection />
         <PricingSection />
+        <FAQSection />
         <ContactSection />
       </div>
     </section>
