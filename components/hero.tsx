@@ -18,10 +18,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden">
+    <section className="relative w-full min-h-screen overflow-hidden" aria-labelledby="hero-heading">
       <ParticleEffect />
       {/* Theme-dependent background effects */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
         <style jsx>{`
           .gradient-1-light {
             background: radial-gradient(circle at 50% 120%, rgba(45, 212, 191, 0.25), rgba(255, 255, 255, 0));
@@ -64,6 +64,7 @@ export default function Hero() {
               className="text-center lg:text-right lg:max-w-[85%] xl:max-w-[80%]"
             >
               <motion.h1 
+                id="hero-heading"
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
                 text-transparent bg-clip-text leading-[1.1] tracking-tight cursor-pointer"
                 style={{
@@ -115,8 +116,9 @@ export default function Hero() {
                        bg-background/80 backdrop-blur-sm
                        shadow-lg hover:shadow-xl
                        transition-all duration-300"
+              aria-label="Fly with us"
             >
-              <div className="absolute inset-0 w-3 border border-primary bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary group-active:bg-background border-active:border-primary" />
+              <div className="absolute inset-0 w-3 border border-primary bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary group-active:bg-background border-active:border-primary" aria-hidden="true" />
               <span className="relative text-lg font-medium text-foreground group-hover:text-primary-foreground group-active:text-primary transition-all duration-75">
               Fly with us
               </span>
@@ -147,7 +149,7 @@ export default function Hero() {
                 hover:shadow-[0_0_25px_-5px_rgba(0,0,0,0.1),0_0_10px_-5px_rgba(0,0,0,0.04)]
                 relative cursor-pointer"
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
               <h3 className="font-medium text-xl mb-3">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
             </motion.div>
