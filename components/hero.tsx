@@ -116,9 +116,9 @@ export default function Hero() {
                        shadow-lg hover:shadow-xl
                        transition-all duration-300"
             >
-              <div className="absolute inset-0 w-3 border border-primary bg-primary/0 transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary/10 group-active:bg-primary" />
-              <span className="relative text-lg font-medium text-foreground group-hover:text-primary group-active:text-primary-foreground transition-all duration-75">
-                Fly into the future
+              <div className="absolute inset-0 w-3 border border-primary bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary group-active:bg-background border-active:border-primary" />
+              <span className="relative text-lg font-medium text-foreground group-hover:text-primary-foreground group-active:text-primary transition-all duration-75">
+              Take a Fresh Breath
               </span>
             </motion.button>
           </div>
