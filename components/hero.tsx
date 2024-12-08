@@ -130,7 +130,7 @@ export default React.memo(function Hero() {
       </motion.div>
 
       {/* Optimized Features Grid */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 py-24 lg:py-32">
+      {/* <div className="relative z-20 w-full max-w-7xl mx-auto px-6 py-24 lg:py-32">
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           initial={{ opacity: 0, y: 20 }}
@@ -157,7 +157,7 @@ export default React.memo(function Hero() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </div> */}
     </section>
   );
 });

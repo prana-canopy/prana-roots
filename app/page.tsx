@@ -58,11 +58,14 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
       <Navbar />
       <Hero />
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+        <ProcessSection />
+      </div>
       {/* Rotating Carousel */}
-      {/* <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <RotatingCarousel />
       </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+      {/* <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <ServicesSection />
       </div>
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
@@ -70,9 +73,6 @@ export default function Home() {
       </div>
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <WhyChooseSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
-        <ProcessSection />
       </div>
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <PortfolioSection />
@@ -88,8 +88,8 @@ export default function Home() {
       </div>
       <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <InsightsSection />
-      </div> */}
-
+      </div>
+*/}
     </main>
   );
 }
