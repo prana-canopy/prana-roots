@@ -221,4 +221,25 @@ li {
   .dark .text-shadow {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
+
+  /* Metallic gradient */
+  .metallic-gradient-dark {
+    background-image: linear-gradient(to bottom right, #1a1a1a, #4a4a4a, #2d2d2d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .metallic-gradient-light {
+    background-image: linear-gradient(to bottom right, #ffffff, #8c8c8c, #e5e5e5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .metallic-gradient-dark:hover {
+    background-image: linear-gradient(to bottom right, #2d2d2d, #1a1a1a, #4a4a4a);
+  }
+
+  .metallic-gradient-light:hover {
+    background-image: linear-gradient(to bottom right, #e5e5e5, #ffffff, #8c8c8c);
+  }
 }

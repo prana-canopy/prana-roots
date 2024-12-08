@@ -17,42 +17,43 @@ const ProcessSection = () => {
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef(null);
   const { resolvedTheme: theme } = useTheme();
-
   const steps = [
     {
       icon: <Lightbulb className="w-6 h-6" />,
-      title: "Discovery",
-      duration: "1-2 Weeks",
-      description: "Understanding your vision, goals, and technical requirements through in-depth consultation.",
+      title: "Discovery & Planning",
+      duration: "1-4 Weeks",
+      description: "Understanding your vision, goals, and technical requirements through in-depth consultation and planning.",
       details: [
         "Stakeholder Interviews",
         "Technical Requirements Gathering",
         "Market & Competition Analysis",
-        "Project Scope Definition"
+        "Project Scope Definition",
+        "Timeline & Milestone Planning"
       ]
     },
     {
       icon: <Compass className="w-6 h-6" />,
-      title: "Design & Planning",
-      duration: "2-3 Weeks",
+      title: "Design & Architecture",
+      duration: "2-8 Weeks",
       description: "Creating detailed blueprints and visual designs that align with your brand and objectives.",
       details: [
         "UI/UX Design",
         "Technical Architecture",
         "Data Model Design",
-        "Timeline & Milestone Planning"
+        "System Integration Planning"
       ]
     },
     {
       icon: <Code2 className="w-6 h-6" />,
-      title: "Development",
-      duration: "4-8 Weeks",
+      title: "Development & Integration",
+      duration: "4-16 Weeks",
       description: "Bringing your vision to life with clean, efficient code and stunning visualizations.",
       details: [
         "Frontend Development",
         "Backend Integration",
         "Data Visualization Implementation",
-        "Security Implementation"
+        "Security Implementation",
+        "System Integration"
       ]
     },
     {
@@ -64,7 +65,8 @@ const ProcessSection = () => {
         "Testing & Quality Assurance",
         "Performance Optimization",
         "Deployment & Launch",
-        "Maintenance & Updates"
+        "Maintenance & Updates",
+        "Ongoing Support"
       ]
     }
   ];
@@ -94,21 +96,10 @@ const ProcessSection = () => {
       <div className="relative z-10">
         <div className="text-center mb-20">
           <motion.h2 
-            className="text-5xl font-bold mb-6 text-transparent bg-clip-text cursor-pointer"
+            className="text-5xl font-bold mb-6 text-transparent bg-clip-text cursor-pointer dark:metallic-gradient-light metallic-gradient-dark"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            style={{
-              backgroundImage: theme === 'dark'
-                ? "linear-gradient(to bottom right, #ffffff, #8c8c8c, #e5e5e5)"
-                : "linear-gradient(to bottom right, #1a1a1a, #4a4a4a, #2d2d2d)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-            whileHover={{
-              backgroundImage: theme === 'dark'
-                ? "linear-gradient(to bottom right, #e5e5e5, #ffffff, #8c8c8c)"
-                : "linear-gradient(to bottom right, #2d2d2d, #1a1a1a, #4a4a4a)"
-            }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
             Our Process
