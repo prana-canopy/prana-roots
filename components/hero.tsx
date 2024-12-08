@@ -15,7 +15,7 @@ export default React.memo(function Hero() {
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
   const { resolvedTheme: theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const processRef = useRef(null);
+  const processRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
