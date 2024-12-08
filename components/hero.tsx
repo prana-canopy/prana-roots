@@ -1,12 +1,14 @@
 'use client';
+import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import AnimatedToucan from './toucan-poly';
-import ParticleEffect from './ParticleEffect';
+import dynamic from 'next/dynamic';
+const ParticleEffect = dynamic(() => import('./ParticleEffect'), { ssr: false });
+const AnimatedToucan = dynamic(() => import('./toucan-poly'), { ssr: false });
 import { features } from '@/lib/constants';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 
-export default function Hero() {
+export default React.memo(function Hero() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
@@ -158,4 +160,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+});
