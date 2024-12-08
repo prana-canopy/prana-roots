@@ -90,16 +90,21 @@ export default function Home() {
       <Hero />
       {/* Remove individual section backgrounds and use consistent spacing */}
       <div className="w-full space-y-24 md:space-y-32 lg:space-y-48">
-        <ProcessSection />
-        {/* <RotatingCarousel />
-        <ServicesSection />
-        <AboutSection />
-        <WhyChooseSection />
-        <PortfolioSection />
-        <PricingSection />
-        <ContactSection />
-        <FAQSection />
-        <InsightsSection /> */}
+        {/* <ProcessSection /> */}
+
+        {/* <RotatingCarousel /> */}
+
+        {/* <ServicesSection /> */}
+        {/* <AboutSection /> */}
+        {/* <WhyChooseSection /> */}
+
+        {/* <PortfolioSection /> */}
+
+        {/* <PricingSection /> 
+        */}
+        {/* <ContactSection />
+        <FAQSection /> */}
+        {/* <InsightsSection /> */}
       </div>
     </main>
   );

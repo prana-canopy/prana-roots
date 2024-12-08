@@ -8,6 +8,9 @@ import { features } from '@/lib/constants';
 import { useTheme } from 'next-themes';
 import { useState, useEffect, useRef } from 'react';
 import ProcessSection from './our-process';
+import PricingSection from './pricing';
+import ContactSection from './contact';
+import FAQSection from './faq';
 
 export default React.memo(function Hero() {
   const { scrollY } = useScroll();
@@ -167,6 +170,9 @@ export default React.memo(function Hero() {
       </div> */}
       <div ref={processRef}>
         <ProcessSection />
+        <FAQSection />
+        <PricingSection />
+        <ContactSection />
       </div>
     </section>
   );

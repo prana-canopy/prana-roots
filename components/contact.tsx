@@ -36,9 +36,9 @@ const ContactSection = () => {
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-24 relative">
       {/* Background Elements */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10" />
-      </div>
+      </div> */}
 
       <div className="relative z-10">
         {/* Section Header */}
