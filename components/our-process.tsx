@@ -8,11 +8,14 @@ import {
   Rocket,
   ChevronRight
 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const ProcessSection = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const sectionRef = useRef(null);
+  const { resolvedTheme: theme } = useTheme();
 
   const steps = [
     {
@@ -67,6 +70,10 @@ const ProcessSection = () => {
 
   
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
@@ -83,25 +90,19 @@ const ProcessSection = () => {
 
   return (
     <section ref={sectionRef} className="w-full max-w-7xl mx-auto px-4 py-24 relative overflow-hidden">
-      {/* Updated Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,var(--primary),transparent_70%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,var(--accent),transparent_70%)]" />
-      </div>
-
       <div className="relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-5xl font-bold mb-6 text-white">
+          <h2 className={`text-5xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             Our Process
           </h2>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-white/80' : 'text-gray-600'}`}>
             A systematic approach to creating elegant, efficient solutions
           </p>
         </div>
 
         <div className="relative">
           {/* Updated Connection Line */}
-          <div className="absolute top-[45px] left-0 w-full h-px bg-white/20">
+          <div className={`absolute top-[45px] left-0 w-full h-px ${theme === 'dark' ? 'bg-white/20' : 'bg-gray-300'}`}>
             <div 
               className="h-full bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transition-all duration-500"
               style={{ width: `${((activeStep + 1) * 100) / steps.length}%` }}
@@ -125,11 +126,18 @@ const ProcessSection = () => {
                     transition-all duration-300 group
                     ${activeStep >= index 
                       ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] border-transparent' 
-                      : 'bg-white/10 border-white/20 hover:bg-white/20'
+                      : theme === 'dark' 
+                        ? 'bg-white/10 border-white/20 hover:bg-white/20'
+                        : 'bg-gray-100 border-gray-200 hover:bg-gray-200'
                     }`}
                 >
                   <div className={`transition-transform duration-300 group-hover:scale-110
-                    ${activeStep >= index ? 'text-white' : 'text-white/60'}`}>
+                    ${activeStep >= index 
+                      ? 'text-white' 
+                      : theme === 'dark' 
+                        ? 'text-white/60'
+                        : 'text-gray-500'
+                    }`}>
                     {step.icon}
                   </div>
                 </button>
@@ -138,20 +146,20 @@ const ProcessSection = () => {
                 <div className={`text-center transition-all duration-500 ${
                   activeStep === index ? 'transform-none opacity-100' : 'opacity-60'
                 }`}>
-                  <h3 className="text-xl font-semibold text-white mb-2">
+                  <h3 className={`text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                     {step.title}
                   </h3>
-                  <p className="text-white/60 text-sm mb-4">
+                  <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-white/60' : 'text-gray-500'}`}>
                     {step.duration}
                   </p>
-                  <p className="text-white/80 mb-6">
+                  <p className={`mb-6 ${theme === 'dark' ? 'text-white/80' : 'text-gray-600'}`}>
                     {step.description}
                   </p>
 
                   <div className={`space-y-3 text-left transition-all duration-500 max-h-0 overflow-hidden
                     ${activeStep === index ? 'max-h-[200px]' : ''}`}>
                     {step.details.map((detail, dIndex) => (
-                      <div key={dIndex} className="flex items-center text-white/60 text-sm">
+                      <div key={dIndex} className={`flex items-center text-sm ${theme === 'dark' ? 'text-white/60' : 'text-gray-500'}`}>
                         <ChevronRight className="w-4 h-4 mr-2 text-[var(--accent)]" />
                         {detail}
                       </div>

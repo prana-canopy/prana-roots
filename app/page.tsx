@@ -48,48 +48,60 @@ const features: Feature[] = [
 export default function Home() {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { resolvedTheme: theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => setIsInitialLoad(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative overflow-x-hidden">
+      {/* Global Theme-aware Background Pattern */}
+      <div className="fixed inset-0 -z-10" aria-hidden="true">
+        {mounted && (
+          <>
+            <div className={`absolute inset-0 ${theme === 'dark' ? 'gradient-1-dark' : 'gradient-1-light'}`} />
+            <div className={`absolute inset-0 ${theme === 'dark' ? 'gradient-2-dark' : 'gradient-2-light'}`} />
+            <div className={`absolute inset-0 ${theme !== 'dark' ? 'gradient-3-light' : ''}`} />
+          </>
+        )}
+        <style jsx>{`
+          .gradient-1-light {
+            background: radial-gradient(circle at 50% 150%, rgba(45, 212, 191, 0.08), rgba(255, 255, 255, 0));
+          }
+          .gradient-1-dark {
+            background: radial-gradient(circle at 50% 120%, rgba(120, 119, 198, 0.2), rgba(255, 255, 255, 0));
+          }
+          .gradient-2-light {
+            background: radial-gradient(circle 1000px at 50% -20%, rgba(56, 189, 248, 0.05), transparent);
+          }
+          .gradient-2-dark {
+            background: radial-gradient(circle at 50% 0%, rgba(255, 226, 132, 0.08), rgba(255, 255, 255, 0));
+          }
+          .gradient-3-light {
+            background: radial-gradient(circle 800px at 60% 50%, rgba(94, 234, 212, 0.05), transparent);
+          }
+        `}</style>
+      </div>
+
       <Navbar />
       <Hero />
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
+      
+      {/* Remove individual section backgrounds and use consistent spacing */}
+      <div className="w-full space-y-24 md:space-y-32 lg:space-y-48">
         <ProcessSection />
-      </div>
-      {/* Rotating Carousel */}
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <RotatingCarousel />
-      </div>
-      {/* <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <ServicesSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <AboutSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <WhyChooseSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <PortfolioSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <PricingSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <ContactSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <FAQSection />
-      </div>
-      <div className="w-full py-4 md:py-8 lg:py-16 bg-gradient-to-b from-transparent to-background/80">
         <InsightsSection />
       </div>
-*/}
     </main>
   );
 }
