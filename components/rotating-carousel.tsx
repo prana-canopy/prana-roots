@@ -72,7 +72,7 @@ const generateMetricHistory = (baseline: number, days: number): MetricHistory[] 
 
 const cards: CarouselCard[] = [
   {
-    title: "Pinky's Up Social",
+    title: "Pinky's Up DC",
     description: "Elevating nightlife experiences through social connectivity",
     previewImage: "pinkys.png",
     metrics: {
@@ -257,9 +257,15 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                   {/* Header */}
                   <div className="flex justify-between items-start mb-6">
                     <div className="space-y-2">
-                      <h2 className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                      <motion.h2 
+                        className={`text-3xl font-bold bg-gradient-to-r from-[#ffc0cb] to-[#ffb6c1] bg-clip-text text-transparent cursor-pointer`}
+                        whileHover={{
+                          backgroundImage: "linear-gradient(to right, #ffb6c1, #ffc0cb, #ffb6c1)",
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
                         {cards[currentIndex].title}
-                      </h2>
+                      </motion.h2>
                       <p className={`text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
                         {cards[currentIndex].description}
                       </p>

@@ -170,7 +170,7 @@ export default React.memo(function Hero() {
         </motion.div>
       </div> */}
       <div ref={processRef}>
-      <RotatingCarousel />
+      <RotatingCarousel value="featured" />
         <ProcessSection />
         <PricingSection />
         <FAQSection />
