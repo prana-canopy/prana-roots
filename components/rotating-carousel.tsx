@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -181,8 +181,25 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
     })
   };
 
-  const MetricCard: React.FC<{ icon: React.ReactNode; label: string; value: string; trend: number; }> = ({ icon, label, value, trend }) => {
+  const MetricCard: React.FC<{
+    icon: React.ReactNode;
+    label: string;
+    value: string;
+    trend: number;
+    timeframe?: string;
+    lastUpdated?: string;
+    caption?: string;
+  }> = ({ 
+    icon, 
+    label, 
+    value, 
+    trend, 
+    timeframe = 'Last 30 days', 
+    lastUpdated = 'Updated 2 hours ago',
+    caption = 'Based on aggregated customer data'
+  }) => {
     const [count, setCount] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
     const cardRef = useRef(null);
     const isInView = useInView(cardRef, { once: true, amount: 0.3 });
     const numericValue = parseInt(value.replace(/,/g, ''));
@@ -190,7 +207,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
     useEffect(() => {
       if (!isInView) return;
       
-      const duration = 2000; // 2 seconds
+      const duration = 2000;
       const steps = 60;
       const stepValue = numericValue / steps;
       let current = 0;
@@ -211,31 +228,67 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className={`relative overflow-hidden ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} backdrop-blur-md rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} transition-all duration-300 hover:scale-105`}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+        className={`relative overflow-visible ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} backdrop-blur-md rounded-lg p-2.5 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} transition-all duration-300 hover:scale-105 h-[140px]`}
       >
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-xl" />
-          <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-lg" />
+        <div className="absolute inset-0 overflow-hidden rounded-lg opacity-5">
+          <motion.div 
+            animate={{
+              rotate: isHovered ? 360 : 0,
+              scale: isHovered ? 1.2 : 1,
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-xl"
+          />
+          <motion.div 
+            animate={{
+              rotate: isHovered ? -360 : 0,
+              scale: isHovered ? 1.2 : 1,
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-0 left-0 w-10 h-10 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-lg"
+          />
         </div>
 
         {/* Content */}
-        <div className="relative">
-          <div className="flex items-center justify-between mb-3">
-            <span className={`${theme === 'dark' ? 'text-white/70' : 'text-black/70'} text-sm uppercase tracking-wider font-medium`}>
-              {label}
-            </span>
-            <motion.div 
-              whileHover={{ scale: 1.1, rotate: 10 }}
-              className={`p-2 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}
-            >
-              {icon}
-            </motion.div>
+        <div className="relative h-full flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-1">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-1">
+                <span className={`${theme === 'dark' ? 'text-white/70' : 'text-black/70'} text-[9px] uppercase tracking-wide font-medium`}>
+                  {label}
+                </span>
+                <motion.div 
+                  whileHover={{ scale: 1.1, rotate: 10 }}
+                  className={`p-1 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'} shrink-0`}
+                >
+                  {React.cloneElement(icon as React.ReactElement, {
+                    className: 'w-3.5 h-3.5'
+                  })}
+                </motion.div>
+              </div>
+              <div className="flex items-center justify-between text-[9px] leading-none mt-1">
+                <span className={`${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}>
+                  {timeframe}
+                </span>
+                <motion.span 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}
+                >
+                  {lastUpdated}
+                </motion.span>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
+          {/* Value and Trend */}
+          <div className="flex-1 flex flex-col justify-between">
             <motion.div 
-              className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} flex items-baseline gap-1`}
+              className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} flex items-baseline gap-0.5 mt-1`}
             >
               {value.includes('%') ? (
                 <>
@@ -246,7 +299,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                   >
                     {Math.floor(count)}
                   </motion.span>
-                  <span className="text-sm font-normal opacity-70">%</span>
+                  <span className="text-xs font-normal opacity-70">%</span>
                 </>
               ) : (
                 <motion.span
@@ -259,24 +312,50 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
               )}
             </motion.div>
 
-            <div className={`flex items-center gap-2 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-              <motion.div 
-                initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : { scale: 0 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className="flex items-center gap-1 text-sm font-medium"
-              >
-                {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
-                <TrendingUp className="w-3 h-3" />
-              </motion.div>
-              <div className={`h-1 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+            {/* Bottom Section */}
+            <div className="space-y-1">
+              <div className={`flex items-center gap-1.5 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                 <motion.div 
-                  initial={{ width: 0 }}
-                  animate={isInView ? { width: `${Math.min(Math.abs(trend) * 5, 100)}%` } : { width: 0 }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className={`h-full rounded-full ${trend >= 0 ? 'bg-green-400' : 'bg-red-400'}`}
-                />
+                  initial={{ scale: 0 }}
+                  animate={isInView ? { scale: 1 } : { scale: 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  className="flex items-center gap-0.5 text-[11px] font-medium whitespace-nowrap"
+                >
+                  {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
+                  <TrendingUp className="w-2.5 h-2.5" />
+                </motion.div>
+                <div className={`h-0.5 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={isInView ? { width: `${Math.min(Math.abs(trend) * 5, 100)}%` } : { width: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className={`h-full rounded-full ${trend >= 0 ? 'bg-green-400' : 'bg-red-400'}`}
+                  />
+                </div>
               </div>
+              
+              {/* Caption */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="relative group"
+              >
+                <div className={`text-[9px] leading-none ${theme === 'dark' ? 'text-white/40' : 'text-black/40'} flex items-center gap-0.5`}>
+                  <span>{caption}</span>
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    className="cursor-help shrink-0"
+                  >
+                    ⓘ
+                  </motion.div>
+                </div>
+                <div className="fixed z-50 bottom-full left-0 mb-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                  <div className={`p-1.5 rounded text-[10px] leading-tight ${theme === 'dark' ? 'bg-white/10 text-white' : 'bg-black/10 text-black'} backdrop-blur-md whitespace-nowrap shadow-lg border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                    Data collected and verified by our analytics team
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -377,30 +456,42 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                             <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
                               Business Impact
                             </h3>
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                               <MetricCard
-                                icon={<Globe className="w-4 h-4 md:w-5 md:h-5 text-[var(--megaman)]" />}
-                                label="Active Users"
-                                value={cards[currentIndex].metrics.current.visitors}
-                                trend={5.2}
+                                icon={<Eye className="w-5 h-5" />}
+                                label="Total Views"
+                                value="125,000"
+                                trend={12}
+                                timeframe="30d"
+                                lastUpdated="1h ago"
+                                caption="Web visitors"
                               />
                               <MetricCard
-                                icon={<Clock className="w-4 h-4 md:w-5 md:h-5 text-[var(--frozen-turquoise)]" />}
-                                label="Avg. Session"
-                                value={cards[currentIndex].metrics.current.timeSpent}
-                                trend={3.8}
-                              />
-                              <MetricCard
-                                icon={<MousePointerClick className="w-4 h-4 md:w-5 md:h-5 text-[var(--heart-of-ice)]" />}
+                                icon={<MousePointerClick className="w-5 h-5" />}
                                 label="Engagement"
-                                value={cards[currentIndex].metrics.current.engagement}
-                                trend={7.2}
+                                value="68"
+                                trend={8}
+                                timeframe="Q4"
+                                lastUpdated="Live"
+                                caption="Time on site"
                               />
                               <MetricCard
-                                icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-[var(--electric-lettuce)]" />}
-                                label="Conversion"
-                                value={cards[currentIndex].metrics.current.conversion}
-                                trend={4.5}
+                                icon={<Users className="w-5 h-5" />}
+                                label="Customers"
+                                value="15,200"
+                                trend={-3}
+                                timeframe="YTD"
+                                lastUpdated="Daily"
+                                caption="Active users"
+                              />
+                              <MetricCard
+                                icon={<Globe className="w-5 h-5" />}
+                                label="Market Share"
+                                value="85"
+                                trend={15}
+                                timeframe="2023"
+                                lastUpdated="Dec 8"
+                                caption="Global reach"
                               />
                             </div>
                           </div>
@@ -497,7 +588,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
 
                     {activeTab === 'metrics' && (
                       <div className="h-full space-y-4 md:space-y-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
                           <MetricCard
                             icon={<Eye className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
                             label="Visitors"
