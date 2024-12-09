@@ -131,9 +131,14 @@ interface RotatingCarouselProps {
   value: string;
 }
 
+interface TabButtonProps {
+  tab: 'overview' | 'metrics' | 'features';
+  label: string;
+}
+
 export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'features'>('overview');
   const { resolvedTheme: theme } = useTheme();
@@ -146,7 +151,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   useEffect(() => {
     if (!isAutoPlaying) return;
     const timer = setInterval(() => {
-      setDirection(1);
+      setDirection(direction as "prev" | "next");
       setCurrentIndex(
         direction === 'next'
           ? (currentIndex + 1) % cards.length
@@ -157,8 +162,8 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   }, [isAutoPlaying]);
 
   const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
+    enter: (direction: 'next' | 'prev') => ({
+      x: direction === 'next' ? 1000 : -1000,
       opacity: 0,
       scale: 0.8,
     }),
@@ -168,15 +173,15 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
       opacity: 1,
       scale: 1,
     },
-    exit: (direction: number) => ({
+    exit: (direction: 'next' | 'prev') => ({
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction === 'next' ? -1000 : 1000,
       opacity: 0,
       scale: 0.8,
     })
   };
 
-  const MetricCard = ({ icon, label, value, trend }) => (
+  const MetricCard: React.FC<{ icon: React.ReactNode; label: string; value: string; trend: number; }> = ({ icon, label, value, trend }) => (
     <div className={`${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} backdrop-blur-md rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} transition-all duration-300 hover:scale-105`}>
       <div className="flex items-center justify-between mb-2">
         <span className={`${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>{label}</span>
@@ -190,7 +195,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
     </div>
   );
 
-  const TabButton = ({ tab, label }) => (
+  const TabButton: React.FC<TabButtonProps> = ({ tab, label }) => (
     <button
       onClick={() => setActiveTab(tab)}
       className={`px-4 py-2 rounded-lg transition-all duration-300 ${
@@ -214,7 +219,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
             <button
               key={direction}
               onClick={() => {
-                setDirection(direction === 'next' ? 1 : -1);
+                setDirection(direction as "prev" | "next");
                 setCurrentIndex(
                   direction === 'next'
                     ? (currentIndex + 1) % cards.length
@@ -501,7 +506,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
             <button
               key={index}
               onClick={() => {
-                setDirection(index > currentIndex ? 1 : -1);
+                setDirection(index > currentIndex ? 'next' : 'prev' as "prev" | "next");
                 setCurrentIndex(index);
               }}
               className={`w-2 h-2 rounded-full transition-all duration-300 
