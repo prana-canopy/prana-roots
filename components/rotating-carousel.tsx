@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -181,19 +181,108 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
     })
   };
 
-  const MetricCard: React.FC<{ icon: React.ReactNode; label: string; value: string; trend: number; }> = ({ icon, label, value, trend }) => (
-    <div className={`${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} backdrop-blur-md rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} transition-all duration-300 hover:scale-105`}>
-      <div className="flex items-center justify-between mb-2">
-        <span className={`${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>{label}</span>
-        {icon}
-      </div>
-      <div className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{value}</div>
-      <div className={`text-sm ${trend >= 0 ? 'text-green-400' : 'text-red-400'} flex items-center gap-1`}>
-        {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
-        <TrendingUp className="w-4 h-4" />
-      </div>
-    </div>
-  );
+  const MetricCard: React.FC<{ icon: React.ReactNode; label: string; value: string; trend: number; }> = ({ icon, label, value, trend }) => {
+    const [count, setCount] = useState(0);
+    const cardRef = useRef(null);
+    const isInView = useInView(cardRef, { once: true, amount: 0.3 });
+    const numericValue = parseInt(value.replace(/,/g, ''));
+    
+    useEffect(() => {
+      if (!isInView) return;
+      
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const stepValue = numericValue / steps;
+      let current = 0;
+      
+      const timer = setInterval(() => {
+        if (current < numericValue) {
+          current = Math.min(current + stepValue, numericValue);
+          setCount(Math.floor(current));
+        }
+      }, duration / steps);
+      
+      return () => clearInterval(timer);
+    }, [numericValue, isInView]);
+
+    return (
+      <motion.div 
+        ref={cardRef}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className={`relative overflow-hidden ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} backdrop-blur-md rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} transition-all duration-300 hover:scale-105`}
+      >
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-xl" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-lg" />
+        </div>
+
+        {/* Content */}
+        <div className="relative">
+          <div className="flex items-center justify-between mb-3">
+            <span className={`${theme === 'dark' ? 'text-white/70' : 'text-black/70'} text-sm uppercase tracking-wider font-medium`}>
+              {label}
+            </span>
+            <motion.div 
+              whileHover={{ scale: 1.1, rotate: 10 }}
+              className={`p-2 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}
+            >
+              {icon}
+            </motion.div>
+          </div>
+
+          <div className="space-y-2">
+            <motion.div 
+              className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} flex items-baseline gap-1`}
+            >
+              {value.includes('%') ? (
+                <>
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                    key={count}
+                  >
+                    {Math.floor(count)}
+                  </motion.span>
+                  <span className="text-sm font-normal opacity-70">%</span>
+                </>
+              ) : (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  key={count}
+                >
+                  {count.toLocaleString()}
+                </motion.span>
+              )}
+            </motion.div>
+
+            <div className={`flex items-center gap-2 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              <motion.div 
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className="flex items-center gap-1 text-sm font-medium"
+              >
+                {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
+                <TrendingUp className="w-3 h-3" />
+              </motion.div>
+              <div className={`h-1 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: `${Math.min(Math.abs(trend) * 5, 100)}%` } : { width: 0 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className={`h-full rounded-full ${trend >= 0 ? 'bg-green-400' : 'bg-red-400'}`}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
 
   const TabButton: React.FC<TabButtonProps> = ({ tab, label }) => (
     <button
