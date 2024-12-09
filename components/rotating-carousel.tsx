@@ -127,7 +127,11 @@ const cards: CarouselCard[] = [
   // }
 ];
 
-export default function RotatingCarousel() {
+interface RotatingCarouselProps {
+  value: string;
+}
+
+export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -242,248 +246,249 @@ export default function RotatingCarousel() {
             className="absolute w-full h-full"
           >
             <div className="w-full h-full rounded-2xl overflow-hidden">
-              <div className={`absolute inset-0 bg-gradient-to-br ${theme === 'dark' ? 'from-[var(--megaman)]/20 to-[var(--frozen-turquoise)]/20' : 'from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10'} backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`} />
-              
-              <div className="relative h-full p-8 flex flex-col">
-                {/* Header */}
-                <div className="flex justify-between items-start mb-6">
-                  <div className="space-y-2">
-                    <h2 className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                      {cards[currentIndex].title}
-                    </h2>
-                    <p className={`text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
-                      {cards[currentIndex].description}
-                    </p>
+              <div className={`absolute inset-0 bg-gradient-to-br ${theme === 'dark' ? 'from-[var(--megaman)]/20 to-[var(--frozen-turquoise)]/20' : 'from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10'} backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-[700px]`}>
+                
+                <div className="relative h-full p-8 flex flex-col">
+                  {/* Header */}
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="space-y-2">
+                      <h2 className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                        {cards[currentIndex].title}
+                      </h2>
+                      <p className={`text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
+                        {cards[currentIndex].description}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <TabButton tab="overview" label="Overview" />
+                      <TabButton tab="metrics" label="Metrics" />
+                      <TabButton tab="features" label="Features" />
+                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    <TabButton tab="overview" label="Overview" />
-                    <TabButton tab="metrics" label="Metrics" />
-                    <TabButton tab="features" label="Features" />
-                  </div>
-                </div>
 
-                {/* Content based on active tab */}
-                <div className="flex-1 overflow-hidden">
-                  {activeTab === 'overview' && (
-                    <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-                      {/* Left Column: Business Impact */}
-                      <div className="space-y-4">
-                        {/* Key Metrics */}
-                        <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                          <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
-                            Business Impact
-                          </h3>
-                          <div className="grid grid-cols-2 gap-3">
-                            <MetricCard
-                              icon={<Globe className="w-4 h-4 md:w-5 md:h-5 text-[var(--megaman)]" />}
-                              label="Active Users"
-                              value={cards[currentIndex].metrics.current.visitors}
-                              trend={5.2}
-                            />
-                            <MetricCard
-                              icon={<Clock className="w-4 h-4 md:w-5 md:h-5 text-[var(--frozen-turquoise)]" />}
-                              label="Avg. Session"
-                              value={cards[currentIndex].metrics.current.timeSpent}
-                              trend={3.8}
-                            />
-                            <MetricCard
-                              icon={<MousePointerClick className="w-4 h-4 md:w-5 md:h-5 text-[var(--heart-of-ice)]" />}
-                              label="Engagement"
-                              value={cards[currentIndex].metrics.current.engagement}
-                              trend={7.2}
-                            />
-                            <MetricCard
-                              icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-[var(--electric-lettuce)]" />}
-                              label="Conversion"
-                              value={cards[currentIndex].metrics.current.conversion}
-                              trend={4.5}
-                            />
+                  {/* Content based on active tab */}
+                  <div className="flex-1 overflow-hidden">
+                    {activeTab === 'overview' && (
+                      <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+                        {/* Left Column: Business Impact */}
+                        <div className="space-y-4">
+                          {/* Key Metrics */}
+                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
+                              Business Impact
+                            </h3>
+                            <div className="grid grid-cols-2 gap-3">
+                              <MetricCard
+                                icon={<Globe className="w-4 h-4 md:w-5 md:h-5 text-[var(--megaman)]" />}
+                                label="Active Users"
+                                value={cards[currentIndex].metrics.current.visitors}
+                                trend={5.2}
+                              />
+                              <MetricCard
+                                icon={<Clock className="w-4 h-4 md:w-5 md:h-5 text-[var(--frozen-turquoise)]" />}
+                                label="Avg. Session"
+                                value={cards[currentIndex].metrics.current.timeSpent}
+                                trend={3.8}
+                              />
+                              <MetricCard
+                                icon={<MousePointerClick className="w-4 h-4 md:w-5 md:h-5 text-[var(--heart-of-ice)]" />}
+                                label="Engagement"
+                                value={cards[currentIndex].metrics.current.engagement}
+                                trend={7.2}
+                              />
+                              <MetricCard
+                                icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-[var(--electric-lettuce)]" />}
+                                label="Conversion"
+                                value={cards[currentIndex].metrics.current.conversion}
+                                trend={4.5}
+                              />
+                            </div>
+                          </div>
+
+                          {/* Client Testimonial */}
+                          {cards[currentIndex].testimonial && (
+                            <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                              <div className="flex items-center gap-3 mb-3">
+                                <img 
+                                  src={cards[currentIndex].testimonial.image}
+                                  alt={cards[currentIndex].testimonial.author}
+                                  className="w-12 h-12 rounded-full ring-2 ring-[var(--megaman)]/30"
+                                />
+                                <div>
+                                  <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                    {cards[currentIndex].testimonial.author}
+                                  </p>
+                                  <p className={`text-sm ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
+                                    {cards[currentIndex].testimonial.company}
+                                  </p>
+                                </div>
+                              </div>
+                              <blockquote className={`${theme === 'dark' ? 'text-white/90' : 'text-black/90'} italic text-sm leading-relaxed`}>
+                                "{cards[currentIndex].testimonial.quote}"
+                              </blockquote>
+                            </div>
+                          )}
+
+                          {/* Tech Stack */}
+                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                            <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
+                              Technologies Used
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                              {cards[currentIndex].techStack.map((tech) => (
+                                <span 
+                                  key={tech} 
+                                  className={`px-2 py-1 text-xs rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                         </div>
 
-                        {/* Client Testimonial */}
-                        {cards[currentIndex].testimonial && (
-                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                            <div className="flex items-center gap-3 mb-3">
-                              <img 
-                                src={cards[currentIndex].testimonial.image}
-                                alt={cards[currentIndex].testimonial.author}
-                                className="w-12 h-12 rounded-full ring-2 ring-[var(--megaman)]/30"
-                              />
-                              <div>
-                                <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                                  {cards[currentIndex].testimonial.author}
-                                </p>
-                                <p className={`text-sm ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
-                                  {cards[currentIndex].testimonial.company}
-                                </p>
+                        {/* Right Column: Preview & Description */}
+                        <div className="space-y-4">
+                          {/* Site Preview */}
+                          <div className={`relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-300`}>
+                            {/* Browser Frame */}
+                            <div className={`h-6 md:h-8 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-2 md:px-4 space-x-2`}>
+                              <div className="flex space-x-1 md:space-x-2">
+                                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+                                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+                                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
                               </div>
                             </div>
-                            <blockquote className={`${theme === 'dark' ? 'text-white/90' : 'text-black/90'} italic text-sm leading-relaxed`}>
-                              "{cards[currentIndex].testimonial.quote}"
-                            </blockquote>
-                          </div>
-                        )}
-
-                        {/* Tech Stack */}
-                        <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                          <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
-                            Technologies Used
-                          </h3>
-                          <div className="flex flex-wrap gap-2">
-                            {cards[currentIndex].techStack.map((tech) => (
-                              <span 
-                                key={tech} 
-                                className={`px-2 py-1 text-xs rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right Column: Preview & Description */}
-                      <div className="space-y-4">
-                        {/* Site Preview */}
-                        <div className={`relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-300`}>
-                          {/* Browser Frame */}
-                          <div className={`h-6 md:h-8 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-2 md:px-4 space-x-2`}>
-                            <div className="flex space-x-1 md:space-x-2">
-                              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
-                              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
-                              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
+                            <div className="relative w-full">
+                              <div className="absolute inset-0 bg-black/20 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500 z-10" />
+                              <img 
+                                src={cards[currentIndex].previewImage}
+                                alt={`${cards[currentIndex].title} Preview`}
+                                className="w-full h-auto object-contain
+                                  filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 
+                                  transform group-hover:scale-105 transition-all duration-500"
+                              />
                             </div>
                           </div>
-                          <div className="relative w-full">
-                            <div className="absolute inset-0 bg-black/20 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500 z-10" />
-                            <img 
-                              src={cards[currentIndex].previewImage}
-                              alt={`${cards[currentIndex].title} Preview`}
-                              className="w-full h-auto object-contain
-                                filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 
-                                transform group-hover:scale-105 transition-all duration-500"
-                            />
+
+                          {/* Project Info */}
+                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                            <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2`}>
+                              {cards[currentIndex].title}
+                            </h2>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-black/80'} mb-4`}>
+                              {cards[currentIndex].description}
+                            </p>
+                            <a 
+                              href="https://www.pinkysup.social" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm
+                                bg-[var(--megaman)]/10 text-[var(--megaman)]
+                                hover:bg-[var(--megaman)]/20 transition-colors duration-300"
+                            >
+                              Visit Website
+                              <span aria-hidden="true">→</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'metrics' && (
+                      <div className="h-full space-y-4 md:space-y-6">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                          <MetricCard
+                            icon={<Eye className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
+                            label="Visitors"
+                            value={cards[currentIndex].metrics.current.visitors}
+                            trend={5.2}
+                          />
+                          <MetricCard
+                            icon={<MousePointerClick className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
+                            label="Engagement"
+                            value={cards[currentIndex].metrics.current.engagement}
+                            trend={3.8}
+                          />
+                          <MetricCard
+                            icon={<Clock className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
+                            label="Avg. Time"
+                            value={cards[currentIndex].metrics.current.timeSpent}
+                            trend={-2.1}
+                          />
+                          <MetricCard
+                            icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
+                            label="Conversion"
+                            value={cards[currentIndex].metrics.current.conversion}
+                            trend={7.4}
+                          />
+                        </div>
+
+                        <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-[300px]`}>
+                          <h3 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} mb-4`}>Performance Trends</h3>
+                          <PlaceholderChart />
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'features' && (
+                      <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                        <div className="space-y-4 md:space-y-6">
+                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                            <h3 className={`text-lg md:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3 md:mb-4`}>Key Features</h3>
+                            <ul className="space-y-4">
+                              {cards[currentIndex].features.map((feature, idx) => (
+                                <li key={idx} className="flex items-center gap-3 text-white/90">
+                                  <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[var(--frozen-turquoise)]" />
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 md:p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                            <h3 className={`text-lg md:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3 md:mb-4`}>Tech Stack</h3>
+                            <div className="flex flex-wrap gap-2">
+                              {cards[currentIndex].techStack.map((tech) => (
+                                <span 
+                                  key={tech} 
+                                  className={`px-2 py-1 md:px-3 md:py-1.5 text-sm rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                         </div>
 
-                        {/* Project Info */}
-                        <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                          <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2`}>
-                            {cards[currentIndex].title}
-                          </h2>
-                          <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-black/80'} mb-4`}>
-                            {cards[currentIndex].description}
-                          </p>
-                          <a 
-                            href="https://www.pinkysup.social" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm
-                              bg-[var(--megaman)]/10 text-[var(--megaman)]
-                              hover:bg-[var(--megaman)]/20 transition-colors duration-300"
-                          >
-                            Visit Website
-                            <span aria-hidden="true">→</span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'metrics' && (
-                    <div className="h-full space-y-4 md:space-y-6">
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                        <MetricCard
-                          icon={<Eye className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                          label="Visitors"
-                          value={cards[currentIndex].metrics.current.visitors}
-                          trend={5.2}
-                        />
-                        <MetricCard
-                          icon={<MousePointerClick className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                          label="Engagement"
-                          value={cards[currentIndex].metrics.current.engagement}
-                          trend={3.8}
-                        />
-                        <MetricCard
-                          icon={<Clock className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                          label="Avg. Time"
-                          value={cards[currentIndex].metrics.current.timeSpent}
-                          trend={-2.1}
-                        />
-                        <MetricCard
-                          icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                          label="Conversion"
-                          value={cards[currentIndex].metrics.current.conversion}
-                          trend={7.4}
-                        />
-                      </div>
-
-                      <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-[300px]`}>
-                        <h3 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} mb-4`}>Performance Trends</h3>
-                        <PlaceholderChart />
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'features' && (
-                    <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                      <div className="space-y-4 md:space-y-6">
                         <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                          <h3 className={`text-lg md:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3 md:mb-4`}>Key Features</h3>
-                          <ul className="space-y-4">
-                            {cards[currentIndex].features.map((feature, idx) => (
-                              <li key={idx} className="flex items-center gap-3 text-white/90">
-                                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[var(--frozen-turquoise)]" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 md:p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                          <h3 className={`text-lg md:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3 md:mb-4`}>Tech Stack</h3>
-                          <div className="flex flex-wrap gap-2">
-                            {cards[currentIndex].techStack.map((tech) => (
-                              <span 
-                                key={tech} 
-                                className={`px-2 py-1 md:px-3 md:py-1.5 text-sm rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
-                              >
-                                {tech}
-                              </span>
-                            ))}
+                          <h3 className={`text-lg md:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3 md:mb-4`}>Implementation Timeline</h3>
+                          <div className="space-y-6">
+                            <div className="relative pl-8 border-l-2 border-white/20">
+                              <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--megaman)]" />
+                              <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Discovery & Planning</h4>
+                              <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>2 weeks</p>
+                            </div>
+                            <div className="relative pl-8 border-l-2 border-white/20">
+                              <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--frozen-turquoise)]" />
+                              <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Design & Development</h4>
+                              <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>6-8 weeks</p>
+                            </div>
+                            <div className="relative pl-8 border-l-2 border-white/20">
+                              <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--heart-of-ice)]" />
+                              <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Testing & Refinement</h4>
+                              <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>2 weeks</p>
+                            </div>
+                            <div className="relative pl-8">
+                              <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--electric-lettuce)]" />
+                              <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Launch & Support</h4>
+                              <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>Ongoing</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-
-                      <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                        <h3 className={`text-lg md:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3 md:mb-4`}>Implementation Timeline</h3>
-                        <div className="space-y-6">
-                          <div className="relative pl-8 border-l-2 border-white/20">
-                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--megaman)]" />
-                            <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Discovery & Planning</h4>
-                            <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>2 weeks</p>
-                          </div>
-                          <div className="relative pl-8 border-l-2 border-white/20">
-                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--frozen-turquoise)]" />
-                            <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Design & Development</h4>
-                            <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>6-8 weeks</p>
-                          </div>
-                          <div className="relative pl-8 border-l-2 border-white/20">
-                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--heart-of-ice)]" />
-                            <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Testing & Refinement</h4>
-                            <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>2 weeks</p>
-                          </div>
-                          <div className="relative pl-8">
-                            <div className="absolute left-0 top-1.5 w-4 h-4 -translate-x-[9px] rounded-full bg-[var(--electric-lettuce)]" />
-                            <h4 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>Launch & Support</h4>
-                            <p className={`text-white/70 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>Ongoing</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

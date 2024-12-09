@@ -140,14 +140,14 @@ const ProcessSection = () => {
                     flex items-center justify-center mb-8 mx-auto
                     transition-all duration-300 group
                     ${activeStep >= index 
-                      ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] border-transparent shadow-lg' 
-                      : 'border-gray-300 dark:border-white/30 hover:border-gray-400 dark:hover:border-white/60 hover:shadow-md'
+                      ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] border-transparent' 
+                      : 'border-gray-300 dark:border-white/20 hover:border-gray-200 dark:hover:border-white/20'
                     }`}
                 >
-                  <div className={`transition-all duration-300 group-hover:scale-110
+                  <div className={`transition-transform duration-300 group-hover:scale-110
                     ${activeStep >= index 
-                      ? 'metallic-gradient-light drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)] scale-125' 
-                      : 'text-gray-700 dark:text-white/80 group-hover:text-gray-900 dark:group-hover:text-white'
+                      ? 'text-white' 
+                      : 'text-gray-500 dark:text-white/60'
                     }`}>
                     {step.icon}
                   </div>
