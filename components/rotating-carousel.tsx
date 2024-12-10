@@ -374,10 +374,10 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   return (
     <TooltipProvider delayDuration={100}>
       <div className="w-full h-full flex flex-col">
-        <div className="w-full max-w-7xl mx-auto px-4 py-16">
-          <div className="relative h-[700px] perspective">
+        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-8 sm:py-16">
+          <div className="relative h-[500px] sm:h-[600px] md:h-[700px] perspective">
             {/* Navigation Buttons */}
-            <div className="absolute inset-x-2 md:inset-x-4 top-1/2 -translate-y-1/2 flex justify-between z-20">
+            <div className="absolute inset-x-1 sm:inset-x-2 md:inset-x-4 top-1/2 -translate-y-1/2 flex justify-between z-20">
               {['prev', 'next'].map((direction) => (
                 <button
                   key={direction}
@@ -389,7 +389,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                         : (currentIndex - 1 + cards.length) % cards.length
                     );
                   }}
-                  className={`p-2 md:p-3 rounded-full ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'} 
+                  className={`p-1.5 sm:p-2 md:p-3 rounded-full ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'} 
                     backdrop-blur-md transition-colors duration-300 text-white`}
                   aria-label={`Show ${direction} slide`}
                 >
@@ -414,14 +414,14 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                 className="absolute w-full h-full"
               >
                 <div className="w-full h-full rounded-2xl overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${theme === 'dark' ? 'from-[var(--megaman)]/20 to-[var(--frozen-turquoise)]/20' : 'from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10'} backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-[700px]`}>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${theme === 'dark' ? 'from-[var(--megaman)]/20 to-[var(--frozen-turquoise)]/20' : 'from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10'} backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-full`}>
                     
-                    <div className="relative h-full p-8 flex flex-col">
+                    <div className="relative h-full p-3 sm:p-6 md:p-8 flex flex-col">
                       {/* Header */}
-                      <div className="flex justify-between items-start mb-6">
-                        <div className="space-y-2">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-6 mb-4 sm:mb-6">
+                        <div className="space-y-1 sm:space-y-2">
                           <motion.h2 
-                            className={`text-3xl font-bold bg-gradient-to-r from-[#ffc0cb] to-[#ffb6c1] bg-clip-text text-transparent cursor-pointer`}
+                            className={`text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#ffc0cb] to-[#ffb6c1] bg-clip-text text-transparent cursor-pointer`}
                             whileHover={{
                               backgroundImage: "linear-gradient(to right, #ffb6c1, #ffc0cb, #ffb6c1)",
                             }}
@@ -429,11 +429,11 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                           >
                             {cards[currentIndex].title}
                           </motion.h2>
-                          <p className={`text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
+                          <p className={`text-sm sm:text-base md:text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
                             {cards[currentIndex].description}
                           </p>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-1 sm:gap-2">
                           <TabButton tab="overview" label="Overview" />
                           <TabButton tab="metrics" label="Metrics" />
                           <TabButton tab="features" label="Features" />
@@ -441,17 +441,17 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                       </div>
 
                       {/* Content based on active tab */}
-                      <div className="flex-1 overflow-hidden">
+                      <div className="flex-1 overflow-y-auto">
                         {activeTab === 'overview' && (
-                          <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+                          <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                             {/* Left Column: Performance Metrics */}
-                            <div className="space-y-4">
+                            <div className="space-y-3 sm:space-y-4">
                               {/* Key Metrics */}
-                              <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} relative overflow-visible`}>
-                                <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
+                              <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-2 sm:p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} relative overflow-visible`}>
+                                <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
                                   Performance Metrics
                                 </h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+                                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 relative">
                                   {/* Adding a relative wrapper for each MetricCard to contain its tooltip */}
                                   <div className="relative z-10">
                                     <MetricCard
@@ -498,38 +498,38 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
 
                               {/* Client Testimonial */}
                               {cards[currentIndex].testimonial && (
-                                <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                                  <div className="flex items-center gap-3 mb-3">
+                                <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-3 sm:p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                                     <img 
                                       src={cards[currentIndex].testimonial.image}
                                       alt={cards[currentIndex].testimonial.author}
-                                      className="w-12 h-12 rounded-full ring-2 ring-[var(--megaman)]/30"
+                                      className="w-8 h-8 sm:w-12 sm:h-12 rounded-full ring-2 ring-[var(--megaman)]/30"
                                     />
                                     <div>
-                                      <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                      <p className={`font-medium text-sm sm:text-base ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                                         {cards[currentIndex].testimonial.author}
                                       </p>
-                                      <p className={`text-sm ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
+                                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
                                         {cards[currentIndex].testimonial.company}
                                       </p>
                                     </div>
                                   </div>
-                                  <blockquote className={`${theme === 'dark' ? 'text-white/90' : 'text-black/90'} italic text-sm leading-relaxed`}>
+                                  <blockquote className={`${theme === 'dark' ? 'text-white/90' : 'text-black/90'} italic text-xs sm:text-sm leading-relaxed`}>
                                     "{cards[currentIndex].testimonial.quote}"
                                   </blockquote>
                                 </div>
                               )}
 
                               {/* Tech Stack */}
-                              <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} relative overflow-visible`}>
-                                <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
+                              <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-3 sm:p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} relative overflow-visible`}>
+                                <h3 className={`text-xs sm:text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
                                   Technologies Used
                                 </h3>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                   {cards[currentIndex].techStack.map((tech) => (
                                     <span 
                                       key={tech} 
-                                      className={`px-2 py-1 text-xs rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
+                                      className={`px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
                                     >
                                       {tech}
                                     </span>
@@ -539,15 +539,15 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                             </div>
 
                             {/* Right Column: Preview & Description */}
-                            <div className="space-y-4">
+                            <div className="space-y-3 sm:space-y-4">
                               {/* Site Preview */}
                               <div className={`relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-300`}>
                                 {/* Browser Frame */}
-                                <div className={`h-6 md:h-8 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-2 md:px-4 space-x-2`}>
+                                <div className={`h-5 sm:h-6 md:h-8 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-2 md:px-4 space-x-1 sm:space-x-2`}>
                                   <div className="flex space-x-1 md:space-x-2">
-                                    <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
+                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
                                   </div>
                                 </div>
                                 <div className="relative w-full">
@@ -564,10 +564,10 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
 
                               {/* Project Info */}
                               <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                                <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2`}>
+                                <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
                                   {cards[currentIndex].title}
                                 </h2>
-                                <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-black/80'} mb-4`}>
+                                <p className={`text-sm sm:text-base md:text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'} mb-4 sm:mb-6`}>
                                   {cards[currentIndex].description}
                                 </p>
                                 <a 
@@ -588,7 +588,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
 
                         {activeTab === 'metrics' && (
                           <div className="h-full space-y-4 md:space-y-6">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                               <MetricCard
                                 icon={<Zap className="w-4 h-4 md:w-5 md:h-5" />}
                                 label="Speed"
