@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe } from 'lucide-react';
+import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe, Gauge, Search, Target, Smartphone, Share2, Star, PartyPopper, Trophy, Zap, Cpu, Shield, Activity } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 const PlaceholderChart = () => {
@@ -423,49 +423,49 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                   <div className="flex-1 overflow-hidden">
                     {activeTab === 'overview' && (
                       <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-                        {/* Left Column: Business Impact */}
+                        {/* Left Column: Performance Metrics */}
                         <div className="space-y-4">
                           {/* Key Metrics */}
                           <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
                             <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-3`}>
-                              Business Impact
+                              Performance Metrics
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                               <MetricCard
-                                icon={<Eye className="w-5 h-5" />}
-                                label="Total Views"
-                                value="125,000"
+                                icon={<Zap className="w-5 h-5" />}
+                                label="Speed"
+                                value="0.8s"
+                                trend={65}
+                                timeframe="avg"
+                                lastUpdated="24h"
+                                caption="Page load"
+                              />
+                              <MetricCard
+                                icon={<Gauge className="w-5 h-5" />}
+                                label="Score"
+                                value="98"
                                 trend={12}
-                                timeframe="30d"
-                                lastUpdated="1h ago"
-                                caption="Web visitors"
+                                timeframe="now"
+                                lastUpdated="1h"
+                                caption="PageSpeed"
                               />
                               <MetricCard
-                                icon={<MousePointerClick className="w-5 h-5" />}
-                                label="Engagement"
-                                value="68"
+                                icon={<Smartphone className="w-5 h-5" />}
+                                label="Mobile"
+                                value="99"
                                 trend={8}
-                                timeframe="Q4"
-                                lastUpdated="Live"
-                                caption="Time on site"
+                                timeframe="now"
+                                lastUpdated="1h"
+                                caption="Optimization"
                               />
                               <MetricCard
-                                icon={<Users className="w-5 h-5" />}
-                                label="Customers"
-                                value="15,200"
-                                trend={-3}
-                                timeframe="YTD"
-                                lastUpdated="Daily"
-                                caption="Active users"
-                              />
-                              <MetricCard
-                                icon={<Globe className="w-5 h-5" />}
-                                label="Market Share"
-                                value="85"
+                                icon={<Search className="w-5 h-5" />}
+                                label="SEO"
+                                value="96"
                                 trend={15}
-                                timeframe="2023"
-                                lastUpdated="Dec 8"
-                                caption="Global reach"
+                                timeframe="now"
+                                lastUpdated="1h"
+                                caption="Search rank"
                               />
                             </div>
                           </div>
@@ -564,33 +564,92 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                       <div className="h-full space-y-4 md:space-y-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
                           <MetricCard
-                            icon={<Eye className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                            label="Visitors"
-                            value={cards[currentIndex].metrics.current.visitors}
-                            trend={5.2}
+                            icon={<Zap className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Speed"
+                            value="0.8s"
+                            trend={65}
+                            timeframe="avg"
+                            lastUpdated="24h"
+                            caption="Load time"
                           />
                           <MetricCard
-                            icon={<MousePointerClick className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                            label="Engagement"
-                            value={cards[currentIndex].metrics.current.engagement}
-                            trend={3.8}
+                            icon={<Cpu className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Core"
+                            value="100"
+                            trend={15}
+                            timeframe="now"
+                            lastUpdated="1h"
+                            caption="Web Vitals"
                           />
                           <MetricCard
-                            icon={<Clock className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                            label="Avg. Time"
-                            value={cards[currentIndex].metrics.current.timeSpent}
-                            trend={-2.1}
+                            icon={<Shield className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Auth"
+                            value="99.9"
+                            trend={12}
+                            timeframe="uptime"
+                            lastUpdated="30m"
+                            caption="Security score"
                           />
                           <MetricCard
-                            icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-white/70" />}
-                            label="Conversion"
-                            value={cards[currentIndex].metrics.current.conversion}
-                            trend={7.4}
+                            icon={<Activity className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="API"
+                            value="35ms"
+                            trend={45}
+                            timeframe="avg"
+                            lastUpdated="1h"
+                            caption="Response time"
+                          />
+                          <MetricCard
+                            icon={<Search className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="SEO"
+                            value="96"
+                            trend={8}
+                            timeframe="90d"
+                            lastUpdated="1h ago"
+                            caption="Search Engine Optimization Score"
+                          />
+                          <MetricCard
+                            icon={<Users className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Reach"
+                            value="15.2K"
+                            trend={25}
+                            timeframe="90d"
+                            lastUpdated="1h ago"
+                            caption="Monthly Active Users"
+                          />
+                          <MetricCard
+                            icon={<Target className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Core"
+                            value="100"
+                            trend={5}
+                            timeframe="90d"
+                            lastUpdated="1h ago"
+                            caption="Core Web Vitals Score"
+                          />
+                          <MetricCard
+                            icon={<Smartphone className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Mobile"
+                            value="99"
+                            trend={15}
+                            timeframe="90d"
+                            lastUpdated="1h ago"
+                            caption="Mobile Responsiveness Score"
+                          />
+                          <MetricCard
+                            icon={<Share2 className="w-4 h-4 md:w-5 md:h-5" />}
+                            label="Social"
+                            value="8.9K"
+                            trend={32}
+                            timeframe="90d"
+                            lastUpdated="1h ago"
+                            caption="Social Media Shares"
                           />
                         </div>
 
                         <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-[300px]`}>
-                          <h3 className={`text-white ${theme === 'dark' ? 'text-white' : 'text-black'} mb-4`}>Performance Trends</h3>
+                          <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-4`}>
+                            Performance Metrics
+                          </h3>
                           <PlaceholderChart />
                         </div>
                       </div>
