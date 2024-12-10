@@ -230,133 +230,107 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
         transition={{ duration: 0.5, delay: 0.2 }}
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
-        className={`relative overflow-visible ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} backdrop-blur-md rounded-lg p-2.5 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} transition-all duration-300 hover:scale-105 h-[140px]`}
+        className={`
+          relative overflow-visible backdrop-blur-md rounded-lg p-2.5 
+          transition-all duration-300 hover:scale-105 h-[140px]
+          before:absolute before:-inset-[1px] before:rounded-lg 
+          before:bg-gradient-to-r before:from-pink-300/50 before:to-pink-500/50
+          before:opacity-0 hover:before:opacity-100
+          before:transition-opacity before:duration-300
+          before:-z-10
+          after:absolute after:inset-0 after:rounded-lg after:content-['']
+          after:transition-all after:duration-300
+          after:-z-20
+          ${theme === 'dark' ? 'bg-[#111]/90 after:bg-[#111]/90' : 'bg-white/90 after:bg-white/90'}
+          border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}
+        `}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 overflow-hidden rounded-lg opacity-5">
-          <motion.div 
-            animate={{
-              rotate: isHovered ? 360 : 0,
-              scale: isHovered ? 1.2 : 1,
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-xl"
-          />
-          <motion.div 
-            animate={{
-              rotate: isHovered ? -360 : 0,
-              scale: isHovered ? 1.2 : 1,
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-0 left-0 w-10 h-10 bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-lg"
-          />
         </div>
-
+        
         {/* Content */}
-        <div className="relative h-full flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-1">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-1">
-                <span className={`${theme === 'dark' ? 'text-white/70' : 'text-black/70'} text-[9px] uppercase tracking-wide font-medium`}>
-                  {label}
-                </span>
-                <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 10 }}
-                  className={`p-1 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'} shrink-0`}
-                >
-                  {React.cloneElement(icon as React.ReactElement, {
-                    className: 'w-3.5 h-3.5'
-                  })}
-                </motion.div>
-              </div>
-              <div className="flex items-center justify-between text-[9px] leading-none mt-1">
-                <span className={`${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}>
-                  {timeframe}
-                </span>
-                <motion.span 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className={`${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}
-                >
-                  {lastUpdated}
-                </motion.span>
-              </div>
+        <div className="relative z-10 flex flex-col h-full">
+          {/* Top Section */}
+          <div className="flex items-start justify-between mb-2">
+            <div className={`p-2 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+              {React.cloneElement(icon as React.ReactElement, {
+                className: 'w-4 h-4'
+              })}
+            </div>
+            <div className={`text-xs font-medium ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
+              {label}
             </div>
           </div>
 
-          {/* Value and Trend */}
-          <div className="flex-1 flex flex-col justify-between">
-            <motion.div 
-              className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} flex items-baseline gap-0.5 mt-1`}
-            >
-              {value.includes('%') ? (
-                <>
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                    key={count}
-                  >
-                    {Math.floor(count)}
-                  </motion.span>
-                  <span className="text-xs font-normal opacity-70">%</span>
-                </>
-              ) : (
+          {/* Value */}
+          <div className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            {value.includes('%') ? (
+              <>
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                   key={count}
                 >
-                  {count.toLocaleString()}
+                  {Math.floor(count)}
                 </motion.span>
-              )}
-            </motion.div>
+                <span className="text-xs font-normal opacity-70">%</span>
+              </>
+            ) : (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                key={count}
+              >
+                {count.toLocaleString()}
+              </motion.span>
+            )}
+          </div>
 
-            {/* Bottom Section */}
-            <div className="space-y-1">
-              <div className={`flex items-center gap-1.5 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          {/* Bottom Section */}
+          <div className="space-y-1">
+            <div className={`flex items-center gap-1.5 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              <motion.div 
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className="flex items-center gap-0.5 text-[11px] font-medium whitespace-nowrap"
+              >
+                {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
+                <TrendingUp className="w-2.5 h-2.5" />
+              </motion.div>
+              <div className={`h-0.5 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
                 <motion.div 
-                  initial={{ scale: 0 }}
-                  animate={isInView ? { scale: 1 } : { scale: 0 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="flex items-center gap-0.5 text-[11px] font-medium whitespace-nowrap"
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: `${Math.min(Math.abs(trend) * 5, 100)}%` } : { width: 0 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className={`h-full rounded-full ${trend >= 0 ? 'bg-green-400' : 'bg-red-400'}`}
+                />
+              </div>
+            </div>
+            
+            {/* Caption */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="relative group"
+            >
+              <div className={`text-[9px] leading-none ${theme === 'dark' ? 'text-white/40' : 'text-black/40'} flex items-center gap-0.5`}>
+                <span>{caption}</span>
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  className="cursor-help shrink-0"
                 >
-                  {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
-                  <TrendingUp className="w-2.5 h-2.5" />
+                  ⓘ
                 </motion.div>
-                <div className={`h-0.5 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${Math.min(Math.abs(trend) * 5, 100)}%` } : { width: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className={`h-full rounded-full ${trend >= 0 ? 'bg-green-400' : 'bg-red-400'}`}
-                  />
+              </div>
+              <div className="fixed z-50 bottom-full left-0 mb-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                <div className={`p-1.5 rounded text-[10px] leading-tight ${theme === 'dark' ? 'bg-white/10 text-white' : 'bg-black/10 text-black'} backdrop-blur-md whitespace-nowrap shadow-lg border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                  Data collected and verified by our analytics team
                 </div>
               </div>
-              
-              {/* Caption */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="relative group"
-              >
-                <div className={`text-[9px] leading-none ${theme === 'dark' ? 'text-white/40' : 'text-black/40'} flex items-center gap-0.5`}>
-                  <span>{caption}</span>
-                  <motion.div
-                    whileHover={{ scale: 1.2 }}
-                    className="cursor-help shrink-0"
-                  >
-                    ⓘ
-                  </motion.div>
-                </div>
-                <div className="fixed z-50 bottom-full left-0 mb-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                  <div className={`p-1.5 rounded text-[10px] leading-tight ${theme === 'dark' ? 'bg-white/10 text-white' : 'bg-black/10 text-black'} backdrop-blur-md whitespace-nowrap shadow-lg border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                    Data collected and verified by our analytics team
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </motion.div>
@@ -563,7 +537,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                           </div>
 
                           {/* Project Info */}
-                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
+                          <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
                             <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2`}>
                               {cards[currentIndex].title}
                             </h2>
