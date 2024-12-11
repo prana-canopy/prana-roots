@@ -625,8 +625,8 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                         </div>
                         <div className="flex gap-1 sm:gap-2">
                           <TabButton tab="overview" label="Overview" />
-                          <TabButton tab="metrics" label="Metrics" />
-                          <TabButton tab="features" label="Features" />
+                          {/* <TabButton tab="metrics" label="Metrics" />
+                          <TabButton tab="features" label="Features" /> */}
                         </div>
                       </div>
 
