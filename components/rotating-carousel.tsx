@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe, Gauge, Search, Target, Smartphone, Share2, Star, PartyPopper, Trophy, Zap, Cpu, Shield, Activity, Info, TrendingDown } from 'lucide-react';
+import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe, Gauge, Search, Target, Smartphone, Share2, Star, PartyPopper, Trophy, Zap, Cpu, Shield, Activity, Info, TrendingDown, Code, Rocket } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   Tooltip,
@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import Image from 'next/image';
 
 const PlaceholderChart = () => {
   const { resolvedTheme: theme } = useTheme();
@@ -49,6 +50,7 @@ interface CarouselCard {
   title: string;
   description: string;
   previewImage: string;
+  url: string;
   metrics: {
     current: {
       visitors: string;
@@ -82,6 +84,7 @@ const cards: CarouselCard[] = [
     title: "PINKYS UP DC",
     description: "Elevating nightlife experiences through social connectivity",
     previewImage: "pinkys.png",
+    url: "https://pinkysup.social",
     metrics: {
       current: {
         visitors: "5,234",
@@ -98,7 +101,7 @@ const cards: CarouselCard[] = [
       "Interactive venue maps"
     ],
     testimonial: {
-      quote: "Prana Roots didn't just build us a website - they created an ecosystem that revolutionized how we manage our venue. The real-time capacity tracking alone has been a game-changer for our busy nights, and the VIP reservation system has dramatically increased our high-value bookings. Their attention to detail and understanding of the nightlife industry truly sets them apart.",
+      quote: "Vitality didn't just build us a website - they created an ecosystem that revolutionized how we do business. Their attention to detail and understanding of the nightlife industry truly sets them apart.",
       author: "Brenda Periera Vargas",
       company: "Founder - PINKYS UP DC",
       image: "brenda.jpg"
@@ -159,52 +162,205 @@ interface MetricCardProps {
   index: number;
 }
 
+interface TimelinePhase {
+  title: string;
+  description: string;
+  duration: string;
+  icon: React.ReactElement;
+}
+
+const timelinePhases: TimelinePhase[] = [
+  {
+    title: "Discovery",
+    description: "Requirements gathering and project planning",
+    duration: "1-2 weeks",
+    icon: <Search className="w-4 h-4" />
+  },
+  {
+    title: "Design",
+    description: "UI/UX design and prototyping",
+    duration: "2-3 weeks",
+    icon: <Cpu className="w-4 h-4" />
+  },
+  {
+    title: "Development",
+    description: "Core functionality implementation",
+    duration: "4-6 weeks",
+    icon: <Code className="w-4 h-4" />
+  },
+  {
+    title: "Testing",
+    description: "Quality assurance and refinement",
+    duration: "1-2 weeks",
+    icon: <Shield className="w-4 h-4" />
+  },
+  {
+    title: "Launch",
+    description: "Deployment and monitoring",
+    duration: "1 week",
+    icon: <Rocket className="w-4 h-4" />
+  }
+];
+
+const Timeline = () => {
+  const { resolvedTheme: theme } = useTheme();
+  const [hoveredPhase, setHoveredPhase] = useState<number | null>(null);
+
+  return (
+    <div className="relative w-full h-full flex flex-col justify-center px-4">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <svg className="w-full h-[80%]" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="var(--megaman)" />
+              <stop offset="50%" stopColor="var(--frozen-turquoise)" />
+              <stop offset="100%" stopColor="var(--heart-of-ice)" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          {/* Curved connecting lines with animation */}
+          <path
+            d="M 50,150 C 150,150 250,50 350,50"
+            fill="none"
+            stroke="url(#lineGradient)"
+            strokeWidth="2"
+            strokeDasharray="5,5"
+            className={`opacity-30 transition-all duration-500 ${hoveredPhase !== null ? 'animate-pulse' : ''}`}
+            filter="url(#glow)"
+          />
+          <path
+            d="M 50,150 C 150,150 250,250 350,250"
+            fill="none"
+            stroke="url(#lineGradient)"
+            strokeWidth="2"
+            strokeDasharray="5,5"
+            className={`opacity-30 transition-all duration-500 ${hoveredPhase !== null ? 'animate-pulse' : ''}`}
+            filter="url(#glow)"
+          />
+        </svg>
+      </div>
+
+      <div className="relative grid grid-cols-5 gap-2">
+        {timelinePhases.map((phase, index) => (
+          <motion.div
+            key={phase.title}
+            className={`
+              group relative p-2 rounded-lg backdrop-blur-sm
+              ${theme === 'dark' ? 'bg-white/5' : 'bg-black/5'}
+              border ${theme === 'dark' ? 'border-white/10' : 'border-black/10'}
+              transition-all duration-500
+              hover:scale-105 hover:shadow-lg
+              ${theme === 'dark' ? 'hover:shadow-cyan-500/20' : 'hover:shadow-cyan-500/30'}
+              cursor-pointer
+              hover:border-[var(--megaman)]
+            `}
+            onHoverStart={() => setHoveredPhase(index)}
+            onHoverEnd={() => setHoveredPhase(null)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              delay: index * 0.1,
+              type: "spring",
+              stiffness: 100,
+              damping: 15
+            }}
+          >
+            <div className={`
+              absolute inset-0 rounded-lg transition-all duration-500
+              bg-gradient-to-r from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]
+              opacity-0 group-hover:opacity-10
+            `} />
+            
+            <div className="relative z-10">
+              <div className={`
+                p-1.5 rounded-lg mb-2 w-fit
+                ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}
+                transition-all duration-300
+                group-hover:bg-gradient-to-r from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]
+                group-hover:bg-opacity-20
+              `}>
+                <div className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  {phase.icon}
+                </div>
+              </div>
+              
+              <h4 className={`
+                text-sm font-medium mb-1
+                ${theme === 'dark' ? 'text-white' : 'text-black'}
+                transition-colors duration-300
+                group-hover:text-[var(--frozen-turquoise)]
+              `}>
+                {phase.title}
+              </h4>
+              
+              <div className={`
+                text-[10px] mb-1 line-clamp-2
+                ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}
+                transition-colors duration-300
+                group-hover:text-opacity-90
+              `}>
+                {phase.description}
+              </div>
+              
+              <div className={`
+                text-[10px] font-medium
+                ${theme === 'dark' ? 'text-white/50' : 'text-black/50'}
+                transition-colors duration-300
+                group-hover:text-[var(--megaman)]
+              `}>
+                {phase.duration}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+    scale: 0.95
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+    scale: 1
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+    scale: 0.95
+  })
+};
+
 export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'features'>('overview');
-  const { resolvedTheme: theme, setTheme } = useTheme();
+  const { resolvedTheme: theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragStartX = useRef(0);
+  const dragEndX = useRef(0);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleDragEnd = (e: any, { offset, velocity }: any) => {
-    const swipe = swipePower(offset.x, velocity.x);
-
-    if (swipe < -swipeConfidenceThreshold) {
-      setDirection('next');
-      setCurrentIndex((currentIndex + 1) % cards.length);
-    } else if (swipe > swipeConfidenceThreshold) {
-      setDirection('prev');
-      setCurrentIndex((currentIndex - 1 + cards.length) % cards.length);
-    }
-  };
-
   const swipeConfidenceThreshold = 10000;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
-  };
-
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.95
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      scale: 1
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.95
-    })
   };
 
   const TabButton = ({ tab, label }: TabButtonProps) => (
@@ -226,7 +382,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
     const cardRef = useRef(null);
     const isInView = useInView(cardRef, { once: true, amount: 0.3 });
     const numericValue = parseInt(value.replace(/,/g, ''));
-  
+    
     useEffect(() => {
       if (!isInView) return;
       
@@ -255,7 +411,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
         onHoverEnd={() => setIsHovered(false)}
         className={`
           relative overflow-visible backdrop-blur-md rounded-lg p-2 
-          transition-all duration-300 hover:scale-105 h-[120px] sm:h-[130px]
+          transition-all duration-300 hover:scale-105 h-[90px] sm:h-[100px]
           before:absolute before:-inset-[1px] before:rounded-lg 
           before:bg-gradient-to-r before:from-pink-300/50 before:to-pink-500/50
           before:opacity-0 hover:before:opacity-100
@@ -275,10 +431,10 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
         {/* Content */}
         <div className="relative z-10 flex flex-col h-full">
           {/* Top Section */}
-          <div className="flex items-start justify-between mb-1.5">
-            <div className={`p-1.5 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+          <div className="flex items-start justify-between mb-1">
+            <div className={`p-1 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
               {React.cloneElement(icon as React.ReactElement, {
-                className: 'w-3.5 h-3.5 sm:w-4 sm:h-4'
+                className: 'w-3 h-3'
               })}
             </div>
             <div className={`text-[10px] sm:text-xs font-medium ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
@@ -287,7 +443,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
           </div>
 
           {/* Value */}
-          <div className={`text-xl sm:text-2xl font-bold mb-1.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          <div className={`text-xl sm:text-2xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             {value.includes('%') ? (
               <>
                 <motion.span
@@ -311,16 +467,16 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
           </div>
 
           {/* Bottom Section */}
-          <div className="space-y-0.5 sm:space-y-1">
-            <div className={`flex items-center gap-1 sm:gap-1.5 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <div className="space-y-0.5">
+            <div className={`flex items-center gap-1 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               <motion.div 
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : { scale: 0 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className="flex items-center gap-0.5 text-[10px] sm:text-[11px] font-medium whitespace-nowrap"
+                className="flex items-center gap-0.5 text-[10px] font-medium whitespace-nowrap"
               >
                 {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
-                <TrendingUp className="w-2 h-2 sm:w-2.5 sm:h-2.5" />
+                <TrendingUp className="w-2 h-2" />
               </motion.div>
               <div className="h-0.5 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}">
                 <motion.div 
@@ -334,21 +490,21 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
             
             {/* Caption with Tooltip */}
             <div className="relative">
-              <div className={`text-[8px] sm:text-[9px] leading-none ${theme === 'dark' ? 'text-white/40' : 'text-black/40'} flex items-center gap-1`}>
+              <div className={`text-[8px] leading-none ${theme === 'dark' ? 'text-white/40' : 'text-black/40'} flex items-center gap-1`}>
                 <span>{caption}</span>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       className={`
-                        p-0.5 sm:p-1 rounded-full cursor-help transition-colors duration-200
+                        p-0.5 rounded-full cursor-help transition-colors duration-200
                         ${theme === 'dark' 
                           ? 'hover:bg-white/10' 
                           : 'hover:bg-black/5'
                         }
                       `}
                     >
-                      <Info className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                      <Info className="w-2 h-2" />
                     </motion.button>
                   </TooltipTrigger>
                   <TooltipPrimitive.Portal>
@@ -367,7 +523,10 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                         }
                       `}
                     >
-                      Data collected and verified by our analytics team
+                      {label === "SEO Score" && "Perfect search engine optimization score, ensuring maximum visibility and reach for your target audience"}
+                      {label === "Accessibility" && "High accessibility compliance score, making your site usable for people of all abilities"}
+                      {label === "Security" && "Perfect security score, implementing all recommended web security best practices"}
+                      {label === "Performance" && "Exceptional loading speed and performance optimization across all devices"}
                     </TooltipContent>
                   </TooltipPrimitive.Portal>
                 </Tooltip>
@@ -484,43 +643,43 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                 </h3>
                                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 relative">
                                   {/* Adding a relative wrapper for each MetricCard to contain its tooltip */}
-                                  <div className="relative z-10">
+                                  <div className="relative z-[5]">
                                     <MetricCard
-                                      icon={<Zap className="w-5 h-5" />}
-                                      label="Speed"
-                                      value="0.8s"
-                                      trend={65}
-                                      caption="Page load"
+                                      icon={<Search className="w-5 h-5" />}
+                                      label="SEO Score"
+                                      value="100"
+                                      trend={15}
+                                      caption="Search optimization"
                                       index={0}
                                     />
                                   </div>
-                                  <div className="relative z-10">
+                                  <div className="relative z-[4]">
                                     <MetricCard
-                                      icon={<Gauge className="w-5 h-5" />}
-                                      label="Score"
-                                      value="98"
+                                      icon={<Users className="w-5 h-5" />}
+                                      label="Accessibility"
+                                      value="94"
                                       trend={12}
-                                      caption="PageSpeed"
+                                      caption="WCAG compliance"
                                       index={1}
                                     />
                                   </div>
-                                  <div className="relative z-10">
+                                  <div className="relative z-[3]">
                                     <MetricCard
-                                      icon={<Smartphone className="w-5 h-5" />}
-                                      label="Mobile"
-                                      value="99"
-                                      trend={8}
-                                      caption="Optimization"
+                                      icon={<Shield className="w-5 h-5" />}
+                                      label="Security"
+                                      value="100"
+                                      trend={0}
+                                      caption="Best practices"
                                       index={2}
                                     />
                                   </div>
-                                  <div className="relative z-10">
+                                  <div className="relative z-[2]">
                                     <MetricCard
-                                      icon={<Search className="w-5 h-5" />}
-                                      label="SEO"
-                                      value="96"
-                                      trend={15}
-                                      caption="Search rank"
+                                      icon={<Zap className="w-5 h-5" />}
+                                      label="Performance"
+                                      value="98"
+                                      trend={8}
+                                      caption="Loading speed"
                                       index={3}
                                     />
                                   </div>
@@ -729,31 +888,124 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
 
                             {/* Right Column: Preview & Description */}
                             <div className="space-y-3 sm:space-y-4">
-                              {/* Site Preview */}
-                              <div className={`relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-500`}>
-                                {/* Browser Frame */}
-                                <div className={`h-6 sm:h-8 md:h-10 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-3 md:px-4 space-x-2 md:space-x-3`}>
-                                  <div className="flex space-x-1.5 md:space-x-2">
-                                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-red-500 transition-transform group-hover:scale-110"></div>
-                                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500 transition-transform group-hover:scale-110"></div>
-                                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-green-500 transition-transform group-hover:scale-110"></div>
+                              {/* Site Preview with Timeline */}
+                              <div className="flex gap-2 sm:gap-3">
+                                {/* Site Preview */}
+                                <div className={`flex-1 relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-500`}>
+                                  {/* Browser Frame */}
+                                  <div className={`h-6 sm:h-8 md:h-10 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-3 md:px-4 space-x-2 md:space-x-3`}>
+                                    <div className="flex space-x-1.5 md:space-x-2">
+                                      <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-red-500 transition-transform group-hover:scale-110"></div>
+                                      <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500 transition-transform group-hover:scale-110"></div>
+                                      <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-green-500 transition-transform group-hover:scale-110"></div>
+                                    </div>
                                   </div>
+                                  <a 
+                                    href={cards[currentIndex].url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="block cursor-pointer"
+                                  >
+                                    <div className="relative w-full">
+                                      <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent mix-blend-multiply group-hover:opacity-0 transition-opacity duration-500 z-10" />
+                                      <img 
+                                        src={cards[currentIndex].previewImage}
+                                        alt={cards[currentIndex].title}
+                                        className="w-full h-full object-cover
+                                          filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 
+                                          transform group-hover:scale-105 transition-all duration-700 ease-out"
+                                      />
+                                    </div>
+                                  </a>
                                 </div>
-                                <div className="relative w-full">
-                                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent mix-blend-multiply group-hover:opacity-0 transition-opacity duration-500 z-10" />
-                                  <img 
-                                    src={cards[currentIndex].previewImage}
-                                    alt={`${cards[currentIndex].title} Preview`}
-                                    className="w-full h-auto object-cover
-                                      filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 
-                                      transform group-hover:scale-105 transition-all duration-700 ease-out"
-                                  />
+
+                                {/* Compact Timeline */}
+                                <div className={`hidden lg:flex flex-col w-[180px] bg-white/5 backdrop-blur-sm rounded-lg border 
+                                  ${theme === 'dark' ? 'border-white/10' : 'border-black/10'} 
+                                  relative group overflow-hidden`}
+                                >
+                                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+                                  
+                                  <div className="relative p-3">
+                                    <div className="flex items-center gap-1.5 mb-3">
+                                      <Clock className="w-3.5 h-3.5 text-white/70" />
+                                      <span className="text-sm text-white/90">Timeline</span>
+                                    </div>
+
+                                    <div className="relative space-y-3">
+                                      {/* Vertical line */}
+                                      <div className="absolute left-[5px] top-[10px] w-[1px] h-[calc(100%-20px)] bg-white/10" />
+                                      
+                                      {[
+                                        { phase: "Discovery", duration: "1-2w" },
+                                        { phase: "Design", duration: "2w" },
+                                        { phase: "Development", duration: "4w" },
+                                        { phase: "Testing", duration: "1w" },
+                                        { phase: "Launch", duration: "1w" }
+                                      ].map((item, index) => (
+                                        <div 
+                                          key={index} 
+                                          className="relative flex items-center group/item cursor-pointer"
+                                        >
+                                          <div 
+                                            className="absolute left-0 w-[11px] h-[11px] rounded-full border-2 
+                                              transition-all duration-500 group-hover/item:scale-125
+                                              before:absolute before:inset-0 before:rounded-full 
+                                              before:opacity-0 group-hover/item:before:opacity-100
+                                              before:transition-opacity before:duration-500
+                                              after:absolute after:inset-0 after:rounded-full after:blur-[2px]
+                                              after:transition-opacity after:duration-500
+                                              after:opacity-0 group-hover/item:after:opacity-50"
+                                            style={{
+                                              borderColor: 'rgb(244 114 182)',
+                                              backgroundImage: 'linear-gradient(to right, rgba(244, 114, 182, 0.3), rgba(236, 72, 153, 0.3))',
+                                              '--dot-hover-gradient': 'linear-gradient(to right, rgb(244 114 182), rgb(236 72 153))',
+                                              '--dot-glow': 'rgb(244 114 182)',
+                                            } as React.CSSProperties}
+                                          >
+                                            <div className="absolute inset-0 rounded-full transition-opacity duration-500 opacity-0 group-hover/item:opacity-100"
+                                                 style={{
+                                                   backgroundImage: 'var(--dot-hover-gradient)',
+                                                 }}
+                                            />
+                                            <div className="absolute inset-0 rounded-full transition-opacity duration-500 opacity-0 group-hover/item:opacity-30 blur-sm"
+                                                 style={{
+                                                   backgroundColor: 'var(--dot-glow)',
+                                                 }}
+                                            />
+                                          </div>
+                                          <div className="flex items-center justify-between w-full pl-6 py-1 
+                                            transition-all duration-300 group-hover/item:translate-x-1">
+                                            <span 
+                                              className={`text-xs font-medium transition-all duration-300 bg-clip-text text-transparent`}
+                                              style={{
+                                                backgroundImage: theme === 'dark' 
+                                                  ? 'linear-gradient(to right, #ffffff, #d1d5db, #ffffff)'
+                                                  : 'linear-gradient(to right, #1f2937, #4b5563, #1f2937)'
+                                              }}
+                                            >
+                                              {item.phase}
+                                            </span>
+                                            <span 
+                                              className={`text-[10px] transition-all duration-300`}
+                                              style={{
+                                                color: theme === 'dark' ? '#d1d5db' : '#4b5563',
+                                                opacity: 0.8
+                                              }}
+                                            >
+                                              {item.duration}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
 
                               {/* Project Info */}
                               <div className={`bg-white/5 backdrop-blur-sm rounded-lg p-3 border 
-                                ${theme === 'dark' ? 'border-white/10 hover:border-white/20' : 'border-black/5 hover:border-black/10'} 
+                                ${theme === 'dark' ? 'border-white/10 hover:border-white/20' : 'border-black/10 hover:border-black/20'} 
                                 relative group overflow-hidden`}
                               >
                                 {/* Gradient Background */}
@@ -770,12 +1022,13 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                     <div className={`text-xs px-2 py-0.5 rounded-full bg-white/5 border
                                       ${theme === 'dark' 
                                         ? 'border-white/20 text-white/90 bg-white/10' 
-                                        : 'border-black/20 text-black/90 bg-black/5'}`}
+                                        : 'border-black/20 text-black/90 bg-black/5'
+                                      }`}
                                     >
                                       {cards[currentIndex].techStack.length} Technologies
                                     </div>
                                   </div>
-                                  
+
                                   <div className="grid grid-cols-2 gap-1.5">
                                     {cards[currentIndex].features.slice(0, 4).map((feature, index) => (
                                       <div
@@ -790,8 +1043,8 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                         {/* Content Container */}
                                         <div className={`relative flex items-center gap-1.5 p-1.5 rounded-md text-xs
                                           border ${theme === 'dark' 
-                                            ? 'bg-black/20 border-white/20 hover:bg-black/30' 
-                                            : 'bg-white/60 border-black/20 hover:bg-white/80'}
+                                            ? 'bg-black/20 border-white/20' 
+                                            : 'bg-white/60 border-black/20'}
                                           group-hover/item:border-[#FFD700]/40
                                           transition-all duration-300`}
                                         >
@@ -859,36 +1112,28 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                 index={0}
                               />
                               <MetricCard
-                                icon={<Cpu className="w-4 h-4 md:w-5 md:h-5" />}
-                                label="Core"
-                                value="100"
-                                trend={15}
-                                caption="Web Vitals"
+                                icon={<Gauge className="w-4 h-4 md:w-5 md:h-5" />}
+                                label="Score"
+                                value="98"
+                                trend={12}
+                                caption="PageSpeed"
                                 index={1}
                               />
                               <MetricCard
-                                icon={<Shield className="w-4 h-4 md:w-5 md:h-5" />}
-                                label="Auth"
-                                value="99.9"
-                                trend={12}
-                                caption="Security score"
+                                icon={<Smartphone className="w-4 h-4 md:w-5 md:h-5" />}
+                                label="Mobile"
+                                value="99"
+                                trend={8}
+                                caption="Optimization"
                                 index={2}
-                              />
-                              <MetricCard
-                                icon={<Activity className="w-4 h-4 md:w-5 md:h-5" />}
-                                label="API"
-                                value="35ms"
-                                trend={45}
-                                caption="Response time"
-                                index={3}
                               />
                               <MetricCard
                                 icon={<Search className="w-4 h-4 md:w-5 md:h-5" />}
                                 label="SEO"
                                 value="96"
-                                trend={8}
+                                trend={15}
                                 caption="Search Engine Optimization Score"
-                                index={4}
+                                index={3}
                               />
                               <MetricCard
                                 icon={<Users className="w-4 h-4 md:w-5 md:h-5" />}
@@ -896,7 +1141,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                 value="15.2K"
                                 trend={25}
                                 caption="Monthly Active Users"
-                                index={5}
+                                index={4}
                               />
                               <MetricCard
                                 icon={<Target className="w-4 h-4 md:w-5 md:h-5" />}
@@ -904,7 +1149,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                 value="100"
                                 trend={5}
                                 caption="Core Web Vitals Score"
-                                index={6}
+                                index={5}
                               />
                               <MetricCard
                                 icon={<Smartphone className="w-4 h-4 md:w-5 md:h-5" />}
@@ -912,7 +1157,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                 value="99"
                                 trend={15}
                                 caption="Mobile Responsiveness Score"
-                                index={7}
+                                index={6}
                               />
                               <MetricCard
                                 icon={<Share2 className="w-4 h-4 md:w-5 md:h-5" />}
@@ -920,7 +1165,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                 value="8.9K"
                                 trend={32}
                                 caption="Social Media Shares"
-                                index={8}
+                                index={7}
                               />
                             </div>
 
@@ -958,6 +1203,38 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                     >
                                       {tech}
                                     </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="w-full h-[200px] mb-4">
+                              <div className="relative p-4 bg-black/40 backdrop-blur-md rounded-lg">
+                                <div className="flex items-center gap-2 mb-4">
+                                  <Clock className="w-4 h-4 text-white/70" />
+                                  <span className="text-sm text-white/90 font-medium">Timeline</span>
+                                </div>
+                                
+                                <div className="relative flex flex-col gap-3">
+                                  {[
+                                    { phase: 'Discovery', duration: '1-2w' },
+                                    { phase: 'Design', duration: '2w' },
+                                    { phase: 'Development', duration: '4w' },
+                                    { phase: 'Testing', duration: '1w' },
+                                    { phase: 'Launch', duration: '1w' }
+                                  ].map(({ phase, duration }, i) => (
+                                    <div key={phase} className="flex items-center gap-3">
+                                      <div className="relative">
+                                        <div className="w-2 h-2 rounded-full bg-white/20" />
+                                        {i < 4 && (
+                                          <div className="absolute top-2 left-1/2 w-[1px] h-[calc(100%+8px)] -translate-x-1/2 bg-white/10" />
+                                        )}
+                                      </div>
+                                      <div className="flex-1 flex items-center justify-between">
+                                        <span className="text-sm text-white/70">{phase}</span>
+                                        <span className="text-xs text-white/40">{duration}</span>
+                                      </div>
+                                    </div>
                                   ))}
                                 </div>
                               </div>
