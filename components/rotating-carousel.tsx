@@ -98,7 +98,7 @@ const cards: CarouselCard[] = [
       "Interactive venue maps"
     ],
     testimonial: {
-      quote: "Prana Roots transformed our digital presence and helped us connect with our audience in meaningful ways.",
+      quote: "Prana Roots didn't just build us a website - they created an ecosystem that revolutionized how we manage our venue. The real-time capacity tracking alone has been a game-changer for our busy nights, and the VIP reservation system has dramatically increased our high-value bookings. Their attention to detail and understanding of the nightlife industry truly sets them apart.",
       author: "Brenda Periera Vargas",
       company: "Founder - PINKYS UP DC",
       image: "brenda.jpg"
