@@ -79,7 +79,7 @@ const generateMetricHistory = (baseline: number, days: number): MetricHistory[] 
 
 const cards: CarouselCard[] = [
   {
-    title: "Pinky's Up DC",
+    title: "PINKYS UP DC",
     description: "Elevating nightlife experiences through social connectivity",
     previewImage: "pinkys.png",
     metrics: {
@@ -99,11 +99,18 @@ const cards: CarouselCard[] = [
     ],
     testimonial: {
       quote: "Prana Roots transformed our digital presence and helped us connect with our audience in meaningful ways.",
-      author: "Pinky's Up Team",
-      company: "Pinky's Up Social",
-      image: "pinkys.png"
+      author: "Brenda Periera Vargas",
+      company: "Founder - PINKYS UP DC",
+      image: "brenda.jpg"
     },
-    techStack: ["React", "Next.js", "TailwindCSS", "Node.js"]
+    techStack: [
+      // Frontend
+      "React", "Next.js", "TailwindCSS", "TypeScript", "Framer Motion",
+      // Backend
+      "Node.js", "Express", "MongoDB", "Socket.io",
+      // Deployment & CMS
+      "Vercel", "Sanity", "Cloudinary"
+    ]
   },
   // {
   //   title: "Biodiversity Analytics Dashboard",
@@ -181,19 +188,22 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
   };
 
   const variants = {
-    enter: (direction: 'next' | 'prev') => ({
-      x: direction === 'next' ? 1000 : -1000,
-      opacity: 0
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.95
     }),
     center: {
       zIndex: 1,
       x: 0,
-      opacity: 1
+      opacity: 1,
+      scale: 1
     },
-    exit: (direction: 'next' | 'prev') => ({
+    exit: (direction: number) => ({
       zIndex: 0,
-      x: direction === 'next' ? -1000 : 1000,
-      opacity: 0
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.95
     })
   };
 
@@ -312,7 +322,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                 {trend >= 0 ? '↑' : '↓'} {Math.abs(trend)}%
                 <TrendingUp className="w-2 h-2 sm:w-2.5 sm:h-2.5" />
               </motion.div>
-              <div className={`h-0.5 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+              <div className="h-0.5 flex-grow rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={isInView ? { width: `${Math.min(Math.abs(trend) * 5, 100)}%` } : { width: 0 }}
@@ -389,8 +399,11 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                         : (currentIndex - 1 + cards.length) % cards.length
                     );
                   }}
-                  className={`p-1.5 sm:p-2 md:p-3 rounded-full ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'} 
-                    backdrop-blur-md transition-colors duration-300 text-white`}
+                  className={`p-2 sm:p-3 md:p-4 rounded-full 
+                    ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'} 
+                    backdrop-blur-md transition-all duration-300 
+                    hover:scale-110 active:scale-95
+                    text-white shadow-lg`}
                   aria-label={`Show ${direction} slide`}
                 >
                   {direction === 'prev' ? '←' : '→'}
@@ -398,7 +411,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
               ))}
             </div>
 
-            <AnimatePresence initial={false} custom={direction}>
+            <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
                 custom={direction}
@@ -411,10 +424,28 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                   opacity: { duration: 0.3 },
                   scale: { duration: 0.4 }
                 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipe = swipePower(offset.x, velocity.x);
+
+                  if (swipe < -swipeConfidenceThreshold) {
+                    setDirection('next');
+                    setCurrentIndex((currentIndex + 1) % cards.length);
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    setDirection('prev');
+                    setCurrentIndex((currentIndex - 1 + cards.length) % cards.length);
+                  }
+                }}
                 className="absolute w-full h-full"
               >
                 <div className="w-full h-full rounded-2xl overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${theme === 'dark' ? 'from-[var(--megaman)]/20 to-[var(--frozen-turquoise)]/20' : 'from-[var(--megaman)]/10 to-[var(--frozen-turquoise)]/10'} backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-full`}>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${
+                    theme === 'dark' 
+                      ? 'from-[var(--megaman)]/20 via-[var(--frozen-turquoise)]/15 to-[var(--heart-of-ice)]/20' 
+                      : 'from-[var(--megaman)]/10 via-[var(--frozen-turquoise)]/5 to-[var(--heart-of-ice)]/10'
+                  } backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-full`}>
                     
                     <div className="relative h-full p-3 sm:p-6 md:p-8 flex flex-col">
                       {/* Header */}
@@ -498,42 +529,200 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
 
                               {/* Client Testimonial */}
                               {cards[currentIndex].testimonial && (
-                                <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-3 sm:p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                                    <img 
-                                      src={cards[currentIndex].testimonial.image}
-                                      alt={cards[currentIndex].testimonial.author}
-                                      className="w-8 h-8 sm:w-12 sm:h-12 rounded-full ring-2 ring-[var(--megaman)]/30"
-                                    />
-                                    <div>
-                                      <p className={`font-medium text-sm sm:text-base ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                                        {cards[currentIndex].testimonial.author}
-                                      </p>
-                                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}>
-                                        {cards[currentIndex].testimonial.company}
-                                      </p>
+                                <motion.div 
+                                  className={`bg-white/5 backdrop-blur-sm rounded-lg border 
+                                    ${theme === 'dark' ? 'border-white/10 hover:border-white/20' : 'border-black/10 hover:border-black/20'} 
+                                    relative group overflow-hidden`}
+                                  whileHover={{ scale: 1.01 }}
+                                  whileTap={{ scale: 0.99 }}
+                                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                >
+                                  {/* Gradient Background */}
+                                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+                                  
+                                  <div className="relative p-4">
+                                    <div className="flex items-center gap-3">
+                                      {/* Author Image */}
+                                      <motion.div 
+                                        className="relative shrink-0"
+                                        whileHover={{ scale: 1.05 }}
+                                      >
+                                        <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-[var(--megaman)]/20 group-hover:ring-[var(--megaman)]/40 transition-all">
+                                          <img 
+                                            src={cards[currentIndex].testimonial.image}
+                                            alt={cards[currentIndex].testimonial.author}
+                                            className="w-full h-full object-cover"
+                                          />
+                                        </div>
+                                      </motion.div>
+                                      
+                                      {/* Author Info */}
+                                      <div className="flex-1 min-w-0">
+                                        <h4 className={`font-medium text-sm truncate
+                                          ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                          {cards[currentIndex].testimonial.author}
+                                        </h4>
+                                        <p className={`text-xs truncate
+                                          ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>
+                                          {cards[currentIndex].testimonial.company}
+                                        </p>
+                                      </div>
+                                      
+                                      {/* Quote Icon */}
+                                      <div className={`shrink-0 opacity-20 group-hover:opacity-40 transition-opacity
+                                        ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                        </svg>
+                                      </div>
                                     </div>
+                                    
+                                    {/* Quote Text */}
+                                    <p className={`text-sm mt-2 line-clamp-2 leading-relaxed
+                                      ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
+                                      "{cards[currentIndex].testimonial.quote}"
+                                    </p>
                                   </div>
-                                  <blockquote className={`${theme === 'dark' ? 'text-white/90' : 'text-black/90'} italic text-xs sm:text-sm leading-relaxed`}>
-                                    "{cards[currentIndex].testimonial.quote}"
-                                  </blockquote>
-                                </div>
+                                </motion.div>
                               )}
 
-                              {/* Tech Stack */}
-                              <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-3 sm:p-4 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} relative overflow-visible`}>
-                                <h3 className={`text-xs sm:text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
-                                  Technologies Used
-                                </h3>
-                                <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                                  {cards[currentIndex].techStack.map((tech) => (
-                                    <span 
-                                      key={tech} 
-                                      className={`px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full ${theme === 'dark' ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}
-                                    >
-                                      {tech}
-                                    </span>
-                                  ))}
+                              {/* Technical Insights */}
+                              <div className={`bg-white/5 backdrop-blur-sm rounded-lg p-3 border 
+                                ${theme === 'dark' ? 'border-white/10 hover:border-white/20' : 'border-black/10 hover:border-black/20'} 
+                                relative group overflow-hidden`}
+                              >
+                                {/* Gradient Background */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+                                
+                                <div className="relative space-y-2">
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                      <Cpu className={`w-4 h-4 ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`} />
+                                      <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                        Technical Insights
+                                      </h3>
+                                    </div>
+                                  </div>
+
+                                  {/* Tech Categories */}
+                                  <div className="grid grid-cols-3 gap-1.5">
+                                    {/* Frontend */}
+                                    <div className="group/tech relative rounded-md">
+                                      <div className={`absolute inset-0 rounded-md opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300
+                                        bg-gradient-to-br from-[#60A5FA] via-[#3B82F6] to-[#2563EB]`} 
+                                      />
+                                      <div className={`relative flex flex-col gap-1 p-1.5 rounded-md text-xs h-full
+                                        border ${theme === 'dark' 
+                                          ? 'bg-black/20 border-white/20' 
+                                          : 'bg-white/60 border-black/20'}
+                                        group-hover/tech:border-[#3B82F6]/40
+                                        transition-all duration-300`}
+                                      >
+                                        <div className="flex items-center gap-1.5">
+                                          <div className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center
+                                            ${theme === 'dark' ? 'bg-black/30' : 'bg-white/80'}`}
+                                          >
+                                            <Smartphone className="w-2.5 h-2.5 text-[#3B82F6]" />
+                                          </div>
+                                          <span className={`font-medium ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`}>
+                                            Frontend
+                                          </span>
+                                        </div>
+                                        <div className="flex flex-wrap gap-1">
+                                          {cards[currentIndex].techStack
+                                            .filter(tech => ['React', 'Next.js', 'TailwindCSS', 'TypeScript', 'Framer Motion'].includes(tech))
+                                            .map((tech, i) => (
+                                              <span key={i} className={`px-1 py-0.5 rounded text-[10px] 
+                                                ${theme === 'dark' 
+                                                  ? 'bg-black/30 text-white/80' 
+                                                  : 'bg-white/80 text-black/80'}
+                                                group-hover/tech:text-[#3B82F6]`}
+                                              >
+                                                {tech}
+                                              </span>
+                                            ))}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Backend */}
+                                    <div className="group/tech relative rounded-md">
+                                      <div className={`absolute inset-0 rounded-md opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300
+                                        bg-gradient-to-br from-[#34D399] via-[#10B981] to-[#059669]`} 
+                                      />
+                                      <div className={`relative flex flex-col gap-1 p-1.5 rounded-md text-xs h-full
+                                        border ${theme === 'dark' 
+                                          ? 'bg-black/20 border-white/20' 
+                                          : 'bg-white/60 border-black/20'}
+                                        group-hover/tech:border-[#10B981]/40
+                                        transition-all duration-300`}
+                                      >
+                                        <div className="flex items-center gap-1.5">
+                                          <div className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center
+                                            ${theme === 'dark' ? 'bg-black/30' : 'bg-white/80'}`}
+                                          >
+                                            <Shield className="w-2.5 h-2.5 text-[#10B981]" />
+                                          </div>
+                                          <span className={`font-medium ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`}>
+                                            Backend
+                                          </span>
+                                        </div>
+                                        <div className="flex flex-wrap gap-1">
+                                          {cards[currentIndex].techStack
+                                            .filter(tech => ['Node.js', 'Express', 'MongoDB', 'Socket.io'].includes(tech))
+                                            .map((tech, i) => (
+                                              <span key={i} className={`px-1 py-0.5 rounded text-[10px] 
+                                                ${theme === 'dark' 
+                                                  ? 'bg-black/30 text-white/80' 
+                                                  : 'bg-white/80 text-black/80'}
+                                                group-hover/tech:text-[#10B981]`}
+                                              >
+                                                {tech}
+                                              </span>
+                                            ))}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Infrastructure */}
+                                    <div className="group/tech relative rounded-md">
+                                      <div className={`absolute inset-0 rounded-md opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300
+                                        bg-gradient-to-br from-[#F472B6] via-[#EC4899] to-[#DB2777]`} 
+                                      />
+                                      <div className={`relative flex flex-col gap-1 p-1.5 rounded-md text-xs h-full
+                                        border ${theme === 'dark' 
+                                          ? 'bg-black/20 border-white/20' 
+                                          : 'bg-white/60 border-black/20'}
+                                        group-hover/tech:border-[#EC4899]/40
+                                        transition-all duration-300`}
+                                      >
+                                        <div className="flex items-center gap-1.5">
+                                          <div className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center
+                                            ${theme === 'dark' ? 'bg-black/30' : 'bg-white/80'}`}
+                                          >
+                                            <Share2 className="w-2.5 h-2.5 text-[#EC4899]" />
+                                          </div>
+                                          <span className={`font-medium ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`}>
+                                            Deployment & CMS
+                                          </span>
+                                        </div>
+                                        <div className="flex flex-wrap gap-1">
+                                          {cards[currentIndex].techStack
+                                            .filter(tech => ['Vercel', 'Sanity', 'Cloudinary'].includes(tech))
+                                            .map((tech, i) => (
+                                              <span key={i} className={`px-1 py-0.5 rounded text-[10px] 
+                                                ${theme === 'dark' 
+                                                  ? 'bg-black/30 text-white/80' 
+                                                  : 'bg-white/80 text-black/80'}
+                                                group-hover/tech:text-[#EC4899]`}
+                                              >
+                                                {tech}
+                                              </span>
+                                            ))}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -541,46 +730,118 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                             {/* Right Column: Preview & Description */}
                             <div className="space-y-3 sm:space-y-4">
                               {/* Site Preview */}
-                              <div className={`relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-300`}>
+                              <div className={`relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-500`}>
                                 {/* Browser Frame */}
-                                <div className={`h-5 sm:h-6 md:h-8 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-2 md:px-4 space-x-1 sm:space-x-2`}>
-                                  <div className="flex space-x-1 md:space-x-2">
-                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
+                                <div className={`h-6 sm:h-8 md:h-10 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-3 md:px-4 space-x-2 md:space-x-3`}>
+                                  <div className="flex space-x-1.5 md:space-x-2">
+                                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-red-500 transition-transform group-hover:scale-110"></div>
+                                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500 transition-transform group-hover:scale-110"></div>
+                                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-green-500 transition-transform group-hover:scale-110"></div>
                                   </div>
                                 </div>
                                 <div className="relative w-full">
-                                  <div className="absolute inset-0 bg-black/20 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500 z-10" />
+                                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent mix-blend-multiply group-hover:opacity-0 transition-opacity duration-500 z-10" />
                                   <img 
                                     src={cards[currentIndex].previewImage}
                                     alt={`${cards[currentIndex].title} Preview`}
-                                    className="w-full h-auto object-contain
-                                      filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 
-                                      transform group-hover:scale-105 transition-all duration-500"
+                                    className="w-full h-auto object-cover
+                                      filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 
+                                      transform group-hover:scale-105 transition-all duration-700 ease-out"
                                   />
                                 </div>
                               </div>
 
                               {/* Project Info */}
-                              <div className={`bg-white/10 ${theme === 'dark' ? 'backdrop-blur-md' : ''} rounded-lg p-6 border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}>
-                                <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
-                                  {cards[currentIndex].title}
-                                </h2>
-                                <p className={`text-sm sm:text-base md:text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'} mb-4 sm:mb-6`}>
-                                  {cards[currentIndex].description}
-                                </p>
-                                <a 
-                                  href="https://www.pinkysup.social" 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm
-                                    bg-[var(--megaman)]/10 text-[var(--megaman)]
-                                    hover:bg-[var(--megaman)]/20 transition-colors duration-300"
-                                >
-                                  Visit Website
-                                  <span aria-hidden="true">→</span>
-                                </a>
+                              <div className={`bg-white/5 backdrop-blur-sm rounded-lg p-3 border 
+                                ${theme === 'dark' ? 'border-white/10 hover:border-white/20' : 'border-black/5 hover:border-black/10'} 
+                                relative group overflow-hidden`}
+                              >
+                                {/* Gradient Background */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+                                
+                                <div className="relative space-y-2">
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                      <Info className={`w-4 h-4 ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`} />
+                                      <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                        Project Highlights
+                                      </h3>
+                                    </div>
+                                    <div className={`text-xs px-2 py-0.5 rounded-full bg-white/5 border
+                                      ${theme === 'dark' 
+                                        ? 'border-white/20 text-white/90 bg-white/10' 
+                                        : 'border-black/20 text-black/90 bg-black/5'}`}
+                                    >
+                                      {cards[currentIndex].techStack.length} Technologies
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="grid grid-cols-2 gap-1.5">
+                                    {cards[currentIndex].features.slice(0, 4).map((feature, index) => (
+                                      <div
+                                        key={index}
+                                        className="group/item relative rounded-md"
+                                      >
+                                        {/* Golden Gradient Background - Moved inside to respect border radius */}
+                                        <div className={`absolute inset-0 rounded-md opacity-0 group-hover/item:opacity-100 transition-opacity duration-300
+                                          bg-gradient-to-br from-[#FFD700] via-[#FDB931] to-[#F0B90B]`} 
+                                        />
+                                        
+                                        {/* Content Container */}
+                                        <div className={`relative flex items-center gap-1.5 p-1.5 rounded-md text-xs
+                                          border ${theme === 'dark' 
+                                            ? 'bg-black/20 border-white/20 hover:bg-black/30' 
+                                            : 'bg-white/60 border-black/20 hover:bg-white/80'}
+                                          group-hover/item:border-[#FFD700]/40
+                                          transition-all duration-300`}
+                                        >
+                                          {/* Icon Container */}
+                                          <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center
+                                            ${theme === 'dark' 
+                                              ? 'bg-black/30 group-hover/item:bg-black/40' 
+                                              : 'bg-white/80 group-hover/item:bg-white'}`}
+                                          >
+                                            <Trophy className="w-3 h-3 text-[#FFD700] opacity-80 group-hover/item:opacity-100" />
+                                          </div>
+                                          
+                                          {/* Text Container */}
+                                          <span className={`truncate font-medium
+                                            ${theme === 'dark' 
+                                              ? 'text-white/90 group-hover/item:text-white' 
+                                              : 'text-black/90 group-hover/item:text-black'}
+                                            group-hover/item:text-shadow-sm`}
+                                          >
+                                            {feature}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+
+                                  <div className="flex items-center gap-1.5 pt-0.5">
+                                    {cards[currentIndex].techStack.slice(0, 5).map((tech, index) => (
+                                      <motion.div
+                                        key={index}
+                                        className={`px-1.5 py-0.5 text-[10px] rounded border
+                                          ${theme === 'dark' 
+                                            ? 'bg-black/20 border-white/20 text-white/90 hover:bg-black/30' 
+                                            : 'bg-white/60 border-black/20 text-black/90 hover:bg-white/80'}
+                                          hover:border-[#FFD700]/40 hover:text-[#FFD700] cursor-pointer
+                                          transition-all duration-300`}
+                                        whileHover={{ scale: 1.05 }}
+                                      >
+                                        {tech}
+                                      </motion.div>
+                                    ))}
+                                    {cards[currentIndex].techStack.length > 5 && (
+                                      <span className={`text-[10px] font-medium
+                                        ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}
+                                      >
+                                        +{cards[currentIndex].techStack.length - 5} more
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
