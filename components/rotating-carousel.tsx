@@ -266,8 +266,7 @@ const Timeline = () => {
               damping: 15
             }}
           >
-            <div className={`
-              absolute inset-0 rounded-lg transition-all duration-500
+            <div className={`absolute inset-0 rounded-lg transition-all duration-500
               bg-gradient-to-r from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]
               opacity-0 group-hover:opacity-10
             `} />
@@ -285,38 +284,35 @@ const Timeline = () => {
                 </div>
               </div>
 　
+
+　　　　　　　<h4 className={`
+　　　　　　　　　text-sm font-medium mb-1
+　　　　　　　　　${theme === 'dark' ? 'text-white' : 'text-black'}
+　　　　　　　　　transition-colors duration-300
+　　　　　　　　　group-hover:text-[var(--frozen-turquoise)]
+　　　　　　　`}>
+　　　　　　　　　{phase.title}
+　　　　　　　</h4>
 　
+
+　　　　　　　<div className={`
+　　　　　　　　　text-[10px] mb-1 line-clamp-2
+　　　　　　　　　${theme === 'dark' ? 'text-white/70' : 'text-black/70'}
+　　　　　　　　　transition-colors duration-300
+　　　　　　　　　group-hover:text-opacity-90
+　　　　　　　`}>
+　　　　　　　　　{phase.description}
+　　　　　　　</div>
 　
-              <h4 className={`
-                text-sm font-medium mb-1
-                ${theme === 'dark' ? 'text-white' : 'text-black'}
-                transition-colors duration-300
-                group-hover:text-[var(--frozen-turquoise)]
-              `}>
-                {phase.title}
-              </h4>
-　
-　
-　
-              <div className={`
-                text-[10px] mb-1 line-clamp-2
-                ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}
-                transition-colors duration-300
-                group-hover:text-opacity-90
-              `}>
-                {phase.description}
-              </div>
-　
-　
-　
-              <div className={`
-                text-[10px] font-medium
-                ${theme === 'dark' ? 'text-white/50' : 'text-black/50'}
-                transition-colors duration-300
-                group-hover:text-[var(--megaman)]
-              `}>
-                {phase.duration}
-              </div>
+
+　　　　　　　<div className={`
+　　　　　　　　　text-[10px] font-medium
+　　　　　　　　　${theme === 'dark' ? 'text-white/50' : 'text-black/50'}
+　　　　　　　　　transition-colors duration-300
+　　　　　　　　　group-hover:text-[var(--megaman)]
+　　　　　　　`}>
+　　　　　　　　　{phase.duration}
+　　　　　　　</div>
             </div>
           </motion.div>
         ))}
@@ -433,7 +429,7 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
         <div className="relative z-10 flex flex-col h-full">
           {/* Top Section */}
           <div className="flex items-start justify-between mb-1">
-            <div className={`p-1 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
+            <div className={`p-1.5 rounded-lg ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
               {React.cloneElement(icon as React.ReactElement, {
                 className: 'w-3 h-3'
               })}
@@ -969,8 +965,8 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                   
                                   <div className="relative p-3">
                                     <div className="flex items-center gap-1.5 mb-3">
-                                      <Clock className="w-3.5 h-3.5 text-white/70" />
-                                      <span className="text-sm text-white/90">Timeline</span>
+                                      <Clock className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`} />
+                                      <span className={`text-sm ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`}>Timeline</span>
                                     </div>
 
                                     <div className="relative space-y-3">
@@ -988,15 +984,14 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                                           key={index} 
                                           className="relative flex items-center group/item cursor-pointer"
                                         >
-                                          <div 
-                                            className="absolute left-0 w-[11px] h-[11px] rounded-full border-2 
-                                              transition-all duration-500 group-hover/item:scale-125
-                                              before:absolute before:inset-0 before:rounded-full 
-                                              before:opacity-0 group-hover/item:before:opacity-100
-                                              before:transition-opacity before:duration-500
-                                              after:absolute after:inset-0 after:rounded-full after:blur-[2px]
-                                              after:transition-opacity after:duration-500
-                                              after:opacity-0 group-hover/item:after:opacity-50"
+                                          <div className="absolute left-0 w-[11px] h-[11px] rounded-full border-2 
+                                            transition-all duration-500 group-hover/item:scale-125
+                                            before:absolute before:inset-0 before:rounded-full 
+                                            before:opacity-0 group-hover/item:before:opacity-100
+                                            before:transition-opacity before:duration-500
+                                            after:absolute after:inset-0 after:rounded-full after:blur-[2px]
+                                            after:transition-opacity after:duration-500
+                                            after:opacity-0 group-hover/item:after:opacity-50"
                                             style={{
                                               borderColor: 'rgb(244 114 182)',
                                               backgroundImage: 'linear-gradient(to right, rgba(244, 114, 182, 0.3), rgba(236, 72, 153, 0.3))',
