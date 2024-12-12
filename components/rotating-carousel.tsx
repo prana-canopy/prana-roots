@@ -4,12 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Eye, MousePointerClick, Clock, Users, Leaf, TrendingUp, Globe, Gauge, Search, Target, Smartphone, Share2, Star, PartyPopper, Trophy, Zap, Cpu, Shield, Activity, Info, TrendingDown, Code, Rocket } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import Image from 'next/image';
 
@@ -289,7 +284,9 @@ const Timeline = () => {
                   {phase.icon}
                 </div>
               </div>
-              
+　
+　
+　
               <h4 className={`
                 text-sm font-medium mb-1
                 ${theme === 'dark' ? 'text-white' : 'text-black'}
@@ -298,7 +295,9 @@ const Timeline = () => {
               `}>
                 {phase.title}
               </h4>
-              
+　
+　
+　
               <div className={`
                 text-[10px] mb-1 line-clamp-2
                 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}
@@ -307,7 +306,9 @@ const Timeline = () => {
               `}>
                 {phase.description}
               </div>
-              
+　
+　
+　
               <div className={`
                 text-[10px] font-medium
                 ${theme === 'dark' ? 'text-white/50' : 'text-black/50'}
@@ -610,24 +611,64 @@ export default function RotatingCarousel({ value }: RotatingCarouselProps) {
                       {/* Header */}
                       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-6 mb-4 sm:mb-6">
                         <div className="space-y-1 sm:space-y-2">
-                          <motion.h2 
-                            className={`text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#ffc0cb] to-[#ffb6c1] bg-clip-text text-transparent cursor-pointer`}
-                            whileHover={{
-                              backgroundImage: "linear-gradient(to right, #ffb6c1, #ffc0cb, #ffb6c1)",
-                            }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            {cards[currentIndex].title}
-                          </motion.h2>
+                          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
+                            <motion.span 
+                              className="inline-block bg-clip-text text-transparent cursor-pointer"
+                              style={{
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundImage: "linear-gradient(to right, #ffc0cb, #ffb6c1)"
+                              }}
+                              initial={{ backgroundImage: "linear-gradient(to right, #ffc0cb, #ffb6c1)" }}
+                              whileHover={{
+                                backgroundImage: "linear-gradient(to right, #ff1493, #ff0066)",
+                                scale: 1.05,
+                                textShadow: "0 0 8px rgba(255,20,147,0.3)"
+                              }}
+                              transition={{ 
+                                duration: 0.15,
+                                ease: [0.23, 1, 0.32, 1]
+                              }}
+                            >
+                              {cards[currentIndex].title}
+                            </motion.span>
+                          </h2>
                           <p className={`text-sm sm:text-base md:text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
-                            {cards[currentIndex].description}
+                            <motion.span 
+                              className="inline-block bg-clip-text cursor-default"
+                              style={{
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundImage: theme === 'dark' 
+                                  ? "linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.8))"
+                                  : "linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.8))"
+                              }}
+                              whileHover={{
+                                backgroundImage: theme === 'dark'
+                                  ? "linear-gradient(to right, #e0e0e0, #a0a0a0, #e0e0e0)"
+                                  : "linear-gradient(to right, #1a1a1a, #404040, #1a1a1a)",
+                                backgroundSize: "200% 100%",
+                                backgroundPosition: ["0% 0%", "100% 0%"]
+                              }}
+                              transition={{ 
+                                duration: 0.15,
+                                ease: [0.23, 1, 0.32, 1],
+                                backgroundPosition: {
+                                  duration: 1.5,
+                                  repeat: Infinity,
+                                  ease: "linear"
+                                }
+                              }}
+                            >
+                              {cards[currentIndex].description}
+                            </motion.span>
                           </p>
                         </div>
-                        <div className="flex gap-1 sm:gap-2">
-                          <TabButton tab="overview" label="Overview" />
+                        {/* <div className="flex gap-1 sm:gap-2"> */}
+                          {/* <TabButton tab="overview" label="Overview" /> */}
                           {/* <TabButton tab="metrics" label="Metrics" />
                           <TabButton tab="features" label="Features" /> */}
-                        </div>
+                        {/* </div> */}
                       </div>
 
                       {/* Content based on active tab */}
