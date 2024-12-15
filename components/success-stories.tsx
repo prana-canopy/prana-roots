@@ -23,6 +23,7 @@ import { TechnicalHighlights } from './technical-highlights';
 import { Testimonial } from './testimonial';
 import { Timeline } from './timeline';
 import { cards } from './data/success-stories-data';
+import { SitePreview } from './site-preview';
 
 interface SuccessStoriesProps {
    value: string;
@@ -221,42 +222,14 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                  <div className="flex-1 overflow-y-auto">
                                     {activeTab === 'overview' && (
                                        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                                          {/* Left Column: Preview & Description */}
+                                          {/* Left Column */}
                                           <div className="space-y-3 sm:space-y-4">
-                                             {/* Site Preview with Timeline */}
                                              <div className="flex gap-2 sm:gap-3">
-                                                {/* Site Preview */}
-                                                <div
-                                                   className={`flex-1 relative w-full h-fit rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} group hover:border-[var(--megaman)] transition-all duration-500`}
-                                                >
-                                                   {/* Browser Frame */}
-                                                   <div
-                                                      className={`h-6 sm:h-8 md:h-10 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-100'} flex items-center px-3 md:px-4 space-x-2 md:space-x-3`}
-                                                   >
-                                                      <div className="flex space-x-1.5 md:space-x-2">
-                                                         <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-red-500 transition-transform group-hover:scale-110"></div>
-                                                         <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500 transition-transform group-hover:scale-110"></div>
-                                                         <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full bg-green-500 transition-transform group-hover:scale-110"></div>
-                                                      </div>
-                                                   </div>
-                                                   <a
-                                                      href={cards[currentIndex].url}
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      className="block cursor-pointer"
-                                                   >
-                                                      <div className="relative w-full">
-                                                         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent mix-blend-multiply group-hover:opacity-0 transition-opacity duration-500 z-10" />
-                                                         <img
-                                                            src={cards[currentIndex].previewImage}
-                                                            alt={cards[currentIndex].title}
-                                                            className="w-full h-full object-cover
-                                          filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 
-                                          transform group-hover:scale-105 transition-all duration-700 ease-out"
-                                                         />
-                                                      </div>
-                                                   </a>
-                                                </div>
+                                                <SitePreview
+                                                   title={cards[currentIndex].title}
+                                                   url={cards[currentIndex].url}
+                                                   previewImage={cards[currentIndex].previewImage}
+                                                />
                                                 <Timeline items={[
                                                    { phase: 'Discovery', duration: '1-2w' },
                                                    { phase: 'Design', duration: '2w' },
@@ -265,7 +238,6 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                                    { phase: 'Launch', duration: '1w' },
                                                 ]} />
                                              </div>
-                                             {/* Client Testimonial */}
                                              {cards[currentIndex].testimonial && (
                                                 <Testimonial
                                                    quote={cards[currentIndex].testimonial.quote}
@@ -275,7 +247,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                                 />
                                              )}
                                           </div>
-                                          {/* Right Column: Performance Metrics */}
+                                          {/* Right Column */}
                                           <div className="space-y-3">
                                              <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
                                              <PerformanceMetrics />
