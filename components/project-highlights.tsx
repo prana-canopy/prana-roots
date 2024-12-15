@@ -21,7 +21,7 @@ export const ProjectHighlights = ({ features, techStack }: ProjectHighlightsProp
             ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
             relative overflow-visible
             transition-all duration-300
-            hover:opacity-95
+            hover:opacity-80
             group
             hover:border-[var(--megaman)]
          `}
