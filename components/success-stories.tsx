@@ -86,11 +86,11 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
 
    return (
       <TooltipProvider delayDuration={100}>
-         <div className="w-full h-full flex flex-col">
-            <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-8 sm:py-16">
-               <div className="relative h-[500px] sm:h-[600px] md:h-[700px] perspective">
+         <div className="w-full flex flex-col min-h-screen">
+            <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-8 sm:py-16 flex-1">
+               <div className="perspective w-full">
                   {/* Navigation Buttons */}
-                  <div className="absolute inset-x-1 sm:inset-x-2 md:inset-x-4 top-1/2 -translate-y-1/2 flex justify-between z-20">
+                  <div className="sticky top-1/2 -translate-y-1/2 flex justify-between z-20 pointer-events-none">
                      {['prev', 'next'].map((direction) => (
                         <button
                            key={direction}
@@ -102,7 +102,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                     : (currentIndex - 1 + cards.length) % cards.length
                               );
                            }}
-                           className={`p-2 sm:p-3 md:p-4 rounded-full 
+                           className={`p-2 sm:p-3 md:p-4 rounded-full pointer-events-auto
                     ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'} 
                     backdrop-blur-md transition-all duration-300 
                     hover:scale-110 active:scale-95
@@ -141,16 +141,16 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                               setCurrentIndex((currentIndex - 1 + cards.length) % cards.length);
                            }
                         }}
-                        className="absolute w-full h-full"
+                        className="w-full"
                      >
-                        <div className="w-full h-full rounded-2xl overflow-hidden">
+                        <div className="w-full rounded-2xl">
                            <div
-                              className={`absolute inset-0 bg-gradient-to-br ${theme === 'dark'
+                              className={`w-full bg-gradient-to-br ${theme === 'dark'
                                  ? 'from-[var(--megaman)]/20 via-[var(--frozen-turquoise)]/15 to-[var(--heart-of-ice)]/20'
                                  : 'from-[var(--megaman)]/10 via-[var(--frozen-turquoise)]/5 to-[var(--heart-of-ice)]/10'
-                                 } backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} h-full`}
+                                 } backdrop-blur-md border ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}
                            >
-                              <div className="relative h-full p-3 sm:p-6 md:p-8 flex flex-col">
+                              <div className="p-3 sm:p-6 md:p-8">
                                  {/* Header */}
                                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-6 mb-4 sm:mb-6">
                                     <div className="space-y-1 sm:space-y-2">
@@ -178,39 +178,8 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                              {cards[currentIndex].title}
                                           </motion.span>
                                        </h2>
-                                       <p
-                                          className={`text-sm sm:text-base md:text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}
-                                       >
-                                          <motion.span
-                                             className="inline-block bg-clip-text cursor-default"
-                                             style={{
-                                                WebkitBackgroundClip: 'text',
-                                                WebkitTextFillColor: 'transparent',
-                                                backgroundImage:
-                                                   theme === 'dark'
-                                                      ? 'linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.8))'
-                                                      : 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.8))',
-                                             }}
-                                             whileHover={{
-                                                backgroundImage:
-                                                   theme === 'dark'
-                                                      ? 'linear-gradient(to right, #e0e0e0, #a0a0a0, #e0e0e0)'
-                                                      : 'linear-gradient(to right, #1a1a1a, #404040, #1a1a1a)',
-                                                backgroundSize: '200% 100%',
-                                                backgroundPosition: ['0% 0%', '100% 0%'],
-                                             }}
-                                             transition={{
-                                                duration: 0.15,
-                                                ease: [0.23, 1, 0.32, 1],
-                                                backgroundPosition: {
-                                                   duration: 1.5,
-                                                   repeat: Infinity,
-                                                   ease: 'linear',
-                                                },
-                                             }}
-                                          >
-                                             {cards[currentIndex].description}
-                                          </motion.span>
+                                       <p className={`text-sm sm:text-base md:text-lg ${theme === 'dark' ? 'text-white/80' : 'text-black/80'}`}>
+                                          {cards[currentIndex].description}
                                        </p>
                                     </div>
                                     <div className="flex gap-1 sm:gap-2 w-full lg:w-1/2">
@@ -224,36 +193,34 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                     </div>
                                  </div>
 
-                                 {/* Content based on active tab */}
-                                 <div className="flex-1 overflow-y-auto">
-                                    <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3">
-                                       {/* Left Column */}
-                                       <div className="space-y-3 sm:space-y-4">
-                                          <div className="flex gap-2 sm:gap-3">
-                                             <SitePreview
-                                                title={cards[currentIndex].title}
-                                                url={cards[currentIndex].url}
-                                                previewImage={cards[currentIndex].previewImage}
-                                             />
-                                          </div>
-                                          {cards[currentIndex].testimonial && (
-                                             <Testimonial
-                                                quote={cards[currentIndex].testimonial.quote}
-                                                author={cards[currentIndex].testimonial.author}
-                                                company={cards[currentIndex].testimonial.company}
-                                                image={cards[currentIndex].testimonial.image}
-                                             />
-                                          )}
-                                       </div>
-                                       {/* Right Column */}
-                                       <div className="space-y-3">
-                                          <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
-                                          <PerformanceMetrics />
-                                          <ProjectHighlights
-                                             features={cards[currentIndex].features}
-                                             techStack={cards[currentIndex].techStack}
+                                 {/* Content */}
+                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                                    {/* Left Column */}
+                                    <div className="space-y-3 sm:space-y-4">
+                                       <div className="flex gap-2 sm:gap-3">
+                                          <SitePreview
+                                             title={cards[currentIndex].title}
+                                             url={cards[currentIndex].url}
+                                             previewImage={cards[currentIndex].previewImage}
                                           />
                                        </div>
+                                       {cards[currentIndex].testimonial && (
+                                          <Testimonial
+                                             quote={cards[currentIndex].testimonial.quote}
+                                             author={cards[currentIndex].testimonial.author}
+                                             company={cards[currentIndex].testimonial.company}
+                                             image={cards[currentIndex].testimonial.image}
+                                          />
+                                       )}
+                                    </div>
+                                    {/* Right Column */}
+                                    <div className="space-y-3">
+                                       <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
+                                       <PerformanceMetrics />
+                                       <ProjectHighlights
+                                          features={cards[currentIndex].features}
+                                          techStack={cards[currentIndex].techStack}
+                                       />
                                     </div>
                                  </div>
                               </div>
@@ -263,7 +230,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                   </AnimatePresence>
 
                   {/* Dots Navigation */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+                  <div className="sticky bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2 justify-center">
                      {cards.map((_, index) => (
                         <button
                            key={index}
