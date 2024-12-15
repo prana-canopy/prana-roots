@@ -221,8 +221,8 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                                           {/* Left Column: Performance Metrics */}
                                           <div className="space-y-3 sm:space-y-4">
-                                             <PerformanceMetrics />
                                              <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
+                                             <PerformanceMetrics />
                                              <ProjectHighlights
                                                 features={cards[currentIndex].features}
                                                 techStack={cards[currentIndex].techStack}

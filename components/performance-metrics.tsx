@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTheme } from 'next-themes';
 import { MetricCard } from './metric-card';
-import { Search, Users, Shield, Zap } from 'lucide-react';
+import { Search, Users, Shield, Zap, Clock } from 'lucide-react';
 
 export const PerformanceMetrics = () => {
    const { resolvedTheme: theme } = useTheme();
@@ -24,12 +24,15 @@ export const PerformanceMetrics = () => {
       >
          {/* Gradient hover effect */}
          <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
-         
+
          {/* Content wrapped in relative container */}
          <div className="relative z-10">
-            <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
-               Performance Metrics
-            </h3>
+            <div className="flex items-center mb-3">
+               <Clock className={`w-4 h-4 ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`} />
+               <h3 className={`text-sm font-medium ml-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                  Performance Metrics
+               </h3>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 relative">
                {/* Adding a relative wrapper for each MetricCard to contain its tooltip */}
                <div className="relative z-[5]">
