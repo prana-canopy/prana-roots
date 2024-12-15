@@ -42,7 +42,7 @@ const generateMetricHistory = (baseline: number, days: number): MetricHistory[] 
 export const cards: SuccessStoryCard[] = [
   {
     title: 'PINKYS UP DC',
-    description: 'Elevating nightlife experiences through social connectivity',
+    description: 'Elevating social events in the DMV, deliciously alcohol free.',
     previewImage: 'pinkys.png',
     url: 'https://pinkysup.social',
     metrics: {
@@ -55,10 +55,10 @@ export const cards: SuccessStoryCard[] = [
       history: generateMetricHistory(5200, 14),
     },
     features: [
-      'Real-time venue capacity tracking',
-      'Social event discovery',
-      'VIP reservations and experiences',
-      'Interactive venue maps',
+      'Animated Mocktail Showcase',
+      'Interactive Booking System',
+      'Responsive Gallery Grid',
+      'Custom Brand Elements',
     ],
     testimonial: {
       quote:

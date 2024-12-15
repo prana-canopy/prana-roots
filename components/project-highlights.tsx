@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTheme } from 'next-themes';
-import { Info, Trophy } from 'lucide-react';
+import { Wine, Calendar, Grid, Star, Info } from 'lucide-react';
 
 interface ProjectHighlightsProps {
    features: string[];
@@ -11,6 +11,15 @@ interface ProjectHighlightsProps {
 
 export const ProjectHighlights = ({ features, techStack }: ProjectHighlightsProps) => {
    const { resolvedTheme: theme } = useTheme();
+
+   // Map features to icons
+   const featureIcons = {
+      'Animated Mocktail Showcase': <Wine className={`w-4 h-4 ${theme === 'dark' ? 'text-pink-400' : 'text-pink-600'}`} />,
+      'Interactive Booking System': <Calendar className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />,
+      'Responsive Gallery Grid': <Grid className={`w-4 h-4 ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`} />,
+      'Custom Brand Elements': <Star className={`w-4 h-4 ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-600'}`} />,
+   };
+
 
    return (
       <div
@@ -65,12 +74,8 @@ export const ProjectHighlights = ({ features, techStack }: ProjectHighlightsProp
                            transition-all duration-300`}
                         >
                            {/* Icon Container */}
-                           <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center
-                              ${theme === 'dark'
-                                 ? 'bg-black/30 group-hover/item:bg-black/40'
-                                 : 'bg-white/80 group-hover/item:bg-white'}`}
-                           >
-                              <Trophy className="w-3 h-3 text-[#FFD700] opacity-80 group-hover/item:opacity-100" />
+                           <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center`}>
+                              {featureIcons[feature as keyof typeof featureIcons] || <Star className="w-4 h-4" />}
                            </div>
 
                            {/* Text Container */}
