@@ -86,26 +86,56 @@ export const MetricCard: React.FC<MetricCardProps> = ({ icon, label, value, tren
             </div>
 
             {/* Value */}
-            <div className={`text-xl sm:text-2xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            <div className={`text-xl sm:text-2xl font-bold mb-1 relative group/value`}>
                {value.includes('%') ? (
                   <>
-                     <motion.span
+                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         key={count}
+                        className="relative inline-block"
                      >
-                        {Math.floor(count)}
-                     </motion.span>
+                        <motion.span
+                           className={`inline-block bg-clip-text text-transparent bg-gradient-to-r 
+               ${theme === 'dark'
+                                 ? 'from-white via-white to-white'
+                                 : 'from-black via-black to-black'}`}
+                           whileHover={{
+                              backgroundImage: theme === 'dark'
+                                 ? 'linear-gradient(to right, #ffffff, #a0a0a0, #ffffff)'
+                                 : 'linear-gradient(to right, #000000, #505050, #000000)',
+                              scale: 1.05,
+                              transition: { duration: 0.3 }
+                           }}
+                        >
+                           {Math.floor(count)}
+                        </motion.span>
+                     </motion.div>
                      <span className="text-xs font-normal opacity-70">%</span>
                   </>
                ) : (
-                  <motion.span
+                  <motion.div
                      initial={{ opacity: 0 }}
                      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                      key={count}
+                     className="relative inline-block"
                   >
-                     {count.toLocaleString()}
-                  </motion.span>
+                     <motion.span
+                        className={`inline-block bg-clip-text text-transparent bg-gradient-to-r 
+            ${theme === 'dark'
+                              ? 'from-white via-white to-white'
+                              : 'from-black via-black to-black'}`}
+                        whileHover={{
+                           backgroundImage: theme === 'dark'
+                              ? 'linear-gradient(to right, #ffffff, #a0a0a0, #ffffff)'
+                              : 'linear-gradient(to right, #000000, #505050, #000000)',
+                           scale: 1.05,
+                           transition: { duration: 0.3 }
+                        }}
+                     >
+                        {count.toLocaleString()}
+                     </motion.span>
+                  </motion.div>
                )}
             </div>
 
