@@ -97,7 +97,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             </div>
 
             {/* Value */}
-            <div className={`text-xl sm:text-2xl font-bold mb-1 relative group/value`}>
+            <div className={`text-xl font-bold mb-1 relative group/value`}>
                {value.includes('%') ? (
                   <>
                      <motion.div
