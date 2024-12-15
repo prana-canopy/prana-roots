@@ -57,8 +57,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
          onHoverStart={() => setIsHovered(true)}
          onHoverEnd={() => setIsHovered(false)}
          className={`
-            relative overflow-hidden backdrop-blur-md rounded-lg p-2 
-            transition-all duration-300 hover:scale-105 h-[90px] sm:h-[100px]
+            relative overflow-hidden backdrop-blur-md rounded-lg p-2
+            transition-all duration-300 hover:scale-105 h-[100px] sm:h-[100px]
             before:absolute before:-inset-[1px] before:rounded-lg 
             before:bg-gradient-to-r before:from-pink-300/50 before:to-pink-500/50
             before:opacity-0 hover:before:opacity-100

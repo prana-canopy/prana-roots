@@ -13,7 +13,7 @@ export const PerformanceMetrics = () => {
          className={`
             bg-white/10 
             ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
-            rounded-lg p-2 sm:p-4 border 
+            rounded-lg p-4 border 
             ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
             relative overflow-visible
             transition-all duration-300
@@ -33,7 +33,7 @@ export const PerformanceMetrics = () => {
                   Performance Metrics
                </h3>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 relative">
+            <div className="grid grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 relative">
                {/* Adding a relative wrapper for each MetricCard to contain its tooltip */}
                <div className="relative z-[5]">
                   <MetricCard

@@ -210,24 +210,15 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                           </motion.span>
                                        </p>
                                     </div>
-                                    <div className="flex gap-1 sm:gap-2">
+                                    {/* <div className="flex gap-1 sm:gap-2">
                                        <TabButton tab="overview" label="Overview" />
-                                    </div>
+                                    </div> */}
                                  </div>
 
                                  {/* Content based on active tab */}
                                  <div className="flex-1 overflow-y-auto">
                                     {activeTab === 'overview' && (
                                        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                                          {/* Left Column: Performance Metrics */}
-                                          <div className="space-y-3 sm:space-y-4">
-                                             <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
-                                             <PerformanceMetrics />
-                                             <ProjectHighlights
-                                                features={cards[currentIndex].features}
-                                                techStack={cards[currentIndex].techStack}
-                                             />
-                                          </div>
                                           {/* Right Column: Preview & Description */}
                                           <div className="space-y-3 sm:space-y-4">
                                              {/* Site Preview with Timeline */}
@@ -437,6 +428,15 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                                    </div>
                                                 </div>
                                              )}
+                                          </div>
+                                          {/* Left Column: Performance Metrics */}
+                                          <div className="space-y-3">
+                                             <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
+                                             <PerformanceMetrics />
+                                             <ProjectHighlights
+                                                features={cards[currentIndex].features}
+                                                techStack={cards[currentIndex].techStack}
+                                             />
                                           </div>
                                        </div>
                                     )}
