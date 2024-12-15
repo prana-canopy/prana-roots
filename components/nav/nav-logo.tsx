@@ -1,10 +1,13 @@
 'use client';
+import { useTheme } from 'next-themes';
+
 
 interface NavLogoProps {
    onLogoClick: () => void;
 }
 
 export function NavLogo({ onLogoClick }: NavLogoProps) {
+   const { resolvedTheme: theme } = useTheme();
    return (
       <div className="flex-shrink-0 flex items-center gap-2 sm:gap-4">
          <style jsx>{`
@@ -91,7 +94,11 @@ export function NavLogo({ onLogoClick }: NavLogoProps) {
             onClick={onLogoClick}
             className="flex flex-col items-start leading-none relative group cursor-pointer"
          >
-            <span className="text-lg sm:text-2xl italic font-semibold tracking-wider text-foreground hover:text-primary transition-colors duration-200">
+            {/* <span className="text-lg sm:text-2xl italic font-semibold tracking-wider text-foreground hover:text-primary transition-colors duration-200">
+               Cosmic
+            </span> */}
+            <span className={`text-lg sm:text-2xl italic font-semibold tracking-wider 
+      ${theme === 'dark' ? 'text-foreground group-hover:text-teal-400' : 'text-foreground group-hover:text-emerald-400'}`}>
                Cosmic
             </span>
             <span className="text-[0.6rem] sm:text-xs tracking-wider text-foreground/70">by prana</span>

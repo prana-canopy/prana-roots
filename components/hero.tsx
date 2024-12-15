@@ -170,7 +170,7 @@ export default React.memo(function Hero() {
                      <span className={`relative italic text-lg font-medium 
                ${mounted ? (theme === 'dark' ? 'text-gray-100 group-hover:text-gray-900' : 'text-foreground group-hover:text-primary-foreground') : 'text-transparent'}
                group-active:text-primary transition-all duration-75`}>
-                        Catch these vibes
+                        Catch a vibe
                      </span>
                   </motion.button>
                </div>

@@ -89,30 +89,6 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
          <div className="w-full flex flex-col min-h-screen">
             <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-8 sm:py-16 flex-1">
                <div className="perspective w-full">
-                  {/* Navigation Buttons */}
-                  <div className="sticky top-1/2 -translate-y-1/2 flex justify-between z-20 pointer-events-none">
-                     {['prev', 'next'].map((direction) => (
-                        <button
-                           key={direction}
-                           onClick={() => {
-                              setDirection(direction as 'prev' | 'next');
-                              setCurrentIndex(
-                                 direction === 'next'
-                                    ? (currentIndex + 1) % cards.length
-                                    : (currentIndex - 1 + cards.length) % cards.length
-                              );
-                           }}
-                           className={`p-2 sm:p-3 md:p-4 rounded-full pointer-events-auto
-                    ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'} 
-                    backdrop-blur-md transition-all duration-300 
-                    hover:scale-110 active:scale-95
-                    text-white shadow-lg`}
-                           aria-label={`Show ${direction} slide`}
-                        >
-                           {direction === 'prev' ? '←' : '→'}
-                        </button>
-                     ))}
-                  </div>
 
                   <AnimatePresence initial={false} custom={direction} mode="wait">
                      <motion.div
@@ -228,22 +204,28 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                         </div>
                      </motion.div>
                   </AnimatePresence>
-
-                  {/* Dots Navigation */}
-                  <div className="sticky bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2 justify-center">
-                     {cards.map((_, index) => (
+                  {/* Navigation Buttons */}
+                  <div className="sticky top-1/2 -translate-y-1/2 flex justify-between z-20 pointer-events-none">
+                     {['prev', 'next'].map((direction) => (
                         <button
-                           key={index}
+                           key={direction}
                            onClick={() => {
-                              setDirection(index > currentIndex ? 'next' : ('prev' as 'prev' | 'next'));
-                              setCurrentIndex(index);
+                              setDirection(direction as 'prev' | 'next');
+                              setCurrentIndex(
+                                 direction === 'next'
+                                    ? (currentIndex + 1) % cards.length
+                                    : (currentIndex - 1 + cards.length) % cards.length
+                              );
                            }}
-                           className={`w-2 h-2 rounded-full transition-all duration-300 
-                    ${currentIndex === index
-                                 ? `${theme === 'dark' ? 'bg-white w-6' : 'bg-black w-6'}`
-                                 : `${theme === 'dark' ? 'bg-white/50 hover:bg-white/70' : 'bg-black/50 hover:bg-black/70'}`
-                              }`}
-                        />
+                           className={`p-2 sm:p-3 md:p-4 rounded-full pointer-events-auto
+            ${theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-black/30 hover:bg-black/40'} 
+            backdrop-blur-md transition-all duration-300 
+            hover:scale-110 active:scale-95
+            text-white shadow-lg`}
+                           aria-label={`Show ${direction} slide`}
+                        >
+                           {direction === 'prev' ? '←' : '→'}
+                        </button>
                      ))}
                   </div>
                </div>
