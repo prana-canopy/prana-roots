@@ -10,25 +10,28 @@ const WhyChooseSection = () => {
   const features = [
     {
       icon: <Leaf className="w-8 h-8" />,
-      title: "Nature-Inspired Innovation",
-      description: "We blend natural principles with digital innovation, creating solutions that feel organic and intuitive. Our approach draws from nature's time-tested patterns to solve complex digital challenges.",
-      highlight: "20% lower carbon footprint",
-      color: "var(--megaman)"
+      title: 'Nature-Inspired Innovation',
+      description:
+        "We blend natural principles with digital innovation, creating solutions that feel organic and intuitive. Our approach draws from nature's time-tested patterns to solve complex digital challenges.",
+      highlight: '20% lower carbon footprint',
+      color: 'var(--megaman)',
     },
     {
       icon: <Sparkles className="w-8 h-8" />,
-      title: "Boutique Quality",
-      description: "Every project receives dedicated attention to detail through our craft-focused approach. We take pride in delivering solutions that exceed expectations and stand the test of time.",
-      highlight: "100% client satisfaction",
-      color: "var(--frozen-turquoise)"
+      title: 'Boutique Quality',
+      description:
+        'Every project receives dedicated attention to detail through our craft-focused approach. We take pride in delivering solutions that exceed expectations and stand the test of time.',
+      highlight: '100% client satisfaction',
+      color: 'var(--frozen-turquoise)',
     },
     {
       icon: <Scale className="w-8 h-8" />,
-      title: "Balanced Approach",
-      description: "We strike the perfect balance between aesthetics and functionality, ensuring solutions that are both beautiful and effective. Our focus on harmony creates experiences that truly resonate.",
-      highlight: "98% performance score",
-      color: "var(--heart-of-ice)"
-    }
+      title: 'Balanced Approach',
+      description:
+        'We strike the perfect balance between aesthetics and functionality, ensuring solutions that are both beautiful and effective. Our focus on harmony creates experiences that truly resonate.',
+      highlight: '98% performance score',
+      color: 'var(--heart-of-ice)',
+    },
   ];
 
   useEffect(() => {
@@ -109,7 +112,7 @@ const WhyChooseSection = () => {
               style={{ transform: `rotate(${rotation}deg)` }}
             >
               {features.map((feature, index) => {
-                const angle = (index * 120) - 90; // Start from the top
+                const angle = index * 120 - 90; // Start from the top
                 const radius = `calc(50% - 50px)`; // Dynamic radius considering icon size
                 return (
                   <button
@@ -122,7 +125,7 @@ const WhyChooseSection = () => {
                       transform: `rotate(${angle}deg) translate(${radius}) rotate(-${angle}deg)`,
                       backgroundColor: `${feature.color}20`,
                       borderWidth: 2,
-                      borderColor: activeFeature === index ? feature.color : 'transparent'
+                      borderColor: activeFeature === index ? feature.color : 'transparent',
                     }}
                   >
                     {feature.icon}

@@ -35,12 +35,12 @@ export function Navbar() {
     if (closeTimeoutRef.current[label]) {
       clearTimeout(closeTimeoutRef.current[label]);
     }
-    setOpenDropdowns(prev => new Set([...prev, label]));
+    setOpenDropdowns((prev) => new Set([...prev, label]));
   }, []);
 
   const closeDropdown = useCallback((label: string) => {
     closeTimeoutRef.current[label] = setTimeout(() => {
-      setOpenDropdowns(prev => {
+      setOpenDropdowns((prev) => {
         const newSet = new Set(prev);
         newSet.delete(label);
         return newSet;
@@ -48,9 +48,12 @@ export function Navbar() {
     }, 150);
   }, []);
 
-  const isDropdownOpen = useCallback((label: string) => {
-    return openDropdowns.has(label);
-  }, [openDropdowns]);
+  const isDropdownOpen = useCallback(
+    (label: string) => {
+      return openDropdowns.has(label);
+    },
+    [openDropdowns]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,10 +64,10 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav 
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-background/60 backdrop-blur-md shadow-sm' 
+        isScrolled
+          ? 'bg-background/60 backdrop-blur-md shadow-sm'
           : 'bg-background/5 backdrop-blur-[2px]'
       }`}
     >
@@ -73,7 +76,11 @@ export function Navbar() {
           <NavLogo onLogoClick={scrollToTop} />
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-8" role="navigation" aria-label="Main navigation">
+          <div
+            className="hidden lg:flex lg:items-center lg:gap-8"
+            role="navigation"
+            aria-label="Main navigation"
+          >
             <div className="flex space-x-8">
               {navigationItems.map((item) => (
                 <NavItem
@@ -104,7 +111,7 @@ export function Navbar() {
               className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2ee89e] hover:scale-110 transition-all duration-200"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               {isMobileMenuOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
@@ -118,7 +125,12 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+        <div
+          className="lg:hidden"
+          id="mobile-menu"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
           <div className="px-2 pt-2 pb-3 space-y-1 bg-card backdrop-blur-md border-border-t border-border/10 shadow-lg">
             {navigationItems.map((item) => (
               <NavItem

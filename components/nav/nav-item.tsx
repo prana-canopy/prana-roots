@@ -12,21 +12,21 @@ interface NavItemProps {
   isMobile?: boolean;
 }
 
-export function NavItem({ 
-  item, 
-  isOpen, 
-  onOpen, 
-  onClose, 
+export function NavItem({
+  item,
+  isOpen,
+  onOpen,
+  onClose,
   onKeyDown,
-  isMobile = false 
+  isMobile = false,
 }: NavItemProps) {
   const handleMouseEnter = () => item.children && onOpen(item.label);
   const handleMouseLeave = () => item.children && onClose(item.label);
 
   const dropdownId = `${isMobile ? 'mobile-' : ''}${item.label}-dropdown`;
-  
+
   return (
-    <div 
+    <div
       className={`${isMobile ? 'space-y-1' : 'relative group'}`}
       onMouseEnter={!isMobile ? handleMouseEnter : undefined}
       onMouseLeave={!isMobile ? handleMouseLeave : undefined}
@@ -35,7 +35,7 @@ export function NavItem({
         onClick={() => item.children && (isOpen ? onClose(item.label) : onOpen(item.label))}
         onKeyDown={(e) => onKeyDown(e, item.label)}
         aria-expanded={item.children ? isOpen : undefined}
-        aria-haspopup={item.children ? "true" : undefined}
+        aria-haspopup={item.children ? 'true' : undefined}
         aria-controls={item.children ? dropdownId : undefined}
         className={`
           group relative flex items-center gap-1 
@@ -63,9 +63,9 @@ export function NavItem({
           )}
         </span>
       </button>
-      
+
       {item.children && isOpen && (
-        <div 
+        <div
           id={dropdownId}
           role="menu"
           aria-orientation="vertical"

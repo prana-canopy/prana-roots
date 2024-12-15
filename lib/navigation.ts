@@ -10,53 +10,53 @@ export interface NavItem {
 
 export const navigationItems: NavItem[] = [
   {
-    label: "Solutions",
-    href: "#",
+    label: 'Solutions',
+    href: '#',
     children: [
       {
-        label: "Data & Analytics",
-        href: "/solutions/data",
-        description: "BI, ML, data pipelines, visualization & insights"
+        label: 'Data & Analytics',
+        href: '/solutions/data',
+        description: 'BI, ML, data pipelines, visualization & insights',
       },
       {
-        label: "Development",
-        href: "/solutions/development",
-        description: "Web, mobile, desktop & full-stack solutions"
+        label: 'Development',
+        href: '/solutions/development',
+        description: 'Web, mobile, desktop & full-stack solutions',
       },
       {
-        label: "Design & UX",
-        href: "/solutions/design",
-        description: "UI/UX, branding & digital experience design"
-      }
-    ]
+        label: 'Design & UX',
+        href: '/solutions/design',
+        description: 'UI/UX, branding & digital experience design',
+      },
+    ],
   },
   {
-    label: "Services",
-    href: "#",
+    label: 'Services',
+    href: '#',
     children: [
       {
-        label: "Tech Strategy",
-        href: "/services/strategy",
-        description: "From concept to scalable architecture"
+        label: 'Tech Strategy',
+        href: '/services/strategy',
+        description: 'From concept to scalable architecture',
       },
       {
-        label: "Custom Solutions",
-        href: "/services/custom",
-        description: "Tailored tech for your unique challenges"
+        label: 'Custom Solutions',
+        href: '/services/custom',
+        description: 'Tailored tech for your unique challenges',
       },
       {
-        label: "Digital Growth",
-        href: "/services/growth",
-        description: "Modernize & scale your local business"
-      }
-    ]
+        label: 'Digital Growth',
+        href: '/services/growth',
+        description: 'Modernize & scale your local business',
+      },
+    ],
   },
   {
-    label: "Success Stories",
-    href: "/stories"
+    label: 'Success Stories',
+    href: '/stories',
   },
   {
-    label: "Connect",
-    href: "/connect"
-  }
+    label: 'Connect',
+    href: '/connect',
+  },
 ];

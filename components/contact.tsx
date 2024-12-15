@@ -1,15 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { 
-  Send, 
-  Calendar, 
-  Mail, 
-  MessageSquare,
-  ArrowRight,
-  Clock,
-  Phone
-} from 'lucide-react';
+import { Send, Calendar, Mail, MessageSquare, ArrowRight, Clock, Phone } from 'lucide-react';
 
 const ContactSection = () => {
   const [contactMethod, setContactMethod] = useState('message');
@@ -17,21 +9,17 @@ const ContactSection = () => {
     name: '',
     email: '',
     projectType: '',
-    message: ''
+    message: '',
   });
 
   const projectTypes = [
-    "Website Development",
-    "Data Visualization",
-    "Custom Solutions",
-    "Not Sure Yet"
+    'Website Development',
+    'Data Visualization',
+    'Custom Solutions',
+    'Not Sure Yet',
   ];
 
-  const availableTimeSlots = [
-    "10:00 AM - 11:00 AM",
-    "2:00 PM - 3:00 PM",
-    "4:00 PM - 5:00 PM"
-  ];
+  const availableTimeSlots = ['10:00 AM - 11:00 AM', '2:00 PM - 3:00 PM', '4:00 PM - 5:00 PM'];
 
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-24 relative">
@@ -43,9 +31,7 @@ const ContactSection = () => {
       <div className="relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-6 text-white">
-            Let's Create Something Beautiful
-          </h2>
+          <h2 className="text-4xl font-bold mb-6 text-white">Let's Create Something Beautiful</h2>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             Ready to bring your vision to life? Choose how you'd like to connect with us.
           </p>
@@ -58,18 +44,22 @@ const ContactSection = () => {
             {/* Contact Method Toggle */}
             <div className="flex gap-4 mb-8">
               {[
-                { id: 'message', label: 'Send Message', icon: <MessageSquare className="w-4 h-4" /> },
-                { id: 'calendar', label: 'Book Call', icon: <Calendar className="w-4 h-4" /> }
+                {
+                  id: 'message',
+                  label: 'Send Message',
+                  icon: <MessageSquare className="w-4 h-4" />,
+                },
+                { id: 'calendar', label: 'Book Call', icon: <Calendar className="w-4 h-4" /> },
               ].map((method) => (
                 <button
                   key={method.id}
                   onClick={() => setContactMethod(method.id)}
                   className={`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2
                     transition-all duration-300 ${
-                    contactMethod === method.id
-                      ? 'bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] text-white'
-                      : 'bg-white/5 text-white/60 hover:bg-white/10'
-                  }`}
+                      contactMethod === method.id
+                        ? 'bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] text-white'
+                        : 'bg-white/5 text-white/60 hover:bg-white/10'
+                    }`}
                 >
                   {method.icon}
                   {method.label}
@@ -108,7 +98,9 @@ const ContactSection = () => {
                   >
                     <option value="">Select project type</option>
                     {projectTypes.map((type) => (
-                      <option key={type} value={type}>{type}</option>
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -122,7 +114,8 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <button className="w-full py-4 rounded-xl bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
+                <button
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
                   text-white font-semibold hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
                 >
                   Send Message
@@ -156,7 +149,8 @@ const ContactSection = () => {
                   </div>
                 </div>
 
-                <button className="w-full py-4 rounded-xl bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
+                <button
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[var(--megaman)] to-[var(--frozen-turquoise)] 
                   text-white font-semibold hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
                 >
                   Book Consultation
@@ -170,8 +164,11 @@ const ContactSection = () => {
             {/* Quick Connect Options */}
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 space-y-6">
               <h3 className="text-2xl font-semibold text-white mb-6">Quick Connect</h3>
-              
-              <a href="mailto:hello@pranalabs.com" className="flex items-center gap-4 text-white/80 hover:text-white transition-colors">
+
+              <a
+                href="mailto:hello@pranalabs.com"
+                className="flex items-center gap-4 text-white/80 hover:text-white transition-colors"
+              >
                 <div className="p-3 rounded-lg bg-white/5">
                   <Mail className="w-6 h-6" />
                 </div>
@@ -181,7 +178,10 @@ const ContactSection = () => {
                 </div>
               </a>
 
-              <a href="tel:+1234567890" className="flex items-center gap-4 text-white/80 hover:text-white transition-colors">
+              <a
+                href="tel:+1234567890"
+                className="flex items-center gap-4 text-white/80 hover:text-white transition-colors"
+              >
                 <div className="p-3 rounded-lg bg-white/5">
                   <Phone className="w-6 h-6" />
                 </div>
@@ -195,12 +195,12 @@ const ContactSection = () => {
             {/* FAQ Preview */}
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
               <h3 className="text-2xl font-semibold text-white mb-6">Common Questions</h3>
-              
+
               <div className="space-y-4">
                 {[
-                  "How long does a typical project take?",
+                  'How long does a typical project take?',
                   "What's included in the maintenance plan?",
-                  "Do you offer rush delivery?"
+                  'Do you offer rush delivery?',
                 ].map((question, index) => (
                   <button
                     key={index}

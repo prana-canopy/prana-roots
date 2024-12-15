@@ -33,9 +33,9 @@ export default function ParticleEffect() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = {
         x: e.clientX,
-        y: e.clientY
+        y: e.clientY,
       };
-      
+
       // Increased spawn rate to 50%
       if (Math.random() < 0.5) {
         createParticle(e.clientX, e.clientY);
@@ -49,7 +49,7 @@ export default function ParticleEffect() {
         size: Math.random() * 1.5 + 0.5, // Slightly larger particles
         speedX: (Math.random() - 0.5) * 0.8, // Slightly faster movement
         speedY: (Math.random() - 0.5) * 0.8 - 0.3, // More upward drift
-        opacity: Math.random() * 0.08 + 0.04 // Increased opacity range
+        opacity: Math.random() * 0.08 + 0.04, // Increased opacity range
       };
       particlesRef.current.push(particle);
     };
@@ -61,7 +61,7 @@ export default function ParticleEffect() {
         // Natural drift
         particle.x += particle.speedX;
         particle.y += particle.speedY;
-        
+
         // Remove particles that drift too far
         if (
           particle.x < 0 ||

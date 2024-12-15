@@ -1,15 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { 
-  ArrowRight, 
-  Clock, 
-  Tag, 
-  BarChart,
-  Code,
-  Leaf,
-  Search
-} from 'lucide-react';
+import { ArrowRight, Clock, Tag, BarChart, Code, Leaf, Search } from 'lucide-react';
 
 const InsightsSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -18,39 +10,44 @@ const InsightsSection = () => {
     { id: 'all', label: 'All Topics' },
     { id: 'development', label: 'Development', icon: <Code className="w-4 h-4" /> },
     { id: 'data', label: 'Data & Analytics', icon: <BarChart className="w-4 h-4" /> },
-    { id: 'sustainability', label: 'Sustainability', icon: <Leaf className="w-4 h-4" /> }
+    { id: 'sustainability', label: 'Sustainability', icon: <Leaf className="w-4 h-4" /> },
   ];
 
   const articles = [
     {
-      title: "The Future of Digital Wellness",
-      excerpt: "Exploring how interactive data visualization is transforming user experiences and decision-making processes.",
-      category: "data",
-      readTime: "5 min",
-      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80",
-      featured: true
+      title: 'The Future of Digital Wellness',
+      excerpt:
+        'Exploring how interactive data visualization is transforming user experiences and decision-making processes.',
+      category: 'data',
+      readTime: '5 min',
+      image:
+        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80',
+      featured: true,
     },
     {
-      title: "Mindful Technology Integration",
-      excerpt: "How eco-friendly web development practices can reduce carbon footprint while maintaining performance.",
-      category: "sustainability",
-      readTime: "4 min",
-      image: "https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=600&q=80"
+      title: 'Mindful Technology Integration',
+      excerpt:
+        'How eco-friendly web development practices can reduce carbon footprint while maintaining performance.',
+      category: 'sustainability',
+      readTime: '4 min',
+      image:
+        'https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=600&q=80',
     },
     {
-      title: "Sustainable Tech Practices",
-      excerpt: "Modern approaches to building scalable and maintainable web applications.",
-      category: "development",
-      readTime: "6 min",
-      image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
-    }
+      title: 'Sustainable Tech Practices',
+      excerpt: 'Modern approaches to building scalable and maintainable web applications.',
+      category: 'development',
+      readTime: '6 min',
+      image:
+        'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
+    },
   ];
 
   const FeaturedArticle = ({ article }) => (
     <div className="relative group overflow-hidden rounded-2xl">
       <div className="aspect-[16/9] overflow-hidden">
-        <img 
-          src={article.image} 
+        <img
+          src={article.image}
           alt={article.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -68,7 +65,7 @@ const InsightsSection = () => {
           <h3 className="text-2xl font-bold text-white">{article.title}</h3>
           <p className="text-white/80">{article.excerpt}</p>
           <button className="flex items-center gap-2 text-[var(--frozen-turquoise)] group/btn">
-            Read More 
+            Read More
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
           </button>
         </div>
@@ -79,8 +76,8 @@ const InsightsSection = () => {
   const ArticleCard = ({ article }) => (
     <div className="group">
       <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-4">
-        <img 
-          src={article.image} 
+        <img
+          src={article.image}
           alt={article.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -99,7 +96,7 @@ const InsightsSection = () => {
         </h3>
         <p className="text-white/60">{article.excerpt}</p>
         <button className="flex items-center gap-2 text-[var(--frozen-turquoise)] group/btn">
-          Read More 
+          Read More
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
         </button>
       </div>
@@ -117,9 +114,7 @@ const InsightsSection = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              Insights & Articles
-            </h2>
+            <h2 className="text-4xl font-bold mb-4 text-white">Insights & Articles</h2>
             <p className="text-lg text-white/80 max-w-2xl">
               Exploring the intersection of technology, design, and sustainability
             </p>
