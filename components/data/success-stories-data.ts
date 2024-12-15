@@ -62,7 +62,7 @@ export const cards: SuccessStoryCard[] = [
     ],
     testimonial: {
       quote:
-        "Vitality didn't just build us a website - they created an ecosystem that revolutionized how we do business. Their attention to detail and understanding of the nightlife industry truly sets them apart.",
+        "Cosmic didn't just build us a website - they created an ecosystem that revolutionized how we do business. Their attention to detail and understanding of the nightlife industry truly sets them apart.",
       author: 'Brenda Periera Vargas',
       company: 'Founder - PINKYS UP DC',
       image: 'brenda.jpg',

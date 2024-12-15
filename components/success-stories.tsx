@@ -213,51 +213,48 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                           </motion.span>
                                        </p>
                                     </div>
-                                    {/* <div className="flex gap-1 sm:gap-2">
-                                       <TabButton tab="overview" label="Overview" />
-                                    </div> */}
+                                    <div className="flex gap-1 sm:gap-2 w-full lg:w-1/2">
+                                       <Timeline items={[
+                                          { phase: 'Discovery', duration: '1-2w' },
+                                          { phase: 'Design', duration: '2w' },
+                                          { phase: 'Development', duration: '4w' },
+                                          { phase: 'Testing', duration: '1w' },
+                                          { phase: 'Launch', duration: '1w' },
+                                       ]} />
+                                    </div>
                                  </div>
 
                                  {/* Content based on active tab */}
                                  <div className="flex-1 overflow-y-auto">
-                                    {activeTab === 'overview' && (
-                                       <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                                          {/* Left Column */}
-                                          <div className="space-y-3 sm:space-y-4">
-                                             <div className="flex gap-2 sm:gap-3">
-                                                <SitePreview
-                                                   title={cards[currentIndex].title}
-                                                   url={cards[currentIndex].url}
-                                                   previewImage={cards[currentIndex].previewImage}
-                                                />
-                                                <Timeline items={[
-                                                   { phase: 'Discovery', duration: '1-2w' },
-                                                   { phase: 'Design', duration: '2w' },
-                                                   { phase: 'Development', duration: '4w' },
-                                                   { phase: 'Testing', duration: '1w' },
-                                                   { phase: 'Launch', duration: '1w' },
-                                                ]} />
-                                             </div>
-                                             {cards[currentIndex].testimonial && (
-                                                <Testimonial
-                                                   quote={cards[currentIndex].testimonial.quote}
-                                                   author={cards[currentIndex].testimonial.author}
-                                                   company={cards[currentIndex].testimonial.company}
-                                                   image={cards[currentIndex].testimonial.image}
-                                                />
-                                             )}
-                                          </div>
-                                          {/* Right Column */}
-                                          <div className="space-y-3">
-                                             <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
-                                             <PerformanceMetrics />
-                                             <ProjectHighlights
-                                                features={cards[currentIndex].features}
-                                                techStack={cards[currentIndex].techStack}
+                                    <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3">
+                                       {/* Left Column */}
+                                       <div className="space-y-3 sm:space-y-4">
+                                          <div className="flex gap-2 sm:gap-3">
+                                             <SitePreview
+                                                title={cards[currentIndex].title}
+                                                url={cards[currentIndex].url}
+                                                previewImage={cards[currentIndex].previewImage}
                                              />
                                           </div>
+                                          {cards[currentIndex].testimonial && (
+                                             <Testimonial
+                                                quote={cards[currentIndex].testimonial.quote}
+                                                author={cards[currentIndex].testimonial.author}
+                                                company={cards[currentIndex].testimonial.company}
+                                                image={cards[currentIndex].testimonial.image}
+                                             />
+                                          )}
                                        </div>
-                                    )}
+                                       {/* Right Column */}
+                                       <div className="space-y-3">
+                                          <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
+                                          <PerformanceMetrics />
+                                          <ProjectHighlights
+                                             features={cards[currentIndex].features}
+                                             techStack={cards[currentIndex].techStack}
+                                          />
+                                       </div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
