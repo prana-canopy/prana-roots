@@ -234,8 +234,15 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                           transition={{ delay: 0.3, duration: 0.5 }}
                                        >
                                           <motion.span
-                                             className="inline-block bg-gradient-to-r from-pink-400 to-pink-600 bg-[length:200%_auto] bg-clip-text text-transparent cursor-pointer"
-                                             variants={titleVariants}
+                                             className="inline-block bg-gradient-to-r from-pink-600 to-pink-300 bg-[length:200%_auto] bg-clip-text text-transparent cursor-pointer"
+                                             variants={{
+                                                initial: { scale: 1 },
+                                                hover: {
+                                                   scale: 1.1, // Increase scale for a larger effect
+                                                   backgroundPosition: '100% 0', // Change gradient position for a more dynamic effect
+                                                   transition: { duration: 0.3 },
+                                                },
+                                             }}
                                              initial="initial"
                                              whileHover="hover"
                                           >
