@@ -45,7 +45,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items }) => {
             {/* Timeline container */}
             <div className="relative w-full px-[5px]">
                {/* Horizontal line - adjusted to account for circle radius */}
-               <div className="absolute left-0 right-0 top-[4.5px] h-[1px] bg-white/10" />
+               <div className={`absolute left-0 right-0 top-[4.5px] h-[1px] ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`} />
 
                {/* Timeline items container */}
                <div className="relative flex w-full">
