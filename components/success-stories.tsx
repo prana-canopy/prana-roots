@@ -158,7 +158,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                           {cards[currentIndex].description}
                                        </p>
                                     </div>
-                                    <div className="flex gap-1 sm:gap-2 w-full lg:w-1/2">
+                                    <div className="flex w-full">
                                        <Timeline items={[
                                           { phase: 'Discovery', duration: '1-2w' },
                                           { phase: 'Design', duration: '2w' },
@@ -168,7 +168,6 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                        ]} />
                                     </div>
                                  </div>
-
                                  {/* Content */}
                                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                                     {/* Left Column */}

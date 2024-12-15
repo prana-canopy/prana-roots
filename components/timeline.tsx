@@ -38,7 +38,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items }) => {
             <div className="flex items-center gap-2 mb-4">
                <History className={`w-4 h-4 ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`} />
                <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  Timeline
+                  Project Timeline
                </h3>
             </div>
 
