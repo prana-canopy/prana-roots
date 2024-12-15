@@ -1,0 +1,79 @@
+'use client';
+
+import React from 'react';
+import { useTheme } from 'next-themes';
+import { MetricCard } from './metric-card';
+import { Search, Users, Shield, Zap } from 'lucide-react';
+
+export const PerformanceMetrics = () => {
+   const { resolvedTheme: theme } = useTheme();
+
+   return (
+      <div
+         className={`
+            bg-white/10 
+            ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
+            rounded-lg p-2 sm:p-4 border 
+            ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
+            relative overflow-visible
+            transition-all duration-300
+            hover:opacity-95
+            group
+            hover:border-[var(--megaman)]
+         `}
+      >
+         {/* Gradient hover effect */}
+         <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+         
+         {/* Content wrapped in relative container */}
+         <div className="relative z-10">
+            <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'} mb-2 sm:mb-3`}>
+               Performance Metrics
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 relative">
+               {/* Adding a relative wrapper for each MetricCard to contain its tooltip */}
+               <div className="relative z-[5]">
+                  <MetricCard
+                     icon={<Search className="w-5 h-5" />}
+                     label="SEO"
+                     value="100"
+                     trend={15}
+                     caption="Search optimization"
+                     index={0}
+                  />
+               </div>
+               <div className="relative z-[4]">
+                  <MetricCard
+                     icon={<Users className="w-5 h-5" />}
+                     label="Accessibility"
+                     value="94"
+                     trend={12}
+                     caption="WCAG compliance"
+                     index={1}
+                  />
+               </div>
+               <div className="relative z-[3]">
+                  <MetricCard
+                     icon={<Shield className="w-5 h-5" />}
+                     label="Security"
+                     value="100"
+                     trend={0}
+                     caption="Best practices"
+                     index={2}
+                  />
+               </div>
+               <div className="relative z-[2]">
+                  <MetricCard
+                     icon={<Zap className="w-5 h-5" />}
+                     label="Performance"
+                     value="98"
+                     trend={8}
+                     caption="Loading speed"
+                     index={3}
+                  />
+               </div>
+            </div>
+         </div>
+      </div>
+   );
+}; 
