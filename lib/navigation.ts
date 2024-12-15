@@ -51,10 +51,10 @@ export const navigationItems: NavItem[] = [
       },
     ],
   },
-  {
-    label: 'Success Stories',
-    href: '/stories',
-  },
+  //   {
+  //     label: 'Success Stories',
+  //     href: '/stories',
+  //   },
   {
     label: 'Connect',
     href: '/connect',

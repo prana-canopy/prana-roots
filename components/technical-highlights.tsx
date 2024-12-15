@@ -18,7 +18,7 @@ export const TechnicalHighlights = ({ techStack, currentIndex }: TechnicalHighli
          className={`
             bg-white/10 
             ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
-            rounded-lg p-2 sm:p-4 border 
+            rounded-lg p-4 border 
             ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
             relative overflow-visible
             transition-all duration-300

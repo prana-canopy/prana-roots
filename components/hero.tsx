@@ -20,13 +20,22 @@ export default React.memo(function Hero() {
    const { resolvedTheme: theme } = useTheme();
    const [mounted, setMounted] = useState(false);
    const processRef = useRef<HTMLDivElement>(null);
+   const successStoriesRef = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
       setMounted(true);
    }, []);
 
-   const scrollToProcess = () => {
-      processRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+   const scrollToSuccessStories = () => {
+      if (successStoriesRef.current) {
+         const navHeight = 50; // Height of the fixed navbar (h-20 = 5rem = 80px)
+         const elementPosition = successStoriesRef.current.getBoundingClientRect().top;
+         const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+         window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+         });
+      }
    };
 
    return (
@@ -155,7 +164,7 @@ export default React.memo(function Hero() {
                      transition={{ duration: 0.8, delay: 0.3 }}
                      whileHover={{ scale: 1.05 }}
                      whileTap={{ scale: 0.95 }}
-                     onClick={scrollToProcess}
+                     onClick={scrollToSuccessStories}
                      className="group relative px-8 py-3 overflow-hidden 
                        -mt-64 sm:-mt-64 md:-mt-64 lg:-mt-80
                        bg-background/80 backdrop-blur-sm
@@ -170,7 +179,7 @@ export default React.memo(function Hero() {
                      <span className={`relative italic text-lg font-medium 
                ${mounted ? (theme === 'dark' ? 'text-gray-100 group-hover:text-gray-900' : 'text-foreground group-hover:text-primary-foreground') : 'text-transparent'}
                group-active:text-primary transition-all duration-75`}>
-                        Catch a vibe
+                        Cosmic Impact
                      </span>
                   </motion.button>
                </div>
@@ -207,7 +216,9 @@ export default React.memo(function Hero() {
         </motion.div>
       </div> */}
          <div ref={processRef}>
-            <SuccessStories value="featured" />
+            <div ref={successStoriesRef}>
+               <SuccessStories value="featured" />
+            </div>
             <ProcessSection />
             <PricingSection />
             <FAQSection />

@@ -1,6 +1,6 @@
 'use client';
 import { useTheme } from 'next-themes';
-
+import { useEffect, useState } from 'react';
 
 interface NavLogoProps {
    onLogoClick: () => void;
@@ -8,24 +8,30 @@ interface NavLogoProps {
 
 export function NavLogo({ onLogoClick }: NavLogoProps) {
    const { resolvedTheme: theme } = useTheme();
+   const [mounted, setMounted] = useState(false);
+
+   useEffect(() => {
+      setMounted(true);
+   }, []);
+
    return (
       <div className="flex-shrink-0 flex items-center gap-2 sm:gap-4">
          <style jsx>{`
-        @keyframes spinAndScale {
-          0% {
-            transform: rotate(0deg) scale(1);
-          }
-          50% {
-            transform: rotate(180deg) scale(0.5);
-          }
-          100% {
-            transform: rotate(360deg) scale(1.1);
-          }
-        }
-        .logo-hover:hover .logo-inner {
-          animation: spinAndScale 0.7s cubic-bezier(0.76, 0, 0.24, 1);
-        }
-      `}</style>
+            @keyframes spinAndScale {
+               0% {
+                  transform: rotate(0deg) scale(1);
+               }
+               50% {
+                  transform: rotate(180deg) scale(0.5);
+               }
+               100% {
+                  transform: rotate(360deg) scale(1.1);
+               }
+            }
+            .logo-hover:hover .logo-inner {
+               animation: spinAndScale 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+            }
+         `}</style>
          <div
             onClick={onLogoClick}
             className="w-24 sm:w-32 h-16 sm:h-20 flex items-center justify-center cursor-pointer logo-hover p-4"
@@ -94,11 +100,8 @@ export function NavLogo({ onLogoClick }: NavLogoProps) {
             onClick={onLogoClick}
             className="flex flex-col items-start leading-none relative group cursor-pointer"
          >
-            {/* <span className="text-lg sm:text-2xl italic font-semibold tracking-wider text-foreground hover:text-primary transition-colors duration-200">
-               Cosmic
-            </span> */}
             <span className={`text-lg sm:text-2xl italic font-semibold tracking-wider 
-      ${theme === 'dark' ? 'text-foreground group-hover:text-teal-400' : 'text-foreground group-hover:text-emerald-400'}`}>
+               ${mounted ? (theme === 'dark' ? 'text-foreground group-hover:text-teal-400' : 'text-foreground group-hover:text-emerald-400') : 'text-transparent'}`}>
                Cosmic
             </span>
             <span className="text-[0.6rem] sm:text-xs tracking-wider text-foreground/70">by prana</span>

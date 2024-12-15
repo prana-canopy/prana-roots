@@ -21,7 +21,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items }) => {
          w-full
          bg-white/10 
          ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
-         rounded-lg p-2 border 
+         rounded-lg p-4 border 
          ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
          relative overflow-hidden
          transition-all duration-300
