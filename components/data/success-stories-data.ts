@@ -27,6 +27,7 @@ interface SuccessStoryCard {
     image: string;
   };
   techStack: string[];
+  insights: string[];
 }
 
 const generateMetricHistory = (baseline: number, days: number): MetricHistory[] => {
@@ -79,6 +80,12 @@ export const cards: SuccessStoryCard[] = [
       'Vercel',
       'Sanity',
       'Cloudinary',
+    ],
+    insights: [
+      'Utilized server-side rendering for improved performance.',
+      'Implemented responsive design for mobile and desktop views.',
+      'Optimized images for faster loading times.',
+      'Ensured accessibility compliance with WCAG standards.',
     ],
   },
 ];
