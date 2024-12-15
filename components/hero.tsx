@@ -167,9 +167,9 @@ export default React.memo(function Hero() {
                         className="absolute inset-0 w-3 border border-primary bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:bg-primary group-active:bg-background border-active:border-primary"
                         aria-hidden="true"
                      />
-                     <span className={`relative text-lg font-medium 
-                        ${theme === 'dark' ? 'text-gray-100 group-hover:text-gray-900' : 'text-foreground group-hover:text-primary-foreground'} 
-                        group-active:text-primary transition-all duration-75`}>
+                     <span className={`relative italic text-lg font-medium 
+               ${mounted ? (theme === 'dark' ? 'text-gray-100 group-hover:text-gray-900' : 'text-foreground group-hover:text-primary-foreground') : 'text-transparent'}
+               group-active:text-primary transition-all duration-75`}>
                         Catch these vibes
                      </span>
                   </motion.button>
