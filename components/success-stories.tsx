@@ -21,6 +21,7 @@ import { PerformanceMetrics } from './performance-metrics';
 import { ProjectHighlights } from './project-highlights';
 import { TechnicalHighlights } from './technical-highlights';
 import { Testimonial } from './testimonial';
+import { Timeline } from './timeline';
 import { cards } from './data/success-stories-data';
 
 interface SuccessStoriesProps {
@@ -220,7 +221,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                  <div className="flex-1 overflow-y-auto">
                                     {activeTab === 'overview' && (
                                        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                                          {/* Right Column: Preview & Description */}
+                                          {/* Left Column: Preview & Description */}
                                           <div className="space-y-3 sm:space-y-4">
                                              {/* Site Preview with Timeline */}
                                              <div className="flex gap-2 sm:gap-3">
@@ -256,115 +257,13 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                                       </div>
                                                    </a>
                                                 </div>
-
-                                                {/* Compact Timeline */}
-                                                <div
-                                                   className={`
-                                                      bg-white/10 
-                                                      ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
-                                                      rounded-lg p-2 sm:p-4 border 
-                                                      ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
-                                                      relative overflow-visible
-                                                      transition-all duration-300
-                                                      hover:opacity-95
-                                                      group
-                                                      hover:border-[var(--megaman)]
-                                                   `}
-                                                >
-                                                   {/* Add gradient hover effect */}
-                                                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
-
-                                                   {/* Content wrapped in relative container */}
-                                                   <div className="relative z-10">
-                                                      <div className="flex items-center gap-1.5 mb-3">
-                                                         <Clock
-                                                            className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-white/70' : 'text-black/70'}`}
-                                                         />
-                                                         <span
-                                                            className={`text-sm ${theme === 'dark' ? 'text-white/90' : 'text-black/90'}`}
-                                                         >
-                                                            Timeline
-                                                         </span>
-                                                      </div>
-
-                                                      <div className="relative space-y-3">
-                                                         {/* Vertical line */}
-                                                         <div className="absolute left-[5px] top-[10px] w-[1px] h-[calc(100%-20px)] bg-white/10" />
-
-                                                         {[
-                                                            { phase: 'Discovery', duration: '1-2w' },
-                                                            { phase: 'Design', duration: '2w' },
-                                                            { phase: 'Development', duration: '4w' },
-                                                            { phase: 'Testing', duration: '1w' },
-                                                            { phase: 'Launch', duration: '1w' },
-                                                         ].map((item, index) => (
-                                                            <div
-                                                               key={index}
-                                                               className="relative flex items-center group/item cursor-pointer"
-                                                            >
-                                                               <div
-                                                                  className="absolute left-0 w-[11px] h-[11px] rounded-full border-2 
-                                            transition-all duration-500 group-hover/item:scale-125
-                                            before:absolute before:inset-0 before:rounded-full 
-                                            before:opacity-0 group-hover/item:before:opacity-100
-                                            before:transition-opacity before:duration-500
-                                            after:absolute after:inset-0 after:rounded-full after:blur-[2px]
-                                            after:transition-opacity after:duration-500
-                                            after:opacity-0 group-hover/item:after:opacity-50"
-                                                                  style={
-                                                                     {
-                                                                        borderColor: 'rgb(244 114 182)',
-                                                                        backgroundImage:
-                                                                           'linear-gradient(to right, rgba(244, 114, 182, 0.3), rgba(236, 72, 153, 0.3))',
-                                                                        '--dot-hover-gradient':
-                                                                           'linear-gradient(to right, rgb(244 114 182), rgb(236 72 153))',
-                                                                        '--dot-glow': 'rgb(244 114 182)',
-                                                                     } as React.CSSProperties
-                                                                  }
-                                                               >
-                                                                  <div
-                                                                     className="absolute inset-0 rounded-full transition-opacity duration-500 opacity-0 group-hover/item:opacity-100"
-                                                                     style={{
-                                                                        backgroundImage: 'var(--dot-hover-gradient)',
-                                                                     }}
-                                                                  />
-                                                                  <div
-                                                                     className="absolute inset-0 rounded-full transition-opacity duration-500 opacity-0 group-hover/item:opacity-30 blur-sm"
-                                                                     style={{
-                                                                        backgroundColor: 'var(--dot-glow)',
-                                                                     }}
-                                                                  />
-                                                               </div>
-                                                               <div
-                                                                  className="flex items-center justify-between w-full pl-6 py-1 
-                                            transition-all duration-300 group-hover/item:translate-x-1"
-                                                               >
-                                                                  <span
-                                                                     className={`text-xs font-medium transition-all duration-300 bg-clip-text text-transparent`}
-                                                                     style={{
-                                                                        backgroundImage:
-                                                                           theme === 'dark'
-                                                                              ? 'linear-gradient(to right, #ffffff, #d1d5db, #ffffff)'
-                                                                              : 'linear-gradient(to right, #1f2937, #4b5563, #1f2937)',
-                                                                     }}
-                                                                  >
-                                                                     {item.phase}
-                                                                  </span>
-                                                                  <span
-                                                                     className={`text-[10px] transition-all duration-300`}
-                                                                     style={{
-                                                                        color: theme === 'dark' ? '#d1d5db' : '#4b5563',
-                                                                        opacity: 0.8,
-                                                                     }}
-                                                                  >
-                                                                     {item.duration}
-                                                                  </span>
-                                                               </div>
-                                                            </div>
-                                                         ))}
-                                                      </div>
-                                                   </div>
-                                                </div>
+                                                <Timeline items={[
+                                                   { phase: 'Discovery', duration: '1-2w' },
+                                                   { phase: 'Design', duration: '2w' },
+                                                   { phase: 'Development', duration: '4w' },
+                                                   { phase: 'Testing', duration: '1w' },
+                                                   { phase: 'Launch', duration: '1w' },
+                                                ]} />
                                              </div>
                                              {/* Client Testimonial */}
                                              {cards[currentIndex].testimonial && (
@@ -376,7 +275,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
                                                 />
                                              )}
                                           </div>
-                                          {/* Left Column: Performance Metrics */}
+                                          {/* Right Column: Performance Metrics */}
                                           <div className="space-y-3">
                                              <TechnicalHighlights techStack={cards[currentIndex].techStack} currentIndex={currentIndex} />
                                              <PerformanceMetrics />
