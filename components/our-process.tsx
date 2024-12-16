@@ -1,15 +1,10 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Compass, Code2, Rocket, ChevronRight } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { motion } from 'framer-motion';
 
-const ProcessSection = () => {
-   const [activeStep, setActiveStep] = useState(0);
-   const [isIntersecting, setIsIntersecting] = useState(false);
-   const sectionRef = useRef(null);
-   const { resolvedTheme: theme } = useTheme();
+const ProcessFlow = () => {
+   const [activeStep, setActiveStep] = useState<number | null>(null);
+   const [currentStep, setCurrentStep] = useState(0);
 
    const steps = [
       {
@@ -17,7 +12,13 @@ const ProcessSection = () => {
          title: 'Discovery & Planning',
          duration: '1-4 Weeks',
          description: 'Understanding your vision and technical requirements.',
-         details: ['Stakeholder Interviews', 'Requirements Gathering', 'Market Analysis', 'Scope Definition', 'Timeline Planning'],
+         details: [
+            'Stakeholder Interviews',
+            'Requirements Gathering',
+            'Market Analysis',
+            'Scope Definition',
+            'Timeline Planning',
+         ],
       },
       {
          icon: Compass,
@@ -42,81 +43,105 @@ const ProcessSection = () => {
       },
    ];
 
-   useEffect(() => {
-      const observer = new IntersectionObserver(
-         ([entry]) => setIsIntersecting(entry.isIntersecting),
-         { threshold: 0.2 }
-      );
-      sectionRef.current && observer.observe(sectionRef.current);
-      return () => observer.disconnect();
-   }, []);
-
    return (
-      <div ref={sectionRef} className="w-full max-w-7xl mx-auto px-4 relative overflow-hidden">
-         <div className="text-center mb-16">
-            <motion.h2
-               className="text-5xl font-bold mb-6 text-transparent bg-clip-text dark:metallic-gradient-light metallic-gradient-dark"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               whileHover={{ scale: 1.02 }}
-               transition={{ duration: 0.3 }}
-            >
-               Our Process
-            </motion.h2>
-            <motion.p
-               initial={{ opacity: 0, y: 20 }}
-               animate={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.8, delay: 0.2 }}
-               className="text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300"
-            >
-               A systematic approach to creating elegant, efficient solutions.
-            </motion.p>
-         </div>
-
+      <div className="w-full max-w-6xl mx-auto p-3">
          <div className="relative">
-            <div className="absolute top-[45px] left-0 w-full h-px bg-gray-300 dark:bg-white/20">
-               <div
-                  className="h-full bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]"
-                  style={{ width: `${((activeStep + 1) * 100) / steps.length}%` }}
+            {/* Progress Line */}
+            <div className="absolute left-8 lg:left-0 top-8 lg:top-8 w-1 lg:w-full lg:h-1 h-full 
+          bg-white/5">
+               <motion.div
+                  className="w-full lg:h-full bg-gradient-to-b lg:bg-gradient-to-r from-blue-500 to-purple-500"
+                  initial={{ height: "0%", width: "0%" }}
+                  animate={{
+                     height: !window.matchMedia("(min-width: 1024px)").matches ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%",
+                     width: window.matchMedia("(min-width: 1024px)").matches ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%"
+                  }}
+                  transition={{ duration: 0.5 }}
                />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-               {steps.map((step, index) => (
-                  <div
-                     key={index}
-                     className={`relative transition-opacity duration-500 ${isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                        }`}
-                     style={{ transitionDelay: `${index * 200}ms` }}
-                  >
-                     <button
-                        onClick={() => setActiveStep(index)}
-                        className={`w-[90px] h-[90px] rounded-full border-2 flex items-center justify-center mx-auto mb-8 group ${activeStep >= index
-                           ? 'bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] border-transparent'
-                           : 'border-gray-300 dark:border-white/20'
-                           }`}
-                     >
-                        <step.icon className={`w-6 h-6 ${activeStep >= index ? 'text-white' : 'text-gray-500 dark:text-white/60'}`} />
-                     </button>
-                     <div className={`text-center ${activeStep === index ? 'opacity-100' : 'opacity-60'}`}>
-                        <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{step.title}</h3>
-                        <p className="text-sm text-gray-500 dark:text-white/60">{step.duration}</p>
-                        <p className="mb-6 text-gray-600 dark:text-white/80">{step.description}</p>
-                        <div className={`space-y-3 ${activeStep === index ? 'max-h-[200px]' : 'max-h-0'} overflow-hidden`}>
-                           {step.details.map((detail, dIndex) => (
-                              <div key={dIndex} className="flex items-center text-sm text-gray-500 dark:text-white/60">
-                                 <ChevronRight className="w-4 h-4 mr-2 text-[var(--accent)]" />
-                                 {detail}
-                              </div>
-                           ))}
-                        </div>
+            <div className="grid lg:grid-cols-4 gap-6 lg:gap-4">
+               {steps.map((step, index) => {
+                  const Icon = step.icon;
+                  const isActive = activeStep === index;
+                  const isCompleted = index <= currentStep;
+
+                  return (
+                     <div key={step.title} className="relative">
+                        <motion.div
+                           className="group"
+                           initial={{ opacity: 0, y: 10 }}
+                           animate={{ opacity: 1, y: 0 }}
+                           transition={{ delay: index * 0.1 }}
+                        >
+                           {/* Circular Container */}
+                           <div
+                              className={`relative w-16 h-16 rounded-full backdrop-blur-md 
+                      bg-white/5 hover:bg-white/10 border border-white/10 
+                      transition-all duration-300 cursor-pointer
+                      flex items-center justify-center
+                      ${isActive ? 'bg-white/10' : ''}
+                      mx-auto mb-2`}
+                              onClick={() => {
+                                 setActiveStep(isActive ? null : index);
+                                 if (index <= currentStep + 1) setCurrentStep(index);
+                              }}
+                           >
+                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20' : ''
+                                 }`} />
+                              <Icon className={`w-6 h-6 ${isCompleted ? 'text-blue-400' : 'text-white/40'}`} />
+                           </div>
+
+                           {/* Title & Duration */}
+                           <div className="text-center">
+                              <h3 className="text-xs font-medium text-white/80">
+                                 {step.title}
+                              </h3>
+                              <p className="text-[10px] text-white/40">
+                                 {step.duration}
+                              </p>
+                           </div>
+
+                           {/* Expandable Content */}
+                           <AnimatePresence>
+                              {isActive && (
+                                 <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden mt-2 sm:ml-12 sm:mr-12 md:ml-6 md:mr-6"
+                                 >
+                                    <div className="rounded-lg backdrop-blur-md bg-white/5 border border-white/10 p-3">
+                                       <p className="text-[10px] text-white/60 mb-2">
+                                          {step.description}
+                                       </p>
+                                       <div className="grid grid-cols-2 gap-1">
+                                          {step.details.map((detail, idx) => (
+                                             <motion.div
+                                                key={detail}
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: idx * 0.05 }}
+                                                className="flex items-center space-x-1"
+                                             >
+                                                <div className="w-0.5 h-0.5 rounded-full bg-blue-400/50" />
+                                                <span className="text-[10px] text-white/40">{detail}</span>
+                                             </motion.div>
+                                          ))}
+                                       </div>
+                                    </div>
+                                 </motion.div>
+                              )}
+                           </AnimatePresence>
+                        </motion.div>
                      </div>
-                  </div>
-               ))}
+                  );
+               })}
             </div>
          </div>
       </div>
    );
 };
 
-export default ProcessSection;
+export default ProcessFlow;
