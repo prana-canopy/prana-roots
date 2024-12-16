@@ -50,7 +50,7 @@ const ProcessFlow = () => {
             <div className="absolute left-8 lg:left-0 top-8 lg:top-8 w-1 lg:w-full lg:h-1 h-full 
           bg-white/5">
                <motion.div
-                  className="w-full lg:h-full bg-gradient-to-b lg:bg-gradient-to-r from-blue-500 to-purple-500"
+                  className="w-full lg:h-full bg-gradient-to-b lg:bg-gradient-to-r from-emerald-100 to-emerald-400"
                   initial={{ height: "0%", width: "0%" }}
                   animate={{
                      height: !window.matchMedia("(min-width: 1024px)").matches ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%",
@@ -87,7 +87,7 @@ const ProcessFlow = () => {
                                  if (index <= currentStep + 1) setCurrentStep(index);
                               }}
                            >
-                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20' : ''
+                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-blue-600/20 to-emerald-500/20' : ''
                                  }`} />
                               <Icon className={`w-6 h-6 ${isCompleted ? 'text-blue-400' : 'text-white/40'}`} />
                            </div>
@@ -110,7 +110,7 @@ const ProcessFlow = () => {
                                     animate={{ height: 'auto', opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
                                     transition={{ duration: 0.2 }}
-                                    className="overflow-hidden mt-2 sm:ml-12 sm:mr-12 md:ml-6 md:mr-6"
+                                    className="overflow-hidden mt-2 m-12"
                                  >
                                     <div className="rounded-lg backdrop-blur-md bg-white/5 border border-white/10 p-3">
                                        <p className="text-[10px] text-white/60 mb-2">
