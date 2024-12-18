@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Compass, Code2, Rocket, ChevronRight } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const ProcessFlow = () => {
    const [activeStep, setActiveStep] = useState<number | null>(null);
    const [currentStep, setCurrentStep] = useState(0);
    const [isLargeScreen, setIsLargeScreen] = useState(false);
+   const { resolvedTheme: theme } = useTheme();
+
 
    useEffect(() => {
       const checkScreenSize = () => {
          setIsLargeScreen(window.matchMedia("(min-width: 1024px)").matches);
       };
-      
+
       checkScreenSize();
       window.addEventListener('resize', checkScreenSize);
-      
+
       return () => window.removeEventListener('resize', checkScreenSize);
    }, []);
 
@@ -106,7 +109,7 @@ const ProcessFlow = () => {
 
                            {/* Title & Duration */}
                            <div className="text-center group">
-                              <motion.h3 
+                              <motion.h3
                                  className="text-xs font-medium relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] hover:from-[var(--heart-of-ice)] hover:via-[var(--frozen-turquoise)] hover:to-[var(--megaman)] transition-all duration-300"
                                  animate={{
                                     backgroundPosition: ["0%", "100%", "0%"],
@@ -134,10 +137,26 @@ const ProcessFlow = () => {
                                     transition={{ duration: 0.2 }}
                                     className="overflow-hidden mt-4 ml-12"
                                  >
-                                    <div className="rounded-lg backdrop-blur-md bg-white/10 border border-white/20 hover:border-[var(--megaman)] transition-all duration-300 p-3 group relative">
+                                    {/* <div className="rounded-lg backdrop-blur-md bg-white/10 border border-white/20 hover:border-[var(--megaman)] transition-all duration-300 p-3 group relative"> */}
+                                    <div
+                                       className={`
+            rounded-lg
+            backdrop-blur
+            group relative
+            bg-white/10 
+            ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
+            rounded-lg p-4 border 
+            ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
+            relative overflow-visible
+            transition-all duration-300
+            hover:opacity-80
+            group
+            hover:border-[var(--megaman)]
+         `}
+                                    >
                                        {/* Gradient hover effect */}
                                        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] rounded-lg" />
-                                       
+
                                        <div className="relative z-10">
                                           <p className="text-[10px] text-gray-600 dark:text-white/60 mb-2">
                                              {step.description}
@@ -151,7 +170,17 @@ const ProcessFlow = () => {
                                                    transition={{ delay: idx * 0.05 }}
                                                    className="flex items-center space-x-1"
                                                 >
-                                                   <div className="w-0.5 h-0.5 rounded-full bg-[var(--megaman)]/50" />
+                                                   <motion.div 
+                                                      className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 dark:from-emerald-300 dark:to-teal-300 ring-2 ring-emerald-400/20 dark:ring-emerald-300/20"
+                                                      initial={{ scale: 0.8 }}
+                                                      animate={{ scale: 1 }}
+                                                      transition={{
+                                                         duration: 1.5,
+                                                         repeat: Infinity,
+                                                         repeatType: "reverse",
+                                                         ease: "easeInOut"
+                                                      }}
+                                                   />
                                                    <span className="text-[10px] text-gray-500 dark:text-white/40">{detail}</span>
                                                 </motion.div>
                                              ))}
