@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Compass, Code2, Rocket, ChevronRight } from 'lucide-react';
 
 const ProcessFlow = () => {
    const [activeStep, setActiveStep] = useState<number | null>(null);
    const [currentStep, setCurrentStep] = useState(0);
+   const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+   useEffect(() => {
+      const checkScreenSize = () => {
+         setIsLargeScreen(window.matchMedia("(min-width: 1024px)").matches);
+      };
+      
+      checkScreenSize();
+      window.addEventListener('resize', checkScreenSize);
+      
+      return () => window.removeEventListener('resize', checkScreenSize);
+   }, []);
 
    const steps = [
       {
@@ -53,8 +65,8 @@ const ProcessFlow = () => {
                   className="w-full lg:h-full bg-gradient-to-b lg:bg-gradient-to-r from-emerald-100 to-emerald-400"
                   initial={{ height: "0%", width: "0%" }}
                   animate={{
-                     height: !window.matchMedia("(min-width: 1024px)").matches ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%",
-                     width: window.matchMedia("(min-width: 1024px)").matches ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%"
+                     height: !isLargeScreen ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%",
+                     width: isLargeScreen ? `${(currentStep + 1) * (100 / steps.length)}%` : "100%"
                   }}
                   transition={{ duration: 0.5 }}
                />
