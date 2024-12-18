@@ -93,19 +93,19 @@ const ProcessFlow = () => {
                               className={`relative w-16 h-16 rounded-full backdrop-blur-md 
                       bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent
                       hover:from-white/90 hover:to-white/50 dark:hover:from-white/20 dark:hover:to-white/5
-                      border border-[var(--megaman)]/20 
+                      border border-primary/20 
                       transition-all duration-300 cursor-pointer
                       flex items-center justify-center group
-                      ${isActive ? 'ring-2 ring-[var(--megaman)]/30' : ''}
+                      ${isActive ? 'ring-2 ring-primary/30' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
                                  setActiveStep(isActive ? null : index);
                                  if (index <= currentStep + 1) setCurrentStep(index);
                               }}
                            >
-                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] blur opacity-10`} />
-                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-[var(--megaman)]/20 via-[var(--frozen-turquoise)]/20 to-[var(--heart-of-ice)]/20' : ''}`} />
-                              <Icon className={`w-6 h-6 relative z-10 ${isCompleted ? 'text-[var(--megaman)]' : 'text-gray-400 dark:text-white/40'}`} />
+                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-primary via-primary-light to-accent blur opacity-10`} />
+                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-primary/20 via-primary-light/20 to-accent/20' : ''}`} />
+                              <Icon className={`w-6 h-6 relative z-10 ${isCompleted ? 'text-primary dark:text-primary-light' : 'text-gray-400 dark:text-white/40'}`} />
                            </div>
 
                            {/* Title & Duration */}
