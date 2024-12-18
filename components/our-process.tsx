@@ -59,7 +59,7 @@ const ProcessFlow = () => {
       <div className="w-full max-w-6xl mx-auto p-3">
          <div className="relative">
             {/* Progress Line */}
-            <div className="absolute left-8 lg:left-0 top-8 lg:top-8 w-1 lg:w-full lg:h-1 h-full 
+            <div className="absolute left-8 lg:left-0 top-0 lg:top-8 w-1 lg:w-full lg:h-1 h-full 
           bg-white/5">
                <motion.div
                   className="w-full lg:h-full bg-gradient-to-b lg:bg-gradient-to-r from-emerald-100 to-emerald-400"
