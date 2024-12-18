@@ -9,7 +9,6 @@ const ProcessFlow = () => {
    const [isLargeScreen, setIsLargeScreen] = useState(false);
    const { resolvedTheme: theme } = useTheme();
 
-
    useEffect(() => {
       const checkScreenSize = () => {
          setIsLargeScreen(window.matchMedia("(min-width: 1024px)").matches);
@@ -92,19 +91,21 @@ const ProcessFlow = () => {
                            {/* Circular Container */}
                            <div
                               className={`relative w-16 h-16 rounded-full backdrop-blur-md 
-                      bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 
+                      bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent
+                      hover:from-white/90 hover:to-white/50 dark:hover:from-white/20 dark:hover:to-white/5
+                      border border-[var(--megaman)]/20 
                       transition-all duration-300 cursor-pointer
-                      flex items-center justify-center
-                      ${isActive ? 'bg-gray-100 dark:bg-white/10' : ''}
+                      flex items-center justify-center group
+                      ${isActive ? 'ring-2 ring-[var(--megaman)]/30' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
                                  setActiveStep(isActive ? null : index);
                                  if (index <= currentStep + 1) setCurrentStep(index);
                               }}
                            >
-                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-teal-400/20 to-emerald-300/20 dark:from-teal-300/20 dark:to-emerald-200/20' : ''
-                                 }`} />
-                              <Icon className={`w-6 h-6 ${isCompleted ? 'text-teal-500 dark:text-teal-300' : 'text-gray-400 dark:text-white/40'}`} />
+                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] blur opacity-10`} />
+                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-[var(--megaman)]/20 via-[var(--frozen-turquoise)]/20 to-[var(--heart-of-ice)]/20' : ''}`} />
+                              <Icon className={`w-6 h-6 relative z-10 ${isCompleted ? 'text-[var(--megaman)]' : 'text-gray-400 dark:text-white/40'}`} />
                            </div>
 
                            {/* Title & Duration */}
@@ -139,8 +140,7 @@ const ProcessFlow = () => {
                                  >
                                     {/* <div className="rounded-lg backdrop-blur-md bg-white/10 border border-white/20 hover:border-[var(--megaman)] transition-all duration-300 p-3 group relative"> */}
                                     <div
-                                       className={`
-            rounded-lg
+                                       className={`rounded-lg
             backdrop-blur
             group relative
             bg-white/10 
