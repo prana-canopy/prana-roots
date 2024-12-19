@@ -93,7 +93,7 @@ const ProcessFlow = () => {
                               className={`relative w-16 h-16 rounded-full backdrop-blur-md 
                       bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent
                       group-hover:from-white/60 group-hover:to-white/20 dark:group-hover:from-white/5 dark:group-hover:to-transparent
-                      border border-white/20 dark:border-white/10
+                      border border-black/20 dark:border-white/10
                       transition-all duration-500 cursor-pointer
                       flex items-center justify-center group
                       ${isActive ? 'ring-2 ring-emerald-400/70 dark:ring-emerald-300/50 shadow-xl shadow-emerald-400/30 dark:shadow-emerald-300/30' : ''}
