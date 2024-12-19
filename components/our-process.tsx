@@ -96,6 +96,7 @@ const ProcessFlow = () => {
                       border border-black/20 dark:border-white/10
                       transition-all duration-500 cursor-pointer
                       flex items-center justify-center group
+                      ${isCompleted ? 'ring-2 ring-emerald-400/40 dark:ring-emerald-300/30 shadow-lg shadow-emerald-400/20 dark:shadow-emerald-300/20' : ''}
                       ${isActive ? 'ring-2 ring-emerald-400/70 dark:ring-emerald-300/50 shadow-xl shadow-emerald-400/30 dark:shadow-emerald-300/30' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
