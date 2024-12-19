@@ -92,11 +92,11 @@ const ProcessFlow = () => {
                            <div
                               className={`relative w-16 h-16 rounded-full backdrop-blur-md 
                       bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent
-                      hover:from-white/90 hover:to-white/50 dark:hover:from-white/20 dark:hover:to-white/5
-                      border border-primary/20 
-                      transition-all duration-300 cursor-pointer
+                      group-hover:from-white/60 group-hover:to-white/20 dark:group-hover:from-white/5 dark:group-hover:to-transparent
+                      border border-white/20 dark:border-white/10
+                      transition-all duration-500 cursor-pointer
                       flex items-center justify-center group
-                      ${isActive ? 'ring-2 ring-emerald-400/50 dark:ring-emerald-300/30 from-emerald-50 to-white/60 dark:from-emerald-950/40 dark:to-emerald-900/20' : ''}
+                      ${isActive ? 'ring-2 ring-emerald-400/70 dark:ring-emerald-300/50 shadow-xl shadow-emerald-400/30 dark:shadow-emerald-300/30' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
                                  setActiveStep(isActive ? null : index);
@@ -104,14 +104,30 @@ const ProcessFlow = () => {
                               }}
                            >
                               {/* Glow effect behind the icon */}
-                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-primary via-primary-light to-accent blur-xl`} />
-                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-primary/20 via-primary-light/20 to-accent/20' : ''}`} />
-                              {/* Icon with increased contrast on hover */}
-                              <Icon className={`w-6 h-6 relative z-10 transition-all duration-300 
-                                ${isCompleted 
-                                  ? 'text-primary dark:text-primary-light group-hover:text-primary-dark dark:group-hover:text-primary' 
-                                  : 'text-gray-400 dark:text-white/40 group-hover:text-gray-600 dark:group-hover:text-white/70'}
-                                ${isActive ? 'text-emerald-600 dark:text-emerald-300 scale-110' : ''}`} />
+                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] blur-xl`} />
+                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-[var(--frozen-turquoise)]/20 via-[var(--megaman)]/10 to-transparent dark:from-[var(--frozen-turquoise)]/15 dark:via-[var(--megaman)]/10 dark:to-transparent' : ''}`} />
+                              {/* Icon with bounce animation */}
+                              <motion.div
+                                whileHover={{ 
+                                  scale: 1.2,
+                                  rotate: [0, -10, 10, -10, 10, 0],
+                                  transition: {
+                                    duration: 0.5,
+                                    rotate: {
+                                      repeat: Infinity,
+                                      repeatType: "reverse",
+                                      duration: 1
+                                    }
+                                  }
+                                }}
+                                className="relative z-10"
+                              >
+                                <Icon className={`w-6 h-6 transition-all duration-300 
+                                  ${isCompleted 
+                                    ? 'text-[var(--frozen-turquoise)] dark:text-[var(--frozen-turquoise)] group-hover:text-[var(--megaman)] dark:group-hover:text-[var(--megaman)]' 
+                                    : 'text-gray-400 dark:text-white/40 group-hover:text-gray-600 dark:group-hover:text-white/70'}
+                                  ${isActive ? 'text-[var(--megaman)] dark:text-[var(--frozen-turquoise)] scale-110' : ''}`} />
+                              </motion.div>
                            </div>
 
                            {/* Title & Duration */}
@@ -129,14 +145,9 @@ const ProcessFlow = () => {
                               >
                                  {step.title}
                               </motion.h3>
-                              <motion.p 
-                                 className="text-[10px] text-gray-500 dark:text-white/40"
-                                 initial={{ opacity: 0 }}
-                                 animate={{ opacity: 1 }}
-                                 transition={{ delay: index * 0.2 }}
-                              >
+                              <p className="text-[10px] text-gray-500 dark:text-white/40">
                                  {step.duration}
-                              </motion.p>
+                              </p>
                            </div>
 
                            {/* Expandable Content */}
@@ -158,19 +169,20 @@ const ProcessFlow = () => {
                                           rounded-lg p-4 border 
                                           ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
                                           relative overflow-hidden
-                                          transition-all duration-300
-                                          hover:opacity-80
-                                          hover:border-[var(--megaman)]`}
+                                          transition-all duration-500
+                                          hover:border-emerald-400/70
+                                          hover:shadow-lg hover:shadow-emerald-400/20 dark:hover:shadow-emerald-300/20
+                                          group`}
                                        initial={{ y: 20 }}
                                        animate={{ y: 0 }}
                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                     >
-                                       {/* Add gradient hover effect */}
-                                       <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
-                                       
+                                       {/* Gradient hover effect */}
+                                       <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-700 ease-out bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+
                                        <div className="relative z-10">
                                           <motion.p 
-                                             className="text-sm text-gray-600 dark:text-white/70 mb-3"
+                                             className="text-sm text-gray-600 dark:text-white/70 mb-3 group-hover:text-gray-800 dark:group-hover:text-white/90 transition-colors duration-300"
                                              initial={{ opacity: 0 }}
                                              animate={{ opacity: 1 }}
                                              transition={{ delay: 0.1 }}
@@ -188,9 +200,9 @@ const ProcessFlow = () => {
                                                       type: "spring",
                                                       stiffness: 100
                                                    }}
-                                                   className="flex items-center text-xs text-gray-500 dark:text-white/50"
+                                                   className="flex items-center text-xs text-gray-500 dark:text-white/50 group-hover:text-gray-700 dark:group-hover:text-white/70 transition-colors duration-300"
                                                 >
-                                                   <ChevronRight className="w-3 h-3 mr-2 text-emerald-400" />
+                                                   <ChevronRight className="w-3 h-3 mr-2 text-emerald-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-300 transition-colors duration-300" />
                                                    {detail}
                                                 </motion.li>
                                              ))}
