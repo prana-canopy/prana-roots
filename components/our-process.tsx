@@ -96,16 +96,18 @@ const ProcessFlow = () => {
                       border border-primary/20 
                       transition-all duration-300 cursor-pointer
                       flex items-center justify-center group
-                      ${isActive ? 'ring-2 ring-primary/30' : ''}
+                      ${isActive ? 'ring-2 ring-emerald-400/50 dark:ring-emerald-300/30' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
                                  setActiveStep(isActive ? null : index);
                                  if (index <= currentStep + 1) setCurrentStep(index);
                               }}
                            >
-                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-primary via-primary-light to-accent blur opacity-10`} />
+                              {/* Glow effect behind the icon */}
+                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-primary via-primary-light to-accent blur-xl`} />
                               <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-primary/20 via-primary-light/20 to-accent/20' : ''}`} />
-                              <Icon className={`w-6 h-6 relative z-10 ${isCompleted ? 'text-primary dark:text-primary-light' : 'text-gray-400 dark:text-white/40'}`} />
+                              {/* Icon with increased contrast on hover */}
+                              <Icon className={`w-6 h-6 relative z-10 transition-all duration-300 ${isCompleted ? 'text-primary dark:text-primary-light group-hover:text-primary-dark dark:group-hover:text-primary' : 'text-gray-400 dark:text-white/40 group-hover:text-gray-600 dark:group-hover:text-white/70'}`} />
                            </div>
 
                            {/* Title & Duration */}
