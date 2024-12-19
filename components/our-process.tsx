@@ -126,11 +126,12 @@ const ProcessFlow = () => {
                               className={`relative w-16 h-16 rounded-full backdrop-blur-md 
                       bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent
                       group-hover:from-white/60 group-hover:to-white/20 dark:group-hover:from-white/5 dark:group-hover:to-transparent
-                      border border-black/20 dark:border-white/10
+                      border-2 border-transparent bg-clip-padding
                       transition-all duration-500 cursor-pointer
                       flex items-center justify-center group
-                      ${isCompleted ? 'ring-2 ring-emerald-400/40 dark:ring-emerald-300/30 shadow-lg shadow-emerald-400/20 dark:shadow-emerald-300/20' : ''}
-                      ${isActive ? 'ring-2 ring-emerald-400/70 dark:ring-emerald-300/50 shadow-xl shadow-emerald-400/30 dark:shadow-emerald-300/30' : ''}
+                      before:absolute before:inset-[-2px] before:rounded-full before:bg-gradient-to-r before:from-[var(--primary)] before:via-[#38bdf8] before:to-[#818cf8] before:-z-10
+                      ${isCompleted ? 'before:opacity-40 shadow-lg shadow-[#38bdf8]/20' : 'before:opacity-20'}
+                      ${isActive ? 'before:opacity-70 shadow-xl shadow-[#38bdf8]/30' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
                                  setActiveStep(isActive ? null : index);
@@ -138,8 +139,8 @@ const ProcessFlow = () => {
                               }}
                            >
                               {/* Glow effect behind the icon */}
-                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] blur-xl`} />
-                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-[var(--frozen-turquoise)]/20 via-[var(--megaman)]/10 to-transparent dark:from-[var(--frozen-turquoise)]/15 dark:via-[var(--megaman)]/10 dark:to-transparent' : ''}`} />
+                              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out bg-gradient-to-br from-[var(--primary)] via-[#38bdf8] to-[#818cf8] blur-xl`} />
+                              <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-[#38bdf8]/20 via-[var(--primary)]/10 to-transparent dark:from-[#38bdf8]/15 dark:via-[var(--primary)]/10 dark:to-transparent' : ''}`} />
                               {/* Icon with bounce animation */}
                               <motion.div
                                 whileHover={{ 
