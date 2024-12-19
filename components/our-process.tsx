@@ -167,15 +167,13 @@ const ProcessFlow = () => {
                            {/* Title & Duration */}
                            <div className="text-center group">
                               <motion.h3
-                                 className="text-xs font-medium relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] hover:from-[var(--heart-of-ice)] hover:via-[var(--frozen-turquoise)] hover:to-[var(--megaman)] transition-all duration-300"
-                                 animate={{
-                                    backgroundPosition: ["0%", "100%", "0%"],
-                                 }}
-                                 transition={{
-                                    duration: 5,
-                                    ease: "linear",
-                                    repeat: Infinity,
-                                 }}
+                                 className={`text-xs font-medium mb-1 relative z-10 
+                                    ${isCompleted 
+                                      ? 'text-gray-900 dark:text-white' 
+                                      : 'text-gray-600 dark:text-gray-300'} 
+                                    ${isActive ? 'text-emerald-700 dark:text-emerald-300 font-semibold' : ''}
+                                    group-hover:text-emerald-600 dark:group-hover:text-emerald-200
+                                    transition-colors duration-300`}
                               >
                                  {step.title}
                               </motion.h3>
