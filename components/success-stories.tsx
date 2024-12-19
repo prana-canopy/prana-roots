@@ -191,7 +191,7 @@ export default function SuccessStories({ value }: SuccessStoriesProps) {
    return (
       <TooltipProvider delayDuration={100}>
          <div className="w-full flex flex-col min-h-screen">
-            <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-8 sm:py-16 flex-1">
+            <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-8 flex-1">
                <div className="perspective w-full overflow-hidden">
                   <AnimatePresence
                      mode="wait"

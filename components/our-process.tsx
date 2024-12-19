@@ -3,6 +3,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Compass, Code2, Rocket, ChevronRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
+const ProcessTitle = () => {
+  const { resolvedTheme: theme } = useTheme();
+
+  return (
+    <div className="w-full max-w-6xl mx-auto px-3 mb-12">
+      <motion.span
+        className="text-[clamp(2rem,5vw,3rem)] font-bold inline-block
+          text-transparent bg-clip-text cursor-pointer leading-[1.1] tracking-tight"
+        style={{
+          backgroundImage: 'linear-gradient(to right, var(--primary), #38bdf8, #818cf8, var(--primary))',
+          backgroundSize: '200% auto'
+        }}
+        whileHover={{
+          backgroundPosition: 'right center'
+        }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
+        Our Process
+      </motion.span>
+    </div>
+  );
+};
+
 const ProcessFlow = () => {
    const [activeStep, setActiveStep] = useState<number | null>(null);
    const [currentStep, setCurrentStep] = useState(0);
@@ -58,7 +81,8 @@ const ProcessFlow = () => {
    ];
 
    return (
-      <div className="w-full max-w-6xl mx-auto p-3">
+      <div className="w-full max-w-6xl mx-auto p-2">
+         <ProcessTitle />
          <div className="relative">
             {/* Progress Line */}
             <div className="absolute left-8 lg:left-0 top-0 lg:top-8 w-1 lg:w-full lg:h-1 h-full 
