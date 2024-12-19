@@ -28,8 +28,8 @@ const ProcessTitle = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        From concept to completion, we follow a refined approach that ensures your vision comes to life. 
-        Each step is crafted to deliver innovation while maintaining clarity and purpose.
+        We thrive on transforming ambitious visions into extraordinary digital experiences. 
+        No challenge is too complex – we blend innovative thinking with technical mastery to craft solutions that exceed expectations.
       </motion.p>
     </div>
   );
