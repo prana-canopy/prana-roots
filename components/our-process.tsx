@@ -96,18 +96,22 @@ const ProcessFlow = () => {
                       border border-primary/20 
                       transition-all duration-300 cursor-pointer
                       flex items-center justify-center group
-                      ${isActive ? 'ring-2 ring-emerald-400/50 dark:ring-emerald-300/30' : ''}
+                      ${isActive ? 'ring-2 ring-emerald-400/50 dark:ring-emerald-300/30 from-emerald-50 to-white/60 dark:from-emerald-950/40 dark:to-emerald-900/20' : ''}
                       mx-auto mb-2`}
                               onClick={() => {
                                  setActiveStep(isActive ? null : index);
-                                 if (index <= currentStep + 1) setCurrentStep(index);
+                                 setCurrentStep(isActive ? index - 1 : index);
                               }}
                            >
                               {/* Glow effect behind the icon */}
                               <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-primary via-primary-light to-accent blur-xl`} />
                               <div className={`absolute inset-0 rounded-full ${isCompleted ? 'bg-gradient-to-br from-primary/20 via-primary-light/20 to-accent/20' : ''}`} />
                               {/* Icon with increased contrast on hover */}
-                              <Icon className={`w-6 h-6 relative z-10 transition-all duration-300 ${isCompleted ? 'text-primary dark:text-primary-light group-hover:text-primary-dark dark:group-hover:text-primary' : 'text-gray-400 dark:text-white/40 group-hover:text-gray-600 dark:group-hover:text-white/70'}`} />
+                              <Icon className={`w-6 h-6 relative z-10 transition-all duration-300 
+                                ${isCompleted 
+                                  ? 'text-primary dark:text-primary-light group-hover:text-primary-dark dark:group-hover:text-primary' 
+                                  : 'text-gray-400 dark:text-white/40 group-hover:text-gray-600 dark:group-hover:text-white/70'}
+                                ${isActive ? 'text-emerald-600 dark:text-emerald-300 scale-110' : ''}`} />
                            </div>
 
                            {/* Title & Duration */}
@@ -125,9 +129,14 @@ const ProcessFlow = () => {
                               >
                                  {step.title}
                               </motion.h3>
-                              <p className="text-[10px] text-gray-500 dark:text-white/40">
+                              <motion.p 
+                                 className="text-[10px] text-gray-500 dark:text-white/40"
+                                 initial={{ opacity: 0 }}
+                                 animate={{ opacity: 1 }}
+                                 transition={{ delay: index * 0.2 }}
+                              >
                                  {step.duration}
-                              </p>
+                              </motion.p>
                            </div>
 
                            {/* Expandable Content */}
@@ -140,55 +149,54 @@ const ProcessFlow = () => {
                                     transition={{ duration: 0.2 }}
                                     className="overflow-hidden mt-4 ml-12"
                                  >
-                                    {/* <div className="rounded-lg backdrop-blur-md bg-white/10 border border-white/20 hover:border-[var(--megaman)] transition-all duration-300 p-3 group relative"> */}
-                                    <div
+                                    <motion.div
                                        className={`rounded-lg
-            backdrop-blur
-            group relative
-            bg-white/10 
-            ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
-            rounded-lg p-4 border 
-            ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
-            relative overflow-visible
-            transition-all duration-300
-            hover:opacity-80
-            group
-            hover:border-[var(--megaman)]
-         `}
+                                          backdrop-blur
+                                          group relative
+                                          bg-white/8 dark:bg-black/10
+                                          ${theme === 'dark' ? 'backdrop-blur-md' : ''} 
+                                          rounded-lg p-4 border 
+                                          ${theme === 'dark' ? 'border-white/20' : 'border-black/10'} 
+                                          relative overflow-hidden
+                                          transition-all duration-300
+                                          hover:opacity-80
+                                          hover:border-[var(--megaman)]`}
+                                       initial={{ y: 20 }}
+                                       animate={{ y: 0 }}
+                                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                     >
-                                       {/* Gradient hover effect */}
-                                       <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)] rounded-lg" />
-
+                                       {/* Add gradient hover effect */}
+                                       <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-all duration-500 bg-gradient-to-br from-[var(--megaman)] via-[var(--frozen-turquoise)] to-[var(--heart-of-ice)]" />
+                                       
                                        <div className="relative z-10">
-                                          <p className="text-[10px] text-gray-600 dark:text-white/60 mb-2">
+                                          <motion.p 
+                                             className="text-sm text-gray-600 dark:text-white/70 mb-3"
+                                             initial={{ opacity: 0 }}
+                                             animate={{ opacity: 1 }}
+                                             transition={{ delay: 0.1 }}
+                                          >
                                              {step.description}
-                                          </p>
-                                          <div className="grid grid-cols-2 gap-1">
-                                             {step.details.map((detail, idx) => (
-                                                <motion.div
+                                          </motion.p>
+                                          <motion.ul className="space-y-2">
+                                             {step.details.map((detail, detailIndex) => (
+                                                <motion.li
                                                    key={detail}
-                                                   initial={{ opacity: 0, x: -10 }}
+                                                   initial={{ opacity: 0, x: -20 }}
                                                    animate={{ opacity: 1, x: 0 }}
-                                                   transition={{ delay: idx * 0.05 }}
-                                                   className="flex items-center space-x-1"
+                                                   transition={{ 
+                                                      delay: 0.2 + (detailIndex * 0.1),
+                                                      type: "spring",
+                                                      stiffness: 100
+                                                   }}
+                                                   className="flex items-center text-xs text-gray-500 dark:text-white/50"
                                                 >
-                                                   <motion.div 
-                                                      className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 dark:from-emerald-300 dark:to-teal-300 ring-2 ring-emerald-400/20 dark:ring-emerald-300/20"
-                                                      initial={{ scale: 0.8 }}
-                                                      animate={{ scale: 1 }}
-                                                      transition={{
-                                                         duration: 1.5,
-                                                         repeat: Infinity,
-                                                         repeatType: "reverse",
-                                                         ease: "easeInOut"
-                                                      }}
-                                                   />
-                                                   <span className="text-[10px] text-gray-500 dark:text-white/40">{detail}</span>
-                                                </motion.div>
+                                                   <ChevronRight className="w-3 h-3 mr-2 text-emerald-400" />
+                                                   {detail}
+                                                </motion.li>
                                              ))}
-                                          </div>
+                                          </motion.ul>
                                        </div>
-                                    </div>
+                                    </motion.div>
                                  </motion.div>
                               )}
                            </AnimatePresence>
