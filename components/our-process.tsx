@@ -22,6 +22,15 @@ const ProcessTitle = () => {
       >
         Our Process
       </motion.span>
+      <motion.p 
+        className="mt-4 text-lg text-muted-foreground max-w-2xl"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        From concept to completion, we follow a refined approach that ensures your vision comes to life. 
+        Each step is crafted to deliver innovation while maintaining clarity and purpose.
+      </motion.p>
     </div>
   );
 };
