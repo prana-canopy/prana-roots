@@ -102,7 +102,7 @@ export function NavLogo({ onLogoClick }: NavLogoProps) {
          >
             <span className={`text-lg sm:text-2xl italic font-semibold tracking-wider 
                ${mounted ? (theme === 'dark' ? 'text-foreground group-hover:text-teal-400' : 'text-foreground group-hover:text-emerald-400') : 'text-transparent'}`}>
-               Cosmic
+               Flow
             </span>
             <span className="text-[0.6rem] sm:text-xs tracking-wider text-foreground/70">by prana</span>
             <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
